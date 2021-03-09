@@ -1,3 +1,8 @@
+## It should be simple site-builder which allows to create simple pages for projects
+
+![alt text](./src/screenShot.png)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
