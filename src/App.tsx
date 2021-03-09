@@ -1,26 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import Header from "./header";
+import DeviceSelection from "./deviceSelection";
+import {Mobile, MobileRotated, Tablet, TabletRotated, Laptop} from './device';
+import Main from "./main";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+type devices = {
+  mobile: boolean
+  tablet: boolean
+  laptop: boolean
+  rotated: boolean
+}
+
+class App extends Component<any, any>{
+  Name:string = "Constructor";
+  state:devices = {
+    mobile: true,
+    tablet: false,
+    laptop: false,
+    rotated: false
+  }
+  setMobile = () => {
+    this.setState(()=>({mobile: true, tablet: false, laptop: false, rotated: false}));
+  }
+  setMobileRotated = () => {
+    this.setState(()=>({mobile: true, tablet: false, laptop: false, rotated: true}));
+  }
+  setTablet = () => {
+    this.setState(()=>({mobile: false, tablet: true, laptop: false, rotated: false}));
+  }
+  setTabletRotated = () => {
+    this.setState(()=>({mobile: false, tablet: true, laptop: false, rotated: true}));
+  }
+  setLaptop(){
+    this.setState(()=>({mobile: false, tablet: false, laptop: true, rotated: false}));
+  }
+  render(){
+    return <div>
+      <Header text={this.Name}/>
+      <DeviceSelection
+          ClickHandler={()=>window.alert(123)}
+          MobileClick={()=>this.setMobile()}
+          MobileRotatedClick={()=>this.setMobileRotated()}
+          TabletClick={()=>this.setTablet()}
+          TabletRotatedClick={()=>this.setTabletRotated()}
+          LaptopClick={()=>this.setLaptop()}
+          Rotated={this.state.rotated}
+      />
+      <Main>
+        {this.state.mobile?(this.state.rotated?<MobileRotated/>:<Mobile/>):""}
+        {this.state.tablet?(this.state.rotated?<TabletRotated/>:<Tablet/>):""}
+        {this.state.laptop?<Laptop/>:""}
+      </Main>
     </div>
-  );
+  }
 }
 
 export default App;

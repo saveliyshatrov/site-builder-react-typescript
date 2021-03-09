@@ -1,0 +1,32 @@
+.laptop-place{
+    width: calc(1792px/2.3);
+    height: calc(1042px/2.3);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.screen-laptop{
+    width: calc(1426px/2.3);
+    height: calc(998px/2.3);
+    background-color: #636363;
+    border-radius: calc(13px/2.3);
+    box-shadow: 30px 60px 60px rgba(99,99,99, 0.5);
+}
+
+.display-laptop{
+    transform: scale(0.43);
+    width: 1302px;
+    height: 868px;
+    margin-top: calc(-868px/4);
+    margin-left: calc(-868px/2.55);
+    background-color: white;
+}
+
+.keyboard{
+    width: 100%;
+    height: calc(42px/2.3);
+    background-color: #636363;
+    border-radius: calc(13px/2.3);
+    box-shadow: 30px 60px 60px rgba(99,99,99, 0.5);
+}

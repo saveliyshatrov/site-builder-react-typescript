@@ -1,0 +1,70 @@
+.Choice{
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.devices{
+    display: flex;
+    width: 25%;
+    height: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.button{
+    cursor: pointer;
+    height: 35px;
+    outline: none;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: lightgray;
+    color: black;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 10px;
+    transition: all .4s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.space{
+    width: 10px;
+}
+
+.button:hover{
+    border: 1px solid black;
+}
+
+.active{
+    background-color: black;
+    color: white;
+}
+
+.rotation{
+    width: 18%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.size-huge{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+.rotated{
+    transform: rotate(-90deg);
+}
+
+.d-none{
+    display: none;
+}

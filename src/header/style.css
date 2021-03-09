@@ -1,0 +1,37 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Logo{
+    padding-left: 32px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: xx-large;
+}
+
+.logo{
+    margin-left: 10px;
+}
+
+.logo svg:hover{
+    animation: logo_animation 2.0s forwards;
+}
+
+@keyframes logo_animation{
+    0% {
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

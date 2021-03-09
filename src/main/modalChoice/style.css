@@ -1,0 +1,9 @@
+.modal-choice{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 8px;
+}

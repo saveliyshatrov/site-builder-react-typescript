@@ -1,0 +1,52 @@
+.menu{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rightModalMenu{
+    height: 90%;
+    width: 100%;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.MenuOfElements{
+    background-color: white;
+    width: calc(100% - 2px);
+    height: 504.7px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    box-sizing: border-box;
+    padding: 0px 10px;
+    overflow-y: scroll;
+}
+
+.logoOfRightMenu{
+    height: 10%;
+    width: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnDownload{
+    width: 100%;
+    height: 10%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.btnDownload:hover{
+    color: #CED2D6;
+}

@@ -1,0 +1,44 @@
+.tablet{
+    width: 430px;
+    height: 640px;
+    background-color: #636363;
+    border-radius: 25px;
+    box-shadow: 30px 60px 60px rgba(99,99,99, 0.5);
+}
+
+.screen-tablet{
+    width: calc(768px);
+    height: calc(1024px);
+    transform: scale(0.5);
+    border: none;
+    margin-top: calc(-1024px/5.5);
+    margin-left: calc(-768px/4.5);
+    background-color: white;
+}
+
+.tablet-rotated{
+    width: 640px;
+    height: 430px;
+    background-color: #636363;
+    border-radius: 25px;
+    box-shadow: 30px 60px 60px rgba(99,99,99, 0.5);
+}
+
+.screen-tablet-rotated{
+    transform: scale(0.5);
+    width: calc(1024px);
+    height: calc(768px);
+    border: none;
+    margin-top: calc(-1024px/6);
+    margin-left: calc(-768px/4);
+    background-color: white;
+}
+
+.pad-btn{
+    width: 32px;
+    height: 32px;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 16px;
+    display: none;
+}
