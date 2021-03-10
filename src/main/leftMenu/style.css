@@ -20,12 +20,12 @@
 .Tree{
     background-color: white;
     width: calc(100% - 2px);
-    height: 565.8px;
+    height: calc(90% - 2px);
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     box-sizing: border-box;
     padding: 0px 10px;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 .logoOfLeftMenu{

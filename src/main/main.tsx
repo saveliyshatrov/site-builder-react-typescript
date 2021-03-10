@@ -98,19 +98,19 @@ const createTree = (tree: treeOfTree) => {
 const generateHTMLTree = (Tree: treeOfTree):string => {
     if(Tree.children.length === 0){
         if(Tree.tagName === 'input'){
-            return `<${Tree.tagName} ${Tree.classList.length===0?'':"class=" + Tree.classList.join(' ')} ${Tree.src?Tree.src:''}/>`
+            return `<${Tree.tagName} ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`} ${Tree.src?Tree.src:''}/>`
         }
         if(Tree.tagName === 'img'){
-            return `<${Tree.tagName} ${Tree.classList.length===0?'':"class=" + Tree.classList.join(' ')} ${Tree.placeholder?Tree.placeholder:''} ${Tree.type?Tree.type:''}/>`
+            return `<${Tree.tagName} ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`} ${Tree.placeholder?Tree.placeholder:''} ${Tree.type?Tree.type:''}/>`
         }
         if(Tree.tagName === 'hr'){
-            return `<${Tree.tagName} ${Tree.classList.length===0?'':"class=" + Tree.classList.join(' ')}/>`
+            return `<${Tree.tagName} ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`}/>`
         }
         else{
             return `<${Tree.tagName} ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`}>${Tree.text}</${Tree.tagName}>`
         }
     } else {
-        let partTree = `<${Tree.tagName} ${Tree.classList.length===0?'':"class=" + Tree.classList.join(' ')}>`
+        let partTree = `<${Tree.tagName} ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`}>`
         for(let child in Tree.children){
             partTree += generateHTMLTree(Tree.children[child])
         }
@@ -421,6 +421,13 @@ class Main extends Component<any, any>{
     }
     componentDidMount() {
         const self = this;
+        window.addEventListener('resize', function (){
+            let elemR = document.getElementById('rightModalMenu')//.style.height = 1;//`${window.innerHeight - 120) * 0.9}px`
+            if(elemR !== null) elemR.style.height = `${(window.innerHeight - 120) * 0.9}px`
+            //leftModalMenu
+            let elemL = document.getElementById('leftModalMenu')//.style.height = 1;//`${window.innerHeight - 120) * 0.9}px`
+            if(elemL !== null) elemL.style.height = `${(window.innerHeight - 120) * 0.9}px`
+        });
         document.addEventListener('contextmenu', function (event) {
             event.preventDefault();
             const clickX = event.clientX;
@@ -464,12 +471,12 @@ class Main extends Component<any, any>{
         document.addEventListener('click', function (event) {
             event.preventDefault();
             self.setState({showModal: false, x: 0, y: 0});
-            if((event.target as Element).className === 'choice-elem'){
+            if((event.target as Element).className.includes('choice-elem')){
                 self.setState({
                     elementToAdd: (event.target as Element).innerHTML
                 });
             }
-            if((event.target as Element).className === 'choice-elem' && self.state.chosenOption !== '') {
+            if((event.target as Element).className.includes('choice-elem') && self.state.chosenOption !== '') {
                 console.log(self.state.chosenOption, '---', self.state.elementToAdd);
                 reCreatePathTree(self.state.lastClickedElementId, self.state.chosenOption, self.state.elementToAdd)//ДОРАБОТАТЬ!!!
                 self.setState({chosenOption:''})

@@ -20,7 +20,7 @@
 .MenuOfElements{
     background-color: white;
     width: calc(100% - 2px);
-    height: 504.7px;
+    height: 80%;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
     box-sizing: border-box;
@@ -40,7 +40,7 @@
 .inputRightMenu{
     margin: 2px 0px;
     height: calc(10% - 4px);
-    width: calc(100% - 2px);
+    width: 100%;
     outline: none;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
@@ -50,6 +50,7 @@
     padding-left: 10px;
     color: white;
     font-size: 100%;
+    text-align: center;
 }
 
 .btnDownload{

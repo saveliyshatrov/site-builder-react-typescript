@@ -20,7 +20,7 @@ class rightMenu extends Component<rightMenuProps, any>{
     render (){
         return (
             <div className={"menu"}>
-                <div className={"rightModalMenu"}>
+                <div className={"rightModalMenu"} style={{height: `${(window.innerHeight - 120) * 0.9}px`}} id={"rightModalMenu"}>
                     {this.props.css?<div className={"logoOfRightMenu"}>{this.props.elem}</div>:<input className={"inputRightMenu"} type={"text"} placeholder={"Search"} onChange={(e)=>this.props.changeSearchString(e.target.value)}/>}
                     {/*<div className={"logoOfRightMenu"}>{this.props.css?this.props.elem:"Elements"}</div>*/}
                     <div className={"MenuOfElements"}>

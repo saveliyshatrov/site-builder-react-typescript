@@ -17,13 +17,13 @@ const HTMLTags = (Templates: any, searchText: string) => {
             arrayOfElements.push(<div className={"choice-elem"}>{Templates[arrayOfTemplateNames[i]].name}</div>)
         }
     } else {
-        let arrayWithSearchTextInside = arrayOfTemplateNames.filter(elem => elem.includes(searchText))
-        let arrayWithNoSearchTextInside = arrayOfTemplateNames.filter(elem => !elem.includes(searchText))
+        let arrayWithSearchTextInside = arrayOfTemplateNames.filter(elem => elem.toLowerCase().includes(searchText.toLowerCase()))
+        let arrayWithNoSearchTextInside = arrayOfTemplateNames.filter(elem => !elem.toLowerCase().includes(searchText.toLowerCase()))
         for(let i = 0; i < arrayWithSearchTextInside.length; i++){
-            arrayOfElements.push(<div className={"choice-elem"}>{Templates[arrayWithSearchTextInside[i]].name}</div>)
+            arrayOfElements.push(<div className={"choice-elem-green"}>{Templates[arrayWithSearchTextInside[i]].name}</div>)
         }
         for(let i = 0; i < arrayWithNoSearchTextInside.length; i++){
-            arrayOfElements.push(<div className={"choice-elem"}>{Templates[arrayWithNoSearchTextInside[i]].name}</div>)
+            arrayOfElements.push(<div className={"choice-elem-red"}>{Templates[arrayWithNoSearchTextInside[i]].name}</div>)
         }
     }
     return arrayOfElements;
