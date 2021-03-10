@@ -8,6 +8,8 @@ import HTMLTags from "./HTMLtags";
 import {Modal, ModalExport, ModalTemplateName} from './Modals';
 import Templates from "./templates";
 
+const useBootstrap: boolean = false;
+
 type treeOfTree = {
     name: string,
     tagName: string,
@@ -105,7 +107,7 @@ const generateHTMLTree = (Tree: treeOfTree):string => {
             return `<${Tree.tagName} ${Tree.classList.length===0?'':"class=" + Tree.classList.join(' ')}/>`
         }
         else{
-            return `<${Tree.tagName} ${Tree.classList.length===0?'':"class=" + Tree.classList.join(' ')}>${Tree.text}</${Tree.tagName}>`
+            return `<${Tree.tagName} ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`}>${Tree.text}</${Tree.tagName}>`
         }
     } else {
         let partTree = `<${Tree.tagName} ${Tree.classList.length===0?'':"class=" + Tree.classList.join(' ')}>`
@@ -124,6 +126,7 @@ const constructPage = ():string => {
         '     <head> \n' +
         '         <meta charset="UTF-8"> \n' +
         '         <meta name="viewport" content="width=device-width, initial-scale=1.0"> \n' +
+        `         ${useBootstrap?'<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">':''}` +
         '         <link rel="stylesheet" href="style.css"> \n' +
         '            <title> \n' +
         `                ${tree.name}` + ' \n' +
@@ -384,7 +387,11 @@ class Main extends Component<any, any>{
         duplicate: false,
         hide: true,
         addStyle: true,
-        modalTemplateName: false
+        modalTemplateName: false,
+        searchString: ''
+    }
+    changeSearchString = (text: string) => {
+        this.setState({searchString: text});
     }
     setChosenOption = (text: string) => {
         this.setState({
@@ -490,7 +497,6 @@ class Main extends Component<any, any>{
             }
         });
     }
-
     render(){
         return (
             <div className={"main"}>
@@ -514,8 +520,8 @@ class Main extends Component<any, any>{
                 <DevicePreview>
                     {this.props.children}
                 </DevicePreview>
-                <RightMenu exportModal={this.showExport} css={this.state.showCss} elem={this.state.lastClickedElement}>
-                    {HTMLTags(Templates)}
+                <RightMenu exportModal={this.showExport} css={this.state.showCss} elem={this.state.lastClickedElement} searchString={this.state.searchString} changeSearchString={this.changeSearchString}>
+                    {HTMLTags(Templates, this.state.searchString)}
                 </RightMenu>
             </div>
         )
