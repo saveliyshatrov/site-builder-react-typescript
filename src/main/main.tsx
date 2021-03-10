@@ -87,6 +87,17 @@ let tree: treeOfTree = {
     ]
 }
 
+const createHTMLPage = () => {
+    const isIFrame = (input: HTMLElement | null): input is HTMLIFrameElement =>
+        input !== null && input.tagName === 'IFRAME';
+    let iframe = document.getElementById("iframe");
+    if (isIFrame(iframe) && iframe.contentWindow) {
+        iframe.contentWindow.document.open();
+        iframe.contentWindow.document.write(constructPage());
+        iframe.contentWindow.document.close()
+    }
+}
+
 const createTree = (tree: treeOfTree) => {
     return (
         <div className={"Tree"} key={'tree'}>
@@ -266,24 +277,25 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                             children: []
                         }
                     }
-                    console.log(Templates[elemName])
                 }
-                if(command === 'insertText'){
-                    array.children[child].text = elemName
-                }      //elemName as Text
-                if(command === 'insertSrc'){
-                    array.children[child].src = elemName
-                }       //elemName as Src
-                if(command === 'insertClasses'){
-                    array.children[child].classList = elemName.split('.')
-                }   //elemName as string - class1.class2.class3
-                if(command === 'insertType'){
-                    array.children[child].type = elemName
-                }      //elemName as Type
+
             }
         }
     }
     if(array.id === id){
+        if(command === 'insertText'){
+            array.text = elemName
+            createHTMLPage();
+        }      //elemName as Text
+        if(command === 'insertSrc'){
+            array.src = elemName
+        }       //elemName as Src
+        if(command === 'insertClasses'){
+            array.classList = elemName.split('.')
+        }   //elemName as string - class1.class2.class3
+        if(command === 'insertType'){
+            array.type = elemName
+        }      //elemName as Type
         return true
     }
 }
@@ -478,7 +490,7 @@ class Main extends Component<any, any>{
             }
             if((event.target as Element).className.includes('choice-elem') && self.state.chosenOption !== '') {
                 console.log(self.state.chosenOption, '---', self.state.elementToAdd);
-                reCreatePathTree(self.state.lastClickedElementId, self.state.chosenOption, self.state.elementToAdd)//ДОРАБОТАТЬ!!!
+                reCreatePathTree(self.state.lastClickedElementId, self.state.chosenOption, self.state.elementToAdd)
                 self.setState({chosenOption:''})
                 self.setState({elementToAdd:''})
             }
@@ -486,6 +498,7 @@ class Main extends Component<any, any>{
                 self.setState({
                     showCss: true,
                     lastClickedElement: (event.target as Element).innerHTML,
+                    lastClickedElementId: (event.target as Element).getAttribute('id')
                 });
             }
             if((event.target as Element).className === 'btnDownload'){
@@ -527,7 +540,14 @@ class Main extends Component<any, any>{
                 <DevicePreview>
                     {this.props.children}
                 </DevicePreview>
-                <RightMenu exportModal={this.showExport} css={this.state.showCss} elem={this.state.lastClickedElement} searchString={this.state.searchString} changeSearchString={this.changeSearchString}>
+                <RightMenu exportModal={this.showExport}
+                           css={this.state.showCss}
+                           elem={this.state.lastClickedElement}
+                           elemID={this.state.lastClickedElementId}
+                           insertInfo={reCreatePathTree}
+                           searchString={this.state.searchString}
+                           changeSearchString={this.changeSearchString}
+                           template={Templates}>
                     {HTMLTags(Templates, this.state.searchString)}
                 </RightMenu>
             </div>

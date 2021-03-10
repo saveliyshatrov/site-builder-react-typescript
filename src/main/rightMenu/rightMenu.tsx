@@ -7,7 +7,10 @@ type rightMenuProps = {
     elem: string,
     exportModal: any,
     searchString: string,
-    changeSearchString: any
+    changeSearchString: any,
+    template: any,
+    elemID: number,
+    insertInfo: any
 }
 
 class rightMenu extends Component<rightMenuProps, any>{
@@ -20,7 +23,7 @@ class rightMenu extends Component<rightMenuProps, any>{
     render (){
         return (
             <div className={"menu"}>
-                <div className={"rightModalMenu"} style={{height: `${(window.innerHeight - 120) * 0.9}px`}} id={"rightModalMenu"}>
+                <div className={"rightModalMenu"} id={"rightModalMenu"} style={{height: `${(window.innerHeight - 120) * 0.9}px`}}>
                     {this.props.css?<div className={"logoOfRightMenu"}>{this.props.elem}</div>:<input className={"inputRightMenu"} type={"text"} placeholder={"Search"} onChange={(e)=>this.props.changeSearchString(e.target.value)}/>}
                     {/*<div className={"logoOfRightMenu"}>{this.props.css?this.props.elem:"Elements"}</div>*/}
                     <div className={"MenuOfElements"}>
@@ -28,7 +31,10 @@ class rightMenu extends Component<rightMenuProps, any>{
                         {/*{this.props.css?{*/}
 
                         {/*}:''}*/}
-                        {this.props.css?<Cards />:this.props.children}
+                        {this.props.css?<Cards elem={this.props.elem}
+                                               template={this.props.template}
+                                               elemID={this.props.elemID}
+                                               insertInfo={this.props.insertInfo}/>:this.props.children}
                     </div>
                     <div className={"btnDownload"} onClick={this.props.css?()=>{}:this.props.exportModal}>{this.props.css?"Close":"Export"}</div>
                 </div>

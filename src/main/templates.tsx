@@ -45,6 +45,27 @@ let Templates: temp = {
             },
         ]
     },
+    'Header':{
+        name: 'Header',
+        tagName: 'header',
+        classList: [],
+        text: '',
+        children: []
+    },
+    'Main':{
+        name: 'Main',
+        tagName: 'main',
+        classList: [],
+        text: '',
+        children: []
+    },
+    'Footer':{
+        name: 'Footer',
+        tagName: 'footer',
+        classList: [],
+        text: '',
+        children: []
+    },
     "block": {
         name: 'block',
         tagName: 'div',

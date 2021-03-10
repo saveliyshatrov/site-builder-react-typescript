@@ -56,14 +56,21 @@ const TextArea = styled.textarea`
   border: 1px solid #545454;
 `
 
+type CardProp = {
+    elemID: number,
+    insertInfo: any
+}
 
 class TextCard extends Component<any, any>{
+    constructor(props: CardProp) {
+        super(props);
+    }
     render(){
         return (
             <DivMargin>
                 <CardHeader>Text</CardHeader>
                 <DivOptions>
-                        <TextArea placeholder={"Enter text"}/>
+                        <TextArea placeholder={"Enter text"} onChange={(e)=>this.props.insertInfo(this.props.elemID, 'insertText', e.target.value)}/>
                 </DivOptions>
             </DivMargin>
         )

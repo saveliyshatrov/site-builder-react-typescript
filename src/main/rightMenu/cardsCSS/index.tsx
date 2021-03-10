@@ -108,19 +108,39 @@ type styles = {
 }
 // object-fit - fill, contain, cover, scale-down, none
 
+let arrayOfWithTextElements = ['div', 'main', 'header', 'footer', 'li', 'button']
+let arrayOfWithoutTextElements = ['ul', 'hr']
+let arrayOfInput = ['input']
+let arrayOfImg = ['img']
 
+type cardProps = {
+    template: any,
+    elemID: number,
+    insertInfo: any
+    elem: string
+}
 
-class Cards extends Component<any, any>{
-
+class Cards extends Component<cardProps, any>{
+    constructor(props: any) {
+        super(props);
+    }
     render(){
         return (
             <>
-                <MarginCard/>
-                <PaddingCard/>
-                <TextCard/>
-                <PlaceholderCard/>
-                <TypeCard/>
-                <SrcCard/>
+                {console.log(this.props.elem)}
+                {console.log(this.props.template[this.props.elem])}
+                {arrayOfWithTextElements.includes(this.props.template[this.props.elem].tagName)?<TextCard insertInfo={this.props.insertInfo}
+                                                                                                          elemID={this.props.elemID}/>:''}
+                {arrayOfWithoutTextElements.includes(this.props.template[this.props.elem].tagName)?'':''}
+                {arrayOfInput.includes(this.props.template[this.props.elem].tagName)?<PlaceholderCard/>:''}
+                {arrayOfInput.includes(this.props.template[this.props.elem].tagName)?<TypeCard/>:''}
+                {arrayOfImg.includes(this.props.template[this.props.elem].tagName)?<SrcCard/>:''}
+                {/*<MarginCard/>*/}
+                {/*<PaddingCard/>*/}
+                {/*<TextCard/>*/}
+                {/*<PlaceholderCard/>*/}
+                {/*<TypeCard/>*/}
+                {/*<SrcCard/>*/}
             </>
         )
     }
