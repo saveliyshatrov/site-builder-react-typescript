@@ -158,6 +158,7 @@ const constructPage = ():string => {
         '            <title> \n' +
         `                ${tree.name}` + ' \n' +
         '            </title>  \n' +
+        `            <style>.checkElem{box-sizing: border-box;border: 1px solid black;border-radius: 3px;}</style>` +
         '     </head>  \n' +
         '    ' + generateHTMLTree(tree) + '\n' +
         '</html>';
@@ -166,7 +167,17 @@ const constructPage = ():string => {
 
 const generateTree = (tree: treeOfTree, hide: boolean = false) => {
     if(tree.children.length === 0){
-        return <ul className={hide?"d-none": ""}><li><div className={"tree-elem"} key={tree.key} id={tree.id}>{tree.name}</div></li></ul>
+        return (
+            <ul className={hide?"d-none": ""}>
+                <li>
+                    <div className={"tree-elem"}
+                         key={tree.key}
+                         id={tree.id}
+                         onMouseMove={()=>{reCreatePathTree(parseInt(tree.id), 'insertClasses', 'checkElem')}}
+                         onMouseOutCapture={()=>{reCreatePathTree(parseInt(tree.id), 'removeClass', 'checkElem')}}>{tree.name}</div>
+                </li>
+            </ul>
+        )
     }
     if(tree.children.length !== 0){
         let array = []
@@ -177,7 +188,18 @@ const generateTree = (tree: treeOfTree, hide: boolean = false) => {
                 array.push(generateTree(tree.children[i]));
             }
         }
-        return <ul className={hide?"d-none": ""}><li><div className={tree.hide?"tree-elem-bb-1":"tree-elem"} key={tree.key} id={tree.id}>{tree.name}</div>{array}</li></ul>
+        return (
+            <ul className={hide?"d-none": ""}>
+                <li>
+                    <div className={tree.hide?"tree-elem-bb-1":"tree-elem"}
+                         key={tree.key}
+                         id={tree.id}
+                         onMouseMove={()=>{reCreatePathTree(parseInt(tree.id), 'insertClasses', 'checkElem')}}
+                         onMouseOutCapture={()=>{reCreatePathTree(parseInt(tree.id), 'removeClass', 'checkElem')}}>{tree.name}</div>
+                    {array}
+                </li>
+            </ul>
+        )
     }
 }
 
@@ -244,7 +266,8 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                         id: createUniqId(),
                         type: Templates[elemName].type,
                         ID: Templates[elemName].ID,
-                        For: Templates[elemName].For
+                        For: Templates[elemName].For,
+                        placeholder: Templates[elemName].placeholder
                     })
                 }
                 if(command === 'up'){
@@ -259,7 +282,8 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                         id: createUniqId(),
                         type: Templates[elemName].type,
                         ID: Templates[elemName].ID,
-                        For: Templates[elemName].For
+                        For: Templates[elemName].For,
+                        placeholder: Templates[elemName].placeholder
                     }
                     array.children = insertElemToTree(array.children, obj, child)
                     return undefined;
@@ -276,7 +300,8 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                         id: createUniqId(),
                         type: Templates[elemName].type,
                         ID: Templates[elemName].ID,
-                        For: Templates[elemName].For
+                        For: Templates[elemName].For,
+                        placeholder: Templates[elemName].placeholder
                     }
                     array.children = insertElemToTree(array.children, obj, child+1)
                     return undefined;
@@ -325,7 +350,11 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
         }       //elemName as Src
         if(command === 'insertClasses'){
             array.classList = elemName.split('.')
+            createHTMLPage();
         }   //elemName as string - class1.class2.class3
+        if(command === 'removeClass'){
+            array.classList = array.classList.filter(elem => elem!==elemName)
+        } // elemName as Class to Replace
         if(command === 'insertType'){
             array.type = elemName
             createHTMLPage();
@@ -340,7 +369,24 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
         }
         if(command === 'insertID'){
             array.ID = elemName;
-            createHTMLPage();
+        }
+        if(array.tagName.toLowerCase() === 'body'){
+            if(command === 'inside'){
+                array.children.push({
+                    classList: Templates[elemName].classList,
+                    text: Templates[elemName].text,
+                    name: elemName,
+                    tagName: Templates[elemName].tagName,
+                    hide: false,
+                    children: Templates[elemName].children.map(elem => convertTemplateToTreeOfTree(elem)),
+                    key: createUniqIdInt(),
+                    id: createUniqId(),
+                    type: Templates[elemName].type,
+                    ID: Templates[elemName].ID,
+                    For: Templates[elemName].For,
+                    placeholder: Templates[elemName].placeholder
+                })
+            }
         }
         return true
     }
@@ -359,7 +405,8 @@ const convertTemplateToTreeOfTree = (obj: template): treeOfTree => {
             ID: obj.ID,
             type: obj.type,
             id: createUniqId(),
-            key: createUniqIdInt()
+            key: createUniqIdInt(),
+            placeholder: obj.placeholder
         }
     }
     else return {
@@ -372,7 +419,8 @@ const convertTemplateToTreeOfTree = (obj: template): treeOfTree => {
         For: obj.For,
         ID: obj.ID,
         id: createUniqId(),
-        key: createUniqIdInt()
+        key: createUniqIdInt(),
+        placeholder: obj.placeholder
     }
 }
 
@@ -443,6 +491,7 @@ const createTemplateChild = (obj: treeOfTree):template => {
 }
 
 const reCreatePathTree = (id: number, command:string, elemName:string) =>{
+    console.log(id, command, elemName);
     findElemById(tree, id.toString(), command, elemName);
 }
 
@@ -464,7 +513,9 @@ class Main extends Component<any, any>{
         hide: true,
         addStyle: true,
         modalTemplateName: false,
-        searchString: ''
+        searchString: '',
+        addToLayerUp: true,
+        addToLayerDown: true
     }
     changeSearchString = (text: string) => {
         this.setState({searchString: text});
@@ -513,7 +564,9 @@ class Main extends Component<any, any>{
                     self.setState({
                         showDeleteBtn: true,
                         showDuplicate: true,
-                        hide: true
+                        hide: true,
+                        addToLayerUp: true,
+                        addToLayerDown: true
                     })
                     //console.log('event.target -- ', (event.target as Element).getAttribute('id'))
                 } else {
@@ -521,7 +574,9 @@ class Main extends Component<any, any>{
                         self.setState({
                             showDeleteBtn: false,
                             showDuplicate: false,
-                            hide: false
+                            hide: false,
+                            addToLayerUp: false,
+                            addToLayerDown: false
                         })
                     } else {
                         self.setState({
@@ -592,14 +647,14 @@ class Main extends Component<any, any>{
                                    paramLastClickedIdElem={this.state.lastClickedElementId}
                                    command={'saveTemplate'}
                                    template={Templates}/>
-                <Modal header={"Alert user"} main={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."} func={this.hideAlert} show={this.state.alert}></Modal>
+                <Modal header={"Alert user"} main={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."} func={this.hideAlert} show={this.state.alert}/>
                 <ModalExport show={this.state.export} func={this.hideExport}></ModalExport>
                 <ModalChoice showModal={this.state.showModal} XPos={this.state.x} YPos={this.state.y}>
-                    <button className={"btn-choice"} onClick={()=>this.setChosenOption('up')}>Add layer up</button>
+                    {this.state.addToLayerUp?<button className={"btn-choice"} onClick={() => this.setChosenOption('up')}>Add layer up</button>:''}
                     <button className={"btn-choice"} onClick={()=>this.setChosenOption('inside')}>Add inside</button>
-                    <button className={"btn-choice"} onClick={()=>this.setChosenOption('down')}>Add layer down</button>
-                    {this.state.addStyle?<div className="hr"></div>:''}
-                    {this.state.addStyle?<button className={"btn-choice"} onClick={()=>{reCreatePathTree(this.state.lastClickedElementId, 'style', '')}}>Styles</button>:''}
+                    {this.state.addToLayerDown?<button className={"btn-choice"} onClick={() => this.setChosenOption('down')}>Add layer down</button>:''}
+                    <div className="hr"></div>
+                    <button className={"btn-choice"} onClick={()=>{reCreatePathTree(this.state.lastClickedElementId, 'style', '')}}>Styles</button>
                     {this.state.showDeleteBtn?<button className={"btn-choice"} onClick={this.showModalTemplateName}>Save Template</button>:''}
                     {this.state.hide?<div className="hr"></div>:''}
                     {this.state.hide?<button className={"btn-choice"} onClick={()=>{reCreatePathTree(this.state.lastClickedElementId, 'hide', '')}}>Hide/Show children</button>:''}
