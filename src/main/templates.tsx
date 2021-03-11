@@ -9,6 +9,8 @@ type template = {
     placeholder?: string,
     type?: string,
     src?: string,
+    For?: string,
+    ID?: string
 }
 
 interface temp {
@@ -108,6 +110,20 @@ let Templates: temp = {
         text: 'button',
         children: []
     },
+    "form": {
+        name: "form",
+        tagName: 'form',
+        classList: [],
+        text: '',
+        children: []
+    },
+    "label": {
+        name: "label",
+        tagName: 'label',
+        classList: [],
+        text: '',
+        children: []
+    },
     "list":{
         name: "list",
         tagName: "ul",
@@ -124,7 +140,7 @@ let Templates: temp = {
     }
 }
 
-const addElemsBootstrap = (templates: temp):temp => {
+const addElementsBootstrap = (templates: temp):temp => {
     templates["container fluid"] = {
         name: "container fluid",
         tagName: 'div',
@@ -385,7 +401,7 @@ const addElemsBootstrap = (templates: temp):temp => {
 
 const useBootstrap: boolean = false;
 if(useBootstrap){
-    Templates = addElemsBootstrap(Templates)
+    Templates = addElementsBootstrap(Templates)
 }
 
 export default Templates;

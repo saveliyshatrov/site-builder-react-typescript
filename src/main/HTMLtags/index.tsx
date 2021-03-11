@@ -11,7 +11,8 @@ const arrayOfTags: Array<string> = ['input', 'div', 'span', 'img', 'header', 'ma
 
 const HTMLTags = (Templates: any, searchText: string) => {
     let arrayOfElements: Array<JSX.Element> = [];
-    const arrayOfTemplateNames:Array<string> = Object.keys(Templates);
+    let arrayOfTemplateNames:Array<string> = Object.keys(Templates);
+    arrayOfTemplateNames = arrayOfTemplateNames.filter(elem => elem!='Page')
     if(searchText === ''){
         for(let i = 0; i < arrayOfTemplateNames.length; i++){
             arrayOfElements.push(<div className={"choice-elem"}>{Templates[arrayOfTemplateNames[i]].name}</div>)

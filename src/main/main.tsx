@@ -18,6 +18,8 @@ type treeOfTree = {
     classList: Array<string>,
     text?: string,
     id: string,
+    ID?: string,
+    For?: string,
     placeholder?:string
     type?: string,
     src?: string,
@@ -33,6 +35,8 @@ type template = {
     placeholder?: string,
     type?: string,
     src?: string,
+    For?: string,
+    ID?: string
 }
 
 let _id_ = 0;
@@ -109,19 +113,31 @@ const createTree = (tree: treeOfTree) => {
 const generateHTMLTree = (Tree: treeOfTree):string => {
     if(Tree.children.length === 0){
         if(Tree.tagName === 'input'){
-            return `<${Tree.tagName} ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`} ${Tree.src?Tree.src:''}/>`
+            return `<${Tree.tagName} 
+                     ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`} 
+                     ${Tree.ID?`id="${Tree.ID}"`:''}
+                     ${Tree.placeholder?`placeholder="${Tree.placeholder}"`:''}
+                     ${Tree.type?`type="${Tree.type}"`:''}/>`
         }
         if(Tree.tagName === 'img'){
-            return `<${Tree.tagName} ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`} ${Tree.placeholder?Tree.placeholder:''} ${Tree.type?Tree.type:''}/>`
+            return `<${Tree.tagName} 
+                     ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`} 
+                     ${Tree.src?`src="${Tree.src}"`:''}/>`
         }
         if(Tree.tagName === 'hr'){
-            return `<${Tree.tagName} ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`}/>`
+            return `<${Tree.tagName} 
+                     ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`}/>`
         }
         else{
-            return `<${Tree.tagName} ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`}>${Tree.text}</${Tree.tagName}>`
+            return `<${Tree.tagName} 
+                     ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`}
+                     ${Tree.For?`for="${Tree.For}"`:''}
+                     >${Tree.text}</${Tree.tagName}>`
         }
     } else {
-        let partTree = `<${Tree.tagName} ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`}>`
+        let partTree = `<${Tree.tagName}  
+                         ${Tree.classList.length===0?'':`class="${Tree.classList.join(' ')}"`} 
+                         ${Tree.For?`for="${Tree.For}"`:''}>`
         for(let child in Tree.children){
             partTree += generateHTMLTree(Tree.children[child])
         }
@@ -185,6 +201,9 @@ const changeID = (elem: treeOfTree) => {
         classList: elem.classList,
         text: elem.text,
         hide: elem.hide,
+        type: elem.type,
+        ID: elem.ID,
+        For: elem.For,
         key: createUniqIdInt(),
         id: createUniqId(),
         children: []
@@ -222,7 +241,10 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                         hide: false,
                         children: Templates[elemName].children.map(elem => convertTemplateToTreeOfTree(elem)),
                         key: createUniqIdInt(),
-                        id: createUniqId()
+                        id: createUniqId(),
+                        type: Templates[elemName].type,
+                        ID: Templates[elemName].ID,
+                        For: Templates[elemName].For
                     })
                 }
                 if(command === 'up'){
@@ -234,21 +256,27 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                         hide: false,
                         children: Templates[elemName].children.map(elem => convertTemplateToTreeOfTree(elem)),
                         key: createUniqIdInt(),
-                        id: createUniqId()
+                        id: createUniqId(),
+                        type: Templates[elemName].type,
+                        ID: Templates[elemName].ID,
+                        For: Templates[elemName].For
                     }
                     array.children = insertElemToTree(array.children, obj, child)
                     return undefined;
                 }
                 if(command === 'down'){
                     let obj = {
-                        classList: [],
-                        text: '',
+                        classList: Templates[elemName].classList,
+                        text: Templates[elemName].text,
                         name: elemName,
                         tagName: Templates[elemName].tagName,
-                        children: [],
                         hide: false,
+                        children: Templates[elemName].children.map(elem => convertTemplateToTreeOfTree(elem)),
                         key: createUniqIdInt(),
-                        id: createUniqId()
+                        id: createUniqId(),
+                        type: Templates[elemName].type,
+                        ID: Templates[elemName].ID,
+                        For: Templates[elemName].For
                     }
                     array.children = insertElemToTree(array.children, obj, child+1)
                     return undefined;
@@ -274,7 +302,11 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                             name: elemName,
                             tagName: array.children[child].tagName,
                             classList: array.children[child].classList,
-                            children: []
+                            children: [],
+                            type: array.children[child].type,
+                            ID: array.children[child].ID,
+                            placeholder: array.children[child].placeholder,
+                            For: array.children[child].For
                         }
                     }
                 }
@@ -289,13 +321,27 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
         }      //elemName as Text
         if(command === 'insertSrc'){
             array.src = elemName
+            createHTMLPage();
         }       //elemName as Src
         if(command === 'insertClasses'){
             array.classList = elemName.split('.')
         }   //elemName as string - class1.class2.class3
         if(command === 'insertType'){
             array.type = elemName
+            createHTMLPage();
         }      //elemName as Type
+        if(command === 'insertPlaceholder'){
+            array.placeholder = elemName;
+            createHTMLPage();
+        }
+        if(command === 'insertFor'){
+            array.For = elemName;
+            createHTMLPage();
+        }
+        if(command === 'insertID'){
+            array.ID = elemName;
+            createHTMLPage();
+        }
         return true
     }
 }
@@ -307,7 +353,11 @@ const convertTemplateToTreeOfTree = (obj: template): treeOfTree => {
             tagName: obj.tagName,
             children: [],
             classList: obj.classList,
+            text: obj.text,
             hide: false,
+            For: obj.For,
+            ID: obj.ID,
+            type: obj.type,
             id: createUniqId(),
             key: createUniqIdInt()
         }
@@ -317,7 +367,10 @@ const convertTemplateToTreeOfTree = (obj: template): treeOfTree => {
         tagName: obj.tagName,
         children: obj.children.map(elem => convertTemplateToTreeOfTree(elem)),
         classList: obj.classList,
+        text: obj.text,
         hide: false,
+        For: obj.For,
+        ID: obj.ID,
         id: createUniqId(),
         key: createUniqIdInt()
     }
@@ -331,6 +384,16 @@ const createTemplateChild = (obj: treeOfTree):template => {
             classList: obj.classList,
             text: obj.text,
             children: obj.children.map(elem => createTemplateChild(elem))
+        };
+    }
+    if(obj.tagName === 'label'){
+        return {
+            name: obj.name,
+            tagName: obj.tagName,
+            classList: obj.classList,
+            text: obj.text,
+            children: obj.children.map(elem => createTemplateChild(elem)),
+            For: obj.For
         };
     }
     if(obj.tagName === 'hr'){
@@ -348,7 +411,8 @@ const createTemplateChild = (obj: treeOfTree):template => {
             classList: obj.classList,
             type: obj.type,
             placeholder: obj.placeholder,
-            children: []
+            children: [],
+            ID: obj.ID
         };
     }
     if(obj.tagName === 'img'){
@@ -445,7 +509,7 @@ class Main extends Component<any, any>{
             const clickX = event.clientX;
             const clickY = event.clientY;
             if((event.target as Element).className === 'tree-elem' || (event.target as Element).className === 'tree-elem-bb-1'){
-                if(!['Header', 'Main', 'Footer', 'Page'].includes((event.target as Element).innerHTML)){
+                if(!['Page'].includes((event.target as Element).innerHTML)){
                     self.setState({
                         showDeleteBtn: true,
                         showDuplicate: true,
@@ -506,21 +570,28 @@ class Main extends Component<any, any>{
                     showCss: false
                 });
             }
-            //ЛОГИКА РАБОТЫ ВПИХИВАНИЯ САЙТА В IFRAME -- НЕ ТРОГАТЬ
-            const isIFrame = (input: HTMLElement | null): input is HTMLIFrameElement =>
-                input !== null && input.tagName === 'IFRAME';
-            let iframe = document.getElementById("iframe");
-            if (isIFrame(iframe) && iframe.contentWindow) {
-                iframe.contentWindow.document.open();
-                iframe.contentWindow.document.write(constructPage());
-                iframe.contentWindow.document.close()
-            }
+            //создание страницы;
+            createHTMLPage();
+            // //ЛОГИКА РАБОТЫ ВПИХИВАНИЯ САЙТА В IFRAME -- НЕ ТРОГАТЬ
+            // const isIFrame = (input: HTMLElement | null): input is HTMLIFrameElement =>
+            //     input !== null && input.tagName === 'IFRAME';
+            // let iframe = document.getElementById("iframe");
+            // if (isIFrame(iframe) && iframe.contentWindow) {
+            //     iframe.contentWindow.document.open();
+            //     iframe.contentWindow.document.write(constructPage());
+            //     iframe.contentWindow.document.close()
+            // }
         });
     }
     render(){
         return (
             <div className={"main"}>
-                <ModalTemplateName hidden={this.state.modalTemplateName} funcClose={this.closeModalTemplateName} funcSave={reCreatePathTree} paramLastClickedIdElem={this.state.lastClickedElementId} command={'saveTemplate'}/>
+                <ModalTemplateName hidden={this.state.modalTemplateName}
+                                   funcClose={this.closeModalTemplateName}
+                                   funcSave={reCreatePathTree}
+                                   paramLastClickedIdElem={this.state.lastClickedElementId}
+                                   command={'saveTemplate'}
+                                   template={Templates}/>
                 <Modal header={"Alert user"} main={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."} func={this.hideAlert} show={this.state.alert}></Modal>
                 <ModalExport show={this.state.export} func={this.hideExport}></ModalExport>
                 <ModalChoice showModal={this.state.showModal} XPos={this.state.x} YPos={this.state.y}>

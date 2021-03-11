@@ -74,11 +74,14 @@ type PropsModal = {
     funcClose: any,
     funcSave: any,
     paramLastClickedIdElem: any,
-    command: string
+    command: string,
+    template: any
 }
 
 type ModalTemplateNameState = {
-    text: string
+    text: string,
+    headerText: string,
+    start: boolean
 }
 
 class ModalTemplateName extends Component<PropsModal, any> {
@@ -86,7 +89,21 @@ class ModalTemplateName extends Component<PropsModal, any> {
         super(props);
     }
     state: ModalTemplateNameState = {
-        text: ''
+        text: '',
+        headerText: 'Template name',
+        start: false
+    }
+    checkNameTemplate = () => {
+        if(this.props.template[this.state.text] !== undefined){
+            this.changeHeaderText('Wrong name of Template')
+            this.setState({start: false})
+        } else {
+            this.changeHeaderText('Template name')
+            this.setState({start: true})
+        }
+    }
+    changeHeaderText = (text: string) => {
+        this.setState({headerText: text})
     }
     changeText(e:any){
         this.state.text = e.target.value;
@@ -94,13 +111,17 @@ class ModalTemplateName extends Component<PropsModal, any> {
     render(){
         return (
             <BodyModal hidden={this.props.hidden}>
-                <HeaderModal>Template name</HeaderModal>
+                <HeaderModal>{this.state.headerText}</HeaderModal>
                 <ElemModal>
-                    <Input placeholder={"Enter template name"} onChange={(e)=>this.state.text = e.target.value}/>
+                    <Input placeholder={"Enter template name"} onChange={(e)=>{this.state.text = e.target.value; this.checkNameTemplate()}}/>
                 </ElemModal>
                 <ElemModal2>
                     <Button onClick={this.props.funcClose}>Cancel</Button>
-                    <Button onClick={()=>{this.props.funcSave(this.props.paramLastClickedIdElem, this.props.command, this.state.text); this.props.funcClose()}}>Save template</Button>
+                    <Button onClick={()=>{
+                        if(this.state.start){
+                            this.props.funcSave(this.props.paramLastClickedIdElem, this.props.command, this.state.text); this.props.funcClose()
+                        }
+                    }}>Save template</Button>
                 </ElemModal2>
             </BodyModal>
         )

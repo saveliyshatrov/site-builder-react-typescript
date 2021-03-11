@@ -5,6 +5,8 @@ import TextCard from "./textCard";
 import PlaceholderCard from "./placeholderCard";
 import TypeCard from "./typeCard";
 import SrcCard from "./srcCard";
+import ForCard from "./forCard"
+import IDCard from "./IDCard"
 
 type styles = {
     input?: {
@@ -108,9 +110,10 @@ type styles = {
 }
 // object-fit - fill, contain, cover, scale-down, none
 
-let arrayOfWithTextElements = ['div', 'main', 'header', 'footer', 'li', 'button']
+let arrayOfWithTextElements = ['div', 'main', 'header', 'footer', 'li', 'button', 'label']
 let arrayOfWithoutTextElements = ['ul', 'hr']
 let arrayOfInput = ['input']
+let arrayOfLabel = ['label']
 let arrayOfImg = ['img']
 
 type cardProps = {
@@ -132,9 +135,16 @@ class Cards extends Component<cardProps, any>{
                 {arrayOfWithTextElements.includes(this.props.template[this.props.elem].tagName)?<TextCard insertInfo={this.props.insertInfo}
                                                                                                           elemID={this.props.elemID}/>:''}
                 {arrayOfWithoutTextElements.includes(this.props.template[this.props.elem].tagName)?'':''}
-                {arrayOfInput.includes(this.props.template[this.props.elem].tagName)?<PlaceholderCard/>:''}
-                {arrayOfInput.includes(this.props.template[this.props.elem].tagName)?<TypeCard/>:''}
-                {arrayOfImg.includes(this.props.template[this.props.elem].tagName)?<SrcCard/>:''}
+                {arrayOfInput.includes(this.props.template[this.props.elem].tagName)?<PlaceholderCard insertInfo={this.props.insertInfo}
+                                                                                                      elemID={this.props.elemID}/>:''}
+                {arrayOfInput.includes(this.props.template[this.props.elem].tagName)?<TypeCard insertInfo={this.props.insertInfo}
+                                                                                               elemID={this.props.elemID}/>:''}
+                {arrayOfInput.includes(this.props.template[this.props.elem].tagName)?<IDCard insertInfo={this.props.insertInfo}
+                                                                                               elemID={this.props.elemID}/>:''}
+                {arrayOfLabel.includes(this.props.template[this.props.elem].tagName)?<ForCard insertInfo={this.props.insertInfo}
+                                                                                                      elemID={this.props.elemID}/>:''}
+                {arrayOfImg.includes(this.props.template[this.props.elem].tagName)?<SrcCard insertInfo={this.props.insertInfo}
+                                                                                            elemID={this.props.elemID}/>:''}
                 {/*<MarginCard/>*/}
                 {/*<PaddingCard/>*/}
                 {/*<TextCard/>*/}

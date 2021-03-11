@@ -36,32 +36,39 @@ const Select = styled.select`
   outline: none;
   padding: 0px 5px;
 `
+
+const Input = styled.input`
+  width: 100%;
+  height: 30px;
+  padding: 0px 9px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  background-color: transparent;
+  border: 1px solid #545454;
+  color: white;
+  outline: none;
+`
 type CardProp = {
     elemID: number,
     insertInfo: any
 }
 
-class TypeCard extends Component<CardProp, any>{
-    constructor(props: CardProp) {
+class IDCard extends Component<CardProp, any>{
+    constructor(props:CardProp) {
         super(props);
     }
     render(){
         return (
             <DivMargin>
-                <CardHeader>Type</CardHeader>
-                <Select onChange={(e)=>this.props.insertInfo(this.props.elemID, 'insertType', e.target.value)}>
-                    <option>text</option>
-                    <option>number</option>
-                    <option>checkbox</option>
-                    <option>date</option>
-                    <option>password</option>
-                    <option>radio</option>
-                    <option>range</option>
-                    <option>time</option>
-                </Select>
+                <CardHeader>ID</CardHeader>
+                <Input type={"text"}
+                       placeholder={"Enter ID"}
+                       onChange={(e)=>{
+                           this.props.insertInfo(this.props.elemID, 'insertID', e.target.value)
+                       }}/>
             </DivMargin>
         )
     }
 }
 
-export default TypeCard;
+export default IDCard;

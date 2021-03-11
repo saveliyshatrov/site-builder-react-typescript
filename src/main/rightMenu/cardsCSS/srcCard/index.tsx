@@ -48,14 +48,24 @@ const Input = styled.input`
   color: white;
   outline: none;
 `
+type CardProp = {
+    elemID: number,
+    insertInfo: any
+}
 
-
-class SrcCard extends Component<any, any>{
+class SrcCard extends Component<CardProp, any>{
+    constructor(props:CardProp) {
+        super(props);
+    }
     render(){
         return (
             <DivMargin>
                 <CardHeader>Picture source</CardHeader>
-                <Input type={"text"} placeholder={"Enter URL"}/>
+                <Input type={"text"}
+                       placeholder={"Enter URL"}
+                       onChange={(e)=>{
+                           this.props.insertInfo(this.props.elemID, 'insertSrc', e.target.value)
+                       }}/>
             </DivMargin>
         )
     }
