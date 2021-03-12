@@ -110,7 +110,7 @@ type styles = {
 }
 // object-fit - fill, contain, cover, scale-down, none
 
-let arrayOfWithTextElements = ['div', 'main', 'header', 'footer', 'li', 'button', 'label']
+let arrayOfWithTextElements = ['div', 'main', 'header', 'footer', 'li', 'button', 'label', 'p']
 let arrayOfWithoutTextElements = ['ul', 'hr']
 let arrayOfInput = ['input']
 let arrayOfLabel = ['label']

@@ -61,16 +61,66 @@ type CardProp = {
     insertInfo: any
 }
 
+// --text-- = <s>text</s>
+// __text__ = <u>text</u>
+// ***text*** = <b><i>text</i></b>
+// **text** = <b>text</b>
+// *text* = <i>text</i>
+// [text, url, decoration, color] = <a href="url" style="text-decoration: none; color: red;">text</a>
+
 class TextCard extends Component<any, any>{
     constructor(props: CardProp) {
         super(props);
+    }
+    executeValueFromAttribute = (attr: string, text: string, reg: RegExp) => {
+        console.log('execute value --', text)
+        let arraySplitText = text.split(',')
+        for(let i = 0; i < arraySplitText.length; i++){
+            if(arraySplitText[i].includes(attr)){
+                return arraySplitText[i].replace('{','')
+                                             .replace('}','')
+                                             .replace(attr,'')
+                                             .replace(/\s*=\s*/,'')
+                                             .replaceAll('"','').trim();
+            }
+        }
+        return ''
+    }
+    convertString = (text: string):string => {
+        let arrayYes = ['yes', 'true', '1', 'y']
+        let regex: RegExp = /{\s*text\s*=\s*"\s*[\w|\S|\W]+\s*"\s*,\s*url\s*=\s*"\s*[\w|\S|\W]+\s*"\s*,\s*decoration\s*=\s*"\s*[\w|\S|\W]+\s*"\s*}/gm
+        let regexForText: RegExp = /\s*text\s*=\s*"\s*[\w|\S|\W]+\s*"\s*,\s*/gm
+        let regexForUrl: RegExp = /\s*url\s*=\s*"\s*[\w|\S|\W]+\s*"\s*/gm
+        let regexForDecoration: RegExp = /\s*decoration\s*=\s*"\s*[\w|\S|\W]+\s*"/gm
+        if(text.match(regex)){
+            let arrayOfText = text.split('*');
+            if (arrayOfText) {
+                for (let i = 0; i < arrayOfText.length; i++) {
+                    if(arrayOfText[i].match(regex)){
+                        let textExecuted = this.executeValueFromAttribute('text', arrayOfText[i], regexForText);
+                        let urlExecuted = this.executeValueFromAttribute('url', arrayOfText[i].replace(textExecuted, ''), regexForUrl);
+                        let decorationExecuted = this.executeValueFromAttribute('decoration', arrayOfText[i].replace(urlExecuted, ''), regexForDecoration);
+                        console.log('textExecuted --', textExecuted)
+                        console.log('urlExecuted --', urlExecuted)
+                        console.log('decorationExecuted --', decorationExecuted)
+                        if(arrayYes.includes(decorationExecuted.toLowerCase())){
+                            text = text.replace('*' + arrayOfText[i], arrayOfText[i].replace(regex, `<a href="${urlExecuted}">${textExecuted}</a>`))
+                        } else {
+                            text = text.replace('*' + arrayOfText[i], arrayOfText[i].replace(regex, `<a href="${urlExecuted}" style="text-decoration: none">${textExecuted}</a>`))
+                        }
+                        console.log('text --', text)
+                    }
+                }
+            }
+        }
+        return text
     }
     render(){
         return (
             <DivMargin>
                 <CardHeader>Text</CardHeader>
                 <DivOptions>
-                        <TextArea placeholder={"Enter text"} onChange={(e)=>this.props.insertInfo(this.props.elemID, 'insertText', e.target.value)}/>
+                        <TextArea placeholder={"Enter text"} onChange={(e)=>this.props.insertInfo(this.props.elemID, 'insertText', this.convertString(e.target.value))}/>
                 </DivOptions>
             </DivMargin>
         )

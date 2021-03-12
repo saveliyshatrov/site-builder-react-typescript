@@ -158,7 +158,20 @@ const constructPage = ():string => {
         '            <title> \n' +
         `                ${tree.name}` + ' \n' +
         '            </title>  \n' +
-        `            <style>.checkElem{box-sizing: border-box;border: 1px solid black;border-radius: 3px;}</style>` +
+        `            <style>
+                        .checkElem{
+                            animation: boxShadow 0.8s;
+                        }
+                        @keyframes boxShadow {
+                            0%{
+                                box-shadow: 0px 0px 0px 2px red; 
+                                border-radius: 3px;
+                            }
+                            100%{
+                                box-shadow: 0px 0px 0px 0px red; 
+                            }
+                        }
+                     </style>` +
         '     </head>  \n' +
         '    ' + generateHTMLTree(tree) + '\n' +
         '</html>';
@@ -319,7 +332,8 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                             name: elemName,
                             tagName: array.children[child].tagName,
                             classList: array.children[child].classList,
-                            children: array.children[child].children.map(elem => createTemplateChild(elem))
+                            children: array.children[child].children.map(elem => createTemplateChild(elem)),
+                            text: array.children[child].text
                         }
                     }
                     else{
@@ -331,7 +345,8 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                             type: array.children[child].type,
                             ID: array.children[child].ID,
                             placeholder: array.children[child].placeholder,
-                            For: array.children[child].For
+                            For: array.children[child].For,
+                            text: array.children[child].text
                         }
                     }
                 }
@@ -485,6 +500,7 @@ const createTemplateChild = (obj: treeOfTree):template => {
             name: obj.name,
             tagName: obj.tagName,
             classList: obj.classList,
+            text: obj.text,
             children: []
         }
     }
