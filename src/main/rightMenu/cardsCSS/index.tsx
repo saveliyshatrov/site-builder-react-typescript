@@ -120,7 +120,8 @@ type cardProps = {
     template: any,
     elemID: number,
     insertInfo: any
-    elem: string
+    elem: string,
+    objInfo: any
 }
 
 class Cards extends Component<cardProps, any>{
@@ -130,21 +131,26 @@ class Cards extends Component<cardProps, any>{
     render(){
         return (
             <>
-                {console.log(this.props.elem)}
-                {console.log(this.props.template[this.props.elem])}
+                {console.log(this.props.objInfo)}
                 {arrayOfWithTextElements.includes(this.props.template[this.props.elem].tagName)?<TextCard insertInfo={this.props.insertInfo}
-                                                                                                          elemID={this.props.elemID}/>:''}
+                                                                                                          elemID={this.props.elemID}
+                                                                                                          info={this.props.objInfo.text}/>:''}
                 {arrayOfWithoutTextElements.includes(this.props.template[this.props.elem].tagName)?'':''}
                 {arrayOfInput.includes(this.props.template[this.props.elem].tagName)?<PlaceholderCard insertInfo={this.props.insertInfo}
-                                                                                                      elemID={this.props.elemID}/>:''}
+                                                                                                      elemID={this.props.elemID}
+                                                                                                      info={this.props.objInfo.placeholder}/>:''}
                 {arrayOfInput.includes(this.props.template[this.props.elem].tagName)?<TypeCard insertInfo={this.props.insertInfo}
-                                                                                               elemID={this.props.elemID}/>:''}
+                                                                                               elemID={this.props.elemID}
+                                                                                               info={this.props.objInfo.type}/>:''}
                 {arrayOfInput.includes(this.props.template[this.props.elem].tagName)?<IDCard insertInfo={this.props.insertInfo}
-                                                                                               elemID={this.props.elemID}/>:''}
+                                                                                             elemID={this.props.elemID}
+                                                                                             info={this.props.objInfo.ID}/>:''}
                 {arrayOfLabel.includes(this.props.template[this.props.elem].tagName)?<ForCard insertInfo={this.props.insertInfo}
-                                                                                                      elemID={this.props.elemID}/>:''}
+                                                                                              elemID={this.props.elemID}
+                                                                                              info={this.props.objInfo.For}/>:''}
                 {arrayOfImg.includes(this.props.template[this.props.elem].tagName)?<SrcCard insertInfo={this.props.insertInfo}
-                                                                                            elemID={this.props.elemID}/>:''}
+                                                                                            elemID={this.props.elemID}
+                                                                                            info={this.props.objInfo.src}/>:''}
                 {/*<MarginCard/>*/}
                 {/*<PaddingCard/>*/}
                 {/*<TextCard/>*/}

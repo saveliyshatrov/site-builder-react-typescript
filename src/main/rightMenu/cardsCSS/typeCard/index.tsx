@@ -38,26 +38,41 @@ const Select = styled.select`
 `
 type CardProp = {
     elemID: number,
-    insertInfo: any
+    insertInfo: any,
+    info: string | undefined
 }
 
 class TypeCard extends Component<CardProp, any>{
     constructor(props: CardProp) {
         super(props);
     }
+    state = {
+        text: this.props.info?this.props.info:''
+    }
+    changeText = (str: string) => {
+        this.setState({
+            text: str
+        })
+    }
     render(){
         return (
             <DivMargin>
                 <CardHeader>Type</CardHeader>
-                <Select onChange={(e)=>this.props.insertInfo(this.props.elemID, 'insertType', e.target.value)}>
-                    <option>text</option>
-                    <option>number</option>
-                    <option>checkbox</option>
-                    <option>date</option>
-                    <option>password</option>
-                    <option>radio</option>
-                    <option>range</option>
-                    <option>time</option>
+                <Select value={this.state.text}
+                        onChange={
+                            (e)=>{
+                                this.props.insertInfo(this.props.elemID, 'insertType', e.target.value);
+                                this.changeText(e.target.value)
+                            }
+                        }>
+                    <option value={"text"}>text</option>
+                    <option value={"number"}>number</option>
+                    <option value={"checkbox"}>checkbox</option>
+                    <option value={"date"}>date</option>
+                    <option value={"password"}>password</option>
+                    <option value={"radio"}>radio</option>
+                    <option value={"range"}>range</option>
+                    <option value={"time"}>time</option>
                 </Select>
             </DivMargin>
         )

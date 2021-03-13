@@ -50,22 +50,33 @@ const Input = styled.input`
 `
 type CardProp = {
     elemID: number,
-    insertInfo: any
+    insertInfo: any,
+    info: string | undefined
 }
 
 class IDCard extends Component<CardProp, any>{
     constructor(props:CardProp) {
         super(props);
     }
+    state = {
+        text: this.props.info?this.props.info:''
+    }
+    changeText = (str: string) => {
+        this.setState({
+            text: str
+        })
+    }
     render(){
         return (
             <DivMargin>
                 <CardHeader>ID</CardHeader>
-                <Input type={"text"}
-                       placeholder={"Enter ID"}
-                       onChange={(e)=>{
-                           this.props.insertInfo(this.props.elemID, 'insertID', e.target.value)
-                       }}/>
+                    <Input type={"text"}
+                           placeholder={"Enter ID"}
+                           value={this.state.text}
+                           onChange={(e)=>{
+                               this.props.insertInfo(this.props.elemID, 'insertID', e.target.value);
+                               this.changeText(e.target.value);
+                           }}/>
             </DivMargin>
         )
     }

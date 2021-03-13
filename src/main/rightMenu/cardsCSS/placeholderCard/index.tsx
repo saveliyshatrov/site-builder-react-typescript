@@ -58,17 +58,30 @@ const TextArea = styled.textarea`
 
 type CardProp = {
     elemID: number,
-    insertInfo: any
+    insertInfo: any,
+    info: string | undefined
 }
 
 
 class PlaceholderCard extends Component<CardProp, any>{
+    state = {
+        text: this.props.info?this.props.info:''
+    }
+    changeText = (str: string) => {
+        this.setState({
+            text: str
+        })
+    }
     render(){
         return (
             <DivMargin>
                 <CardHeader>Placeholder</CardHeader>
                 <DivOptions>
-                    <TextArea placeholder={"Enter text"} onChange={(e)=>this.props.insertInfo(this.props.elemID, 'insertPlaceholder', e.target.value)}/>
+                    <TextArea placeholder={"Enter text"} value={this.state.text}
+                              onChange={(e)=>{
+                                             this.props.insertInfo(this.props.elemID, 'insertPlaceholder', e.target.value);
+                                             this.changeText(e.target.value);
+                              }}/>
                 </DivOptions>
             </DivMargin>
         )

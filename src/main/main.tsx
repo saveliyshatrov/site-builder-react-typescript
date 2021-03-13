@@ -241,7 +241,8 @@ const changeID = (elem: treeOfTree) => {
         For: elem.For,
         key: createUniqIdInt(),
         id: createUniqId(),
-        children: []
+        children: [],
+        src: elem.src
     }
     if(elem.children.length !== 0){
         for(let child in elem.children){
@@ -262,8 +263,11 @@ const createDuplicateOfElemInTree = (array: Array<treeOfTree>, index:number) =>{
 const findElemById = (array: treeOfTree, id: string, command:string, elemName:string) => {
     if(array.id !== id){
         for(let child = 0; child < array.children.length; child++){
-            let Elem = findElemById(array.children[child], id, command, elemName);
+            let Elem:any = findElemById(array.children[child], id, command, elemName);
             if(Elem){
+                if(command === 'getInfo'){
+                    return Elem
+                }
                 if(command === 'remove'){
                     array.children = removeFromTree(array.children, child);
                 }
@@ -280,7 +284,8 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                         type: Templates[elemName].type,
                         ID: Templates[elemName].ID,
                         For: Templates[elemName].For,
-                        placeholder: Templates[elemName].placeholder
+                        placeholder: Templates[elemName].placeholder,
+                        src: Templates[elemName].src
                     })
                 }
                 if(command === 'up'){
@@ -296,7 +301,8 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                         type: Templates[elemName].type,
                         ID: Templates[elemName].ID,
                         For: Templates[elemName].For,
-                        placeholder: Templates[elemName].placeholder
+                        placeholder: Templates[elemName].placeholder,
+                        src: Templates[elemName].src
                     }
                     array.children = insertElemToTree(array.children, obj, child)
                     return undefined;
@@ -314,7 +320,8 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                         type: Templates[elemName].type,
                         ID: Templates[elemName].ID,
                         For: Templates[elemName].For,
-                        placeholder: Templates[elemName].placeholder
+                        placeholder: Templates[elemName].placeholder,
+                        src: Templates[elemName].src
                     }
                     array.children = insertElemToTree(array.children, obj, child+1)
                     return undefined;
@@ -333,7 +340,8 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                             tagName: array.children[child].tagName,
                             classList: array.children[child].classList,
                             children: array.children[child].children.map(elem => createTemplateChild(elem)),
-                            text: array.children[child].text
+                            text: array.children[child].text,
+                            src: Templates[elemName].src
                         }
                     }
                     else{
@@ -346,7 +354,8 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                             ID: array.children[child].ID,
                             placeholder: array.children[child].placeholder,
                             For: array.children[child].For,
-                            text: array.children[child].text
+                            text: array.children[child].text,
+                            src: Templates[elemName].src
                         }
                     }
                 }
@@ -363,6 +372,9 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
             array.src = elemName
             createHTMLPage();
         }       //elemName as Src
+        if(command === 'getInfo'){
+            return array
+        }
         if(command === 'insertClasses'){
             array.classList = elemName.split('.')
             createHTMLPage();
@@ -421,7 +433,8 @@ const convertTemplateToTreeOfTree = (obj: template): treeOfTree => {
             type: obj.type,
             id: createUniqId(),
             key: createUniqIdInt(),
-            placeholder: obj.placeholder
+            placeholder: obj.placeholder,
+            src: obj.src
         }
     }
     else return {
@@ -435,7 +448,8 @@ const convertTemplateToTreeOfTree = (obj: template): treeOfTree => {
         ID: obj.ID,
         id: createUniqId(),
         key: createUniqIdInt(),
-        placeholder: obj.placeholder
+        placeholder: obj.placeholder,
+        src: obj.src
     }
 }
 
@@ -507,8 +521,11 @@ const createTemplateChild = (obj: treeOfTree):template => {
 }
 
 const reCreatePathTree = (id: number, command:string, elemName:string) =>{
-    console.log(id, command, elemName);
-    findElemById(tree, id.toString(), command, elemName);
+    if(command === 'getInfo'){
+        return findElemById(tree, id.toString(), command, elemName);
+    } else {
+        findElemById(tree, id.toString(), command, elemName);
+    }
 }
 
 class Main extends Component<any, any>{
@@ -689,7 +706,8 @@ class Main extends Component<any, any>{
                            insertInfo={reCreatePathTree}
                            searchString={this.state.searchString}
                            changeSearchString={this.changeSearchString}
-                           template={Templates}>
+                           template={Templates}
+                           objInfo={reCreatePathTree(this.state.lastClickedElementId, 'getInfo', '')}>
                     {HTMLTags(Templates, this.state.searchString)}
                 </RightMenu>
             </div>

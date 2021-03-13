@@ -50,22 +50,33 @@ const Input = styled.input`
 `
 type CardProp = {
     elemID: number,
-    insertInfo: any
+    insertInfo: any,
+    info: string | undefined
 }
 
 class SrcCard extends Component<CardProp, any>{
     constructor(props:CardProp) {
         super(props);
     }
+    state = {
+        text: this.props.info?this.props.info:''
+    }
+    changeText = (str: string) => {
+        this.setState({
+            text: str
+        })
+    }
     render(){
         return (
             <DivMargin>
                 <CardHeader>Picture source</CardHeader>
-                <Input type={"text"}
-                       placeholder={"Enter URL"}
-                       onChange={(e)=>{
-                           this.props.insertInfo(this.props.elemID, 'insertSrc', e.target.value)
-                       }}/>
+                    <Input type={"text"}
+                           placeholder={"Enter URL"}
+                           value={this.state.text}
+                           onChange={(e)=>{
+                               this.props.insertInfo(this.props.elemID, 'insertSrc', e.target.value);
+                               this.changeText(e.target.value)
+                           }}/>
             </DivMargin>
         )
     }

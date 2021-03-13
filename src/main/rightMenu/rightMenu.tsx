@@ -10,7 +10,8 @@ type rightMenuProps = {
     changeSearchString: any,
     template: any,
     elemID: number,
-    insertInfo: any
+    insertInfo: any,
+    objInfo: any
 }
 
 class rightMenu extends Component<rightMenuProps, any>{
@@ -34,7 +35,8 @@ class rightMenu extends Component<rightMenuProps, any>{
                         {this.props.css?<Cards elem={this.props.elem}
                                                template={this.props.template}
                                                elemID={this.props.elemID}
-                                               insertInfo={this.props.insertInfo}/>:this.props.children}
+                                               insertInfo={this.props.insertInfo}
+                                               objInfo={this.props.objInfo}/>:this.props.children}
                     </div>
                     <div className={"btnDownload"} onClick={this.props.css?()=>{}:this.props.exportModal}>{this.props.css?"Close":"Export"}</div>
                 </div>

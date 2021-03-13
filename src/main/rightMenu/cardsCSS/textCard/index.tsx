@@ -58,8 +58,12 @@ const TextArea = styled.textarea`
 
 type CardProp = {
     elemID: number,
-    insertInfo: any
+    insertInfo: any,
+    info: string | undefined
 }
+
+//This is text about elephants - *{text="[wiki]", url="https://ru.wikipedia.org/wiki/%D0%A1%D0%BB%D0%BE%D0%BD%D0%BE%D0%B2%D1%8B%D0%B5", decoration="N"}
+//This is text about dogs - *{text="[wiki]", url="some url", decoration="N"}
 
 // --text-- = <s>text</s>
 // __text__ = <u>text</u>
@@ -72,8 +76,10 @@ class TextCard extends Component<any, any>{
     constructor(props: CardProp) {
         super(props);
     }
+    state = {
+        text: this.props.info?this.props.info:''
+    }
     executeValueFromAttribute = (attr: string, text: string, reg: RegExp) => {
-        console.log('execute value --', text)
         let arraySplitText = text.split(',')
         for(let i = 0; i < arraySplitText.length; i++){
             if(arraySplitText[i].includes(attr)){
@@ -100,9 +106,9 @@ class TextCard extends Component<any, any>{
                         let textExecuted = this.executeValueFromAttribute('text', arrayOfText[i], regexForText);
                         let urlExecuted = this.executeValueFromAttribute('url', arrayOfText[i].replace(textExecuted, ''), regexForUrl);
                         let decorationExecuted = this.executeValueFromAttribute('decoration', arrayOfText[i].replace(urlExecuted, ''), regexForDecoration);
-                        console.log('textExecuted --', textExecuted)
-                        console.log('urlExecuted --', urlExecuted)
-                        console.log('decorationExecuted --', decorationExecuted)
+                        // console.log('textExecuted --', textExecuted)
+                        // console.log('urlExecuted --', urlExecuted)
+                        // console.log('decorationExecuted --', decorationExecuted)
                         if(arrayYes.includes(decorationExecuted.toLowerCase())){
                             text = text.replace('*' + arrayOfText[i], arrayOfText[i].replace(regex, `<a href="${urlExecuted}">${textExecuted}</a>`))
                         } else {
@@ -115,12 +121,24 @@ class TextCard extends Component<any, any>{
         }
         return text
     }
+    changeText = (str: string) => {
+        this.setState({
+            text: str
+        })
+    }
     render(){
         return (
             <DivMargin>
                 <CardHeader>Text</CardHeader>
                 <DivOptions>
-                        <TextArea placeholder={"Enter text"} onChange={(e)=>this.props.insertInfo(this.props.elemID, 'insertText', this.convertString(e.target.value))}/>
+                    <TextArea placeholder={"Enter text"}
+                              value={this.state.text}
+                              onChange={
+                                  (e)=>{
+                                      this.props.insertInfo(this.props.elemID, 'insertText', this.convertString(e.target.value));
+                                      this.changeText(e.target.value)
+                                  }
+                              }/>
                 </DivOptions>
             </DivMargin>
         )
