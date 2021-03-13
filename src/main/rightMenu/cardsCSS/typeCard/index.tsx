@@ -79,4 +79,5 @@ class TypeCard extends Component<CardProp, any>{
     }
 }
 
+
 export default TypeCard;
