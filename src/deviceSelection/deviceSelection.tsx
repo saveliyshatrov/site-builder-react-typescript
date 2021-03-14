@@ -44,13 +44,17 @@ const DeviceSelection: FunctionComponent<ToggleProps> = ({MobileClick, TabletCli
                 {Desktop?'Desktop':''}
             </button>
         </div>
-        <div className="rotation">
-            <button className={!Desktop?(!rotated?"button active":"button"):"d-none"} id='selected-tablet' onClick={()=>{setRotated(false); (Mobile?MobileClick():TabletClick())}}>
+        <div className={Desktop?"rotation d-none":"rotation"}>
+            <button className={!Desktop?(!rotated?"button active":"button"):"d-none"}
+                    id='selected-tablet'
+                    onClick={()=>{setRotated(false); (Mobile?MobileClick():TabletClick())}}>
                 <i className={Mobile?"fa fa-mobile size-huge":"fa fa-tablet size-huge"}></i>
                 {!rotated?<div className={"space"}></div>:''}
                 {!rotated?'Portrait':''}
             </button>
-            <button className={!Desktop?(rotated?"button active-rotated":"button"):"d-none"} id='selected-desktop' onClick={()=>{setRotated(true); (Mobile?MobileRotatedClick():TabletRotatedClick())}}>
+            <button className={!Desktop?(rotated?"button active-rotated":"button"):"d-none"}
+                    id='selected-desktop'
+                    onClick={()=>{setRotated(true); (Mobile?MobileRotatedClick():TabletRotatedClick())}}>
                 <i className={Mobile?"fa fa-mobile size-huge rotated":"fa fa-tablet size-huge rotated"}></i>
                 {rotated?<div className={"space"}></div>:''}
                 {rotated?'Landscape':''}

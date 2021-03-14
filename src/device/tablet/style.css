@@ -33,12 +33,3 @@
     margin-left: calc(-768px/4);
     background-color: white;
 }
-
-.pad-btn{
-    width: 32px;
-    height: 32px;
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 16px;
-    display: none;
-}

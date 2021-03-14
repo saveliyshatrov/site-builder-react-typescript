@@ -7,7 +7,6 @@ const Tablet = () => {
             <iframe className="screen-tablet" name="Constructor"
                     width="768" height="1024" id={"iframe"}>
             </iframe>
-            <div className="pad-btn"></div>
         </div>
     )
 }
@@ -18,7 +17,6 @@ const TabletRotated = () => {
             <iframe className="screen-tablet-rotated" name="Constructor"
                     width="1024" height="768" id={"iframe"}>
             </iframe>
-            <div className="pad-btn"></div>
         </div>
 
     )

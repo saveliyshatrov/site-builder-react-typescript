@@ -37,7 +37,7 @@ class App extends Component<any, any>{
   }
   render(){
     return <div>
-      <Header text={this.Name}/>
+      <Header text={this.Name} mainHeader={false}/>
       <DeviceSelection
           ClickHandler={()=>window.alert(123)}
           MobileClick={()=>this.setMobile()}

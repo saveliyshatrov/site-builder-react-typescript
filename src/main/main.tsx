@@ -7,6 +7,9 @@ import ModalChoice from "./modalChoice";
 import HTMLTags from "./HTMLtags";
 import {Modal, ModalExport, ModalTemplateName} from './Modals';
 import Templates from "./templates";
+import styleTemplates, {styleTemplate} from "./styles";
+import styleCSS from "./styles"
+
 
 const useBootstrap: boolean = false;
 
@@ -146,6 +149,15 @@ const generateHTMLTree = (Tree: treeOfTree):string => {
     }
 
 }
+const generateCSS = (Style: styleTemplate) => {
+    let allStyles = Object.keys(Style)
+    let stringStyles = allStyles.map(elem => convertStyleToString(elem))
+    console.log(allStyles)
+}
+
+const convertStyleToString = (elem: string) => {
+    return Object.keys(styleTemplates[elem])
+}
 
 const constructPage = ():string => {
     return '<!DOCTYPE html> \n' +
@@ -170,7 +182,8 @@ const constructPage = ():string => {
                             100%{
                                 box-shadow: 0px 0px 0px 0px red; 
                             }
-                        }
+                        }` + `
+                        ${generateCSS(styleTemplates)}
                      </style>` +
         '     </head>  \n' +
         '    ' + generateHTMLTree(tree) + '\n' +
@@ -181,8 +194,8 @@ const constructPage = ():string => {
 const generateTree = (tree: treeOfTree, hide: boolean = false) => {
     if(tree.children.length === 0){
         return (
-            <ul className={hide?"d-none": ""}>
-                <li>
+            <ul className={hide?"d-none": ""} key={createUniqIdInt()}>
+                <li key={createUniqIdInt()}>
                     <div className={"tree-elem"}
                          key={tree.key}
                          id={tree.id}
@@ -202,8 +215,8 @@ const generateTree = (tree: treeOfTree, hide: boolean = false) => {
             }
         }
         return (
-            <ul className={hide?"d-none": ""}>
-                <li>
+            <ul className={hide?"d-none": ""} key={createUniqIdInt()}>
+                <li key={createUniqIdInt()}>
                     <div className={tree.hide?"tree-elem-bb-1":"tree-elem"}
                          key={tree.key}
                          id={tree.id}
