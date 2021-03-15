@@ -8,38 +8,39 @@ import HTMLTags from "./HTMLtags";
 import {Modal, ModalExport, ModalTemplateName} from './Modals';
 import Templates from "./templates";
 import styleTemplates, {styleTemplate} from "./styles";
-import styleCSS from "./styles"
+// import template from "./templates"
 
 
 const useBootstrap: boolean = false;
 
 type treeOfTree = {
     name: string,
-    tagName: string,
+    tagName: string
+    classList: Array<string>
     children: Array<treeOfTree>
+    text: string | undefined
+    placeholder: string | undefined
+    type: string | undefined
+    src: string | undefined
+    For: string | undefined
+    ID: string | undefined
+
+    hide: boolean,
     key: number,
-    classList: Array<string>,
-    text?: string,
     id: string,
-    ID?: string,
-    For?: string,
-    placeholder?:string
-    type?: string,
-    src?: string,
-    hide: boolean
 }
 
-type template = {
+interface template {
     name: string
-    tagName: string,
-    classList: Array<string>,
-    text?: string,
-    children: Array<template>,
-    placeholder?: string,
-    type?: string,
-    src?: string,
-    For?: string,
-    ID?: string
+    tagName: string
+    classList: Array<string>
+    text: string | undefined
+    children: Array<template>
+    placeholder: string | undefined
+    type: string | undefined
+    src: string | undefined
+    For: string | undefined
+    ID: string | undefined
 }
 
 let _id_ = 0;
@@ -70,6 +71,11 @@ let tree: treeOfTree = {
             children: [],
             hide: false,
             id: createUniqId(),
+            placeholder: undefined,
+            type: undefined,
+            src: undefined,
+            For: undefined,
+            ID: undefined
         },
         {
             classList: [],
@@ -79,7 +85,12 @@ let tree: treeOfTree = {
             key: createUniqIdInt(),
             id: createUniqId(),
             hide: false,
-            children: []
+            children: [],
+            placeholder: undefined,
+            type: undefined,
+            src: undefined,
+            For: undefined,
+            ID: undefined
         },
         {
             classList: [],
@@ -90,8 +101,18 @@ let tree: treeOfTree = {
             hide: false,
             key: createUniqIdInt(),
             id: createUniqId(),
+            placeholder: undefined,
+            type: undefined,
+            src: undefined,
+            For: undefined,
+            ID: undefined
         }
-    ]
+    ],
+    placeholder: undefined,
+    type: undefined,
+    src: undefined,
+    For: undefined,
+    ID: undefined
 }
 
 const createHTMLPage = () => {
@@ -255,7 +276,8 @@ const changeID = (elem: treeOfTree) => {
         key: createUniqIdInt(),
         id: createUniqId(),
         children: [],
-        src: elem.src
+        src: elem.src,
+        placeholder: elem.placeholder
     }
     if(elem.children.length !== 0){
         for(let child in elem.children){
@@ -354,7 +376,11 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                             classList: array.children[child].classList,
                             children: array.children[child].children.map(elem => createTemplateChild(elem)),
                             text: array.children[child].text,
-                            src: Templates[elemName].src
+                            src: array.children[child].src,
+                            placeholder: array.children[child].placeholder,
+                            ID: array.children[child].ID,
+                            type: array.children[child].type,
+                            For: array.children[child].For
                         }
                     }
                     else{
@@ -368,7 +394,7 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                             placeholder: array.children[child].placeholder,
                             For: array.children[child].For,
                             text: array.children[child].text,
-                            src: Templates[elemName].src
+                            src: array.children[child].src
                         }
                     }
                 }
@@ -424,7 +450,8 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                     type: Templates[elemName].type,
                     ID: Templates[elemName].ID,
                     For: Templates[elemName].For,
-                    placeholder: Templates[elemName].placeholder
+                    placeholder: Templates[elemName].placeholder,
+                    src: Templates[elemName].src
                 })
             }
         }
@@ -462,75 +489,24 @@ const convertTemplateToTreeOfTree = (obj: template): treeOfTree => {
         id: createUniqId(),
         key: createUniqIdInt(),
         placeholder: obj.placeholder,
-        src: obj.src
+        src: obj.src,
+        type: obj.type
     }
 }
 
 const createTemplateChild = (obj: treeOfTree):template => {
-    if(obj.tagName === 'div'){
-        return {
-            name: obj.name,
-            tagName: obj.tagName,
-            classList: obj.classList,
-            text: obj.text,
-            children: obj.children.map(elem => createTemplateChild(elem))
-        };
-    }
-    if(obj.tagName === 'label'){
-        return {
-            name: obj.name,
-            tagName: obj.tagName,
-            classList: obj.classList,
-            text: obj.text,
-            children: obj.children.map(elem => createTemplateChild(elem)),
-            For: obj.For
-        };
-    }
-    if(obj.tagName === 'hr'){
-        return {
-            name: obj.name,
-            tagName: obj.tagName,
-            classList: obj.classList,
-            children: []
-        };
-    }
-    if(obj.tagName === 'input'){
-        return {
-            name: obj.name,
-            tagName: obj.tagName,
-            classList: obj.classList,
-            type: obj.type,
-            placeholder: obj.placeholder,
-            children: [],
-            ID: obj.ID
-        };
-    }
-    if(obj.tagName === 'img'){
-        return {
-            name: obj.name,
-            tagName: obj.tagName,
-            classList: obj.classList,
-            src: obj.src,
-            children: []
-        };
-    }
-    if(obj.tagName === 'p'){
-        return {
-            name: obj.name,
-            tagName: obj.tagName,
-            classList: obj.classList,
-            text: obj.text,
-            children: []
-        };
-    } else {
-        return {
-            name: obj.name,
-            tagName: obj.tagName,
-            classList: obj.classList,
-            text: obj.text,
-            children: []
-        }
-    }
+    return {
+        name: obj.name,
+        tagName: obj.tagName,
+        classList: obj.classList,
+        text: obj.text,
+        children: obj.children.map(elem => createTemplateChild(elem)),
+        placeholder: obj.placeholder,
+        type: obj.type,
+        src: obj.src,
+        For: obj.For,
+        ID: obj.ID
+    };
 }
 
 const reCreatePathTree = (id: number, command:string, elemName:string) =>{
@@ -561,7 +537,8 @@ class Main extends Component<any, any>{
         modalTemplateName: false,
         searchString: '',
         addToLayerUp: true,
-        addToLayerDown: true
+        addToLayerDown: true,
+        styles: false
     }
     changeSearchString = (text: string) => {
         this.setState({searchString: text});
@@ -591,6 +568,11 @@ class Main extends Component<any, any>{
     }
     closeModalTemplateName = () => {
         this.setState({modalTemplateName: false})
+    }
+    showStyles = () => {
+        this.setState({
+            styles: true
+        })
     }
     componentDidMount() {
         const self = this;
@@ -648,18 +630,21 @@ class Main extends Component<any, any>{
         document.addEventListener('click', function (event) {
             event.preventDefault();
             self.setState({showModal: false, x: 0, y: 0});
-            if((event.target as Element).className.includes('choice-elem')){
+            if((event.target as Element).classList.toString().includes('choice-elem')){
                 self.setState({
                     elementToAdd: (event.target as Element).innerHTML
                 });
             }
-            if((event.target as Element).className.includes('choice-elem') && self.state.chosenOption !== '') {
+            if((event.target as Element).classList.toString().includes('choice-elem') && self.state.chosenOption !== '') {
                 console.log(self.state.chosenOption, '---', self.state.elementToAdd);
                 reCreatePathTree(self.state.lastClickedElementId, self.state.chosenOption, self.state.elementToAdd)
                 self.setState({chosenOption:''})
                 self.setState({elementToAdd:''})
             }
             if((event.target as Element).className === 'tree-elem' || (event.target as Element).className === 'tree-elem-bb-1'){
+                self.setState({
+                    showCss: false
+                })
                 self.setState({
                     showCss: true,
                     lastClickedElement: (event.target as Element).innerHTML,
@@ -668,7 +653,8 @@ class Main extends Component<any, any>{
             }
             if((event.target as Element).className === 'btnDownload'){
                 self.setState({
-                    showCss: false
+                    showCss: false,
+                    styles: false
                 });
             }
             //создание страницы;
@@ -694,19 +680,19 @@ class Main extends Component<any, any>{
                                    command={'saveTemplate'}
                                    template={Templates}/>
                 <Modal header={"Alert user"} main={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."} func={this.hideAlert} show={this.state.alert}/>
-                <ModalExport show={this.state.export} func={this.hideExport}></ModalExport>
+                <ModalExport show={this.state.export} func={this.hideExport}/>
                 <ModalChoice showModal={this.state.showModal} XPos={this.state.x} YPos={this.state.y}>
                     {this.state.addToLayerUp?<button className={"btn-choice"} onClick={() => this.setChosenOption('up')}>Add layer up</button>:''}
                     <button className={"btn-choice"} onClick={()=>this.setChosenOption('inside')}>Add inside</button>
                     {this.state.addToLayerDown?<button className={"btn-choice"} onClick={() => this.setChosenOption('down')}>Add layer down</button>:''}
                     <div className="hr"></div>
-                    <button className={"btn-choice"} onClick={()=>{reCreatePathTree(this.state.lastClickedElementId, 'style', '')}}>Styles</button>
+                    <button className={"btn-choice"} onClick={()=>{this.showStyles()}}>Styles</button>
                     {this.state.showDeleteBtn?<button className={"btn-choice"} onClick={this.showModalTemplateName}>Save Template</button>:''}
                     {this.state.hide?<div className="hr"></div>:''}
                     {this.state.hide?<button className={"btn-choice"} onClick={()=>{reCreatePathTree(this.state.lastClickedElementId, 'hide', '')}}>Hide/Show children</button>:''}
                     {this.state.showDeleteBtn?<button className={"btn-choice"} onClick={()=>{reCreatePathTree(this.state.lastClickedElementId, 'duplicate', '')}}>Duplicate</button>:''}
                     {this.state.showDeleteBtn?<div className="hr"/>:''}
-                    {this.state.showDeleteBtn?<button className={"btn-choice"} onClick={()=>{reCreatePathTree(this.state.lastClickedElementId, 'remove','')}}>Delete</button>:''}
+                    {this.state.showDeleteBtn?<button className={"btn-choice"} onClick={()=>{reCreatePathTree(this.state.lastClickedElementId, 'remove',''); this.state.showCss=false}}>Delete</button>:''}
                 </ModalChoice>
                 <LeftMenu tree={createTree(tree)}/>
                 <DevicePreview>
@@ -720,7 +706,8 @@ class Main extends Component<any, any>{
                            searchString={this.state.searchString}
                            changeSearchString={this.changeSearchString}
                            template={Templates}
-                           objInfo={reCreatePathTree(this.state.lastClickedElementId, 'getInfo', '')}>
+                           objInfo={reCreatePathTree(this.state.lastClickedElementId, 'getInfo', '')}
+                           styles={this.state.styles}>
                     {HTMLTags(Templates, this.state.searchString)}
                 </RightMenu>
             </div>

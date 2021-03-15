@@ -44,7 +44,7 @@ const DeviceSelection: FunctionComponent<ToggleProps> = ({MobileClick, TabletCli
                 {Desktop?'Desktop':''}
             </button>
         </div>
-        <div className={Desktop?"rotation d-none":"rotation"}>
+        <div className={Desktop?"rotation-hidden":"rotation"}>
             <button className={!Desktop?(!rotated?"button active":"button"):"d-none"}
                     id='selected-tablet'
                     onClick={()=>{setRotated(false); (Mobile?MobileClick():TabletClick())}}>

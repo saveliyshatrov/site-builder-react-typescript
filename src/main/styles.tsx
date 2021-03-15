@@ -121,7 +121,195 @@ type styleTemplate = {
         desktop?: Border
         allSame?: boolean
     }
+    transition?: number
     objectFit?: 'fill' | 'contain' | 'cover' | 'scale-down' | 'none'
+    hover?:{
+        width?: {
+            mobile?: Width
+            tablet?: Width
+            desktop?: Width
+            allSame?: boolean
+        }
+        height?: {
+            mobile?: Height
+            tablet?: Height
+            desktop?: Height
+            allSame?: boolean
+        }
+        margin?: {
+            mobile?: Margin
+            tablet?: Margin
+            desktop?: Margin
+            allSame?: boolean
+        }
+        padding?: {
+            mobile?: Padding
+            tablet?: Padding
+            desktop?: Padding
+            allSame?: boolean
+        }
+        color?: string,
+        backgroundColor?: string,
+        boxShadow?: {
+            mobile?: BoxShadow
+            tablet?: BoxShadow
+            desktop?: BoxShadow
+            allSame?: boolean
+        }
+        font?: {
+            mobile?: Font
+            tablet?: Font
+            desktop?: Font
+            allSame?: boolean
+        }
+        display?: {
+            flex: {
+                enable?: boolean
+                direction?: string
+                justify_content?: string
+                align_items?: string
+            }
+        }
+        position?: {
+            pos: 'absolute' | 'relative',
+            mobile?: Position
+            tablet?: Position
+            desktop?: Position
+            allSame?: boolean
+        }
+        border?:{
+            mobile?: Border
+            tablet?: Border
+            desktop?: Border
+            allSame?: boolean
+        }
+        objectFit?: 'fill' | 'contain' | 'cover' | 'scale-down' | 'none'
+    }
+    active?: {
+        width?: {
+            mobile?: Width
+            tablet?: Width
+            desktop?: Width
+            allSame?: boolean
+        }
+        height?: {
+            mobile?: Height
+            tablet?: Height
+            desktop?: Height
+            allSame?: boolean
+        }
+        margin?: {
+            mobile?: Margin
+            tablet?: Margin
+            desktop?: Margin
+            allSame?: boolean
+        }
+        padding?: {
+            mobile?: Padding
+            tablet?: Padding
+            desktop?: Padding
+            allSame?: boolean
+        }
+        color?: string,
+        backgroundColor?: string,
+        boxShadow?: {
+            mobile?: BoxShadow
+            tablet?: BoxShadow
+            desktop?: BoxShadow
+            allSame?: boolean
+        }
+        font?: {
+            mobile?: Font
+            tablet?: Font
+            desktop?: Font
+            allSame?: boolean
+        }
+        display?: {
+            flex: {
+                enable?: boolean
+                direction?: string
+                justify_content?: string
+                align_items?: string
+            }
+        }
+        position?: {
+            pos: 'absolute' | 'relative',
+            mobile?: Position
+            tablet?: Position
+            desktop?: Position
+            allSame?: boolean
+        }
+        border?:{
+            mobile?: Border
+            tablet?: Border
+            desktop?: Border
+            allSame?: boolean
+        }
+        objectFit?: 'fill' | 'contain' | 'cover' | 'scale-down' | 'none'
+    }
+    focus?: {
+        width?: {
+            mobile?: Width
+            tablet?: Width
+            desktop?: Width
+            allSame?: boolean
+        }
+        height?: {
+            mobile?: Height
+            tablet?: Height
+            desktop?: Height
+            allSame?: boolean
+        }
+        margin?: {
+            mobile?: Margin
+            tablet?: Margin
+            desktop?: Margin
+            allSame?: boolean
+        }
+        padding?: {
+            mobile?: Padding
+            tablet?: Padding
+            desktop?: Padding
+            allSame?: boolean
+        }
+        color?: string,
+        backgroundColor?: string,
+        boxShadow?: {
+            mobile?: BoxShadow
+            tablet?: BoxShadow
+            desktop?: BoxShadow
+            allSame?: boolean
+        }
+        font?: {
+            mobile?: Font
+            tablet?: Font
+            desktop?: Font
+            allSame?: boolean
+        }
+        display?: {
+            flex: {
+                enable?: boolean
+                direction?: string
+                justify_content?: string
+                align_items?: string
+            }
+        }
+        position?: {
+            pos: 'absolute' | 'relative',
+            mobile?: Position
+            tablet?: Position
+            desktop?: Position
+            allSame?: boolean
+        }
+        border?:{
+            mobile?: Border
+            tablet?: Border
+            desktop?: Border
+            allSame?: boolean
+        }
+        objectFit?: 'fill' | 'contain' | 'cover' | 'scale-down' | 'none'
+    }
+    bootstrap?: boolean
 }
 
 export interface styleCSS {

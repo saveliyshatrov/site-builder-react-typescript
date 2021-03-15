@@ -20,6 +20,7 @@ const DivModal = styled.div<Show>`
   flex-direction: column;
   box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.25);
   z-index: 9999;
+  transition: all 0.2s ease;
 `
 
 class ModalChoice extends Component<Show, any>{

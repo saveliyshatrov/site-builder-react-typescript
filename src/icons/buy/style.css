@@ -1,3 +1,7 @@
 .fillG{
     fill: #808080;
 }
+
+.user{
+    z-index: 1;
+}

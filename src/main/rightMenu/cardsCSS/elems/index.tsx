@@ -17,6 +17,13 @@ const DivOptions = styled.div`
   flex-direction: column;
   justify-content: space-around;
 `
+const DivOptionsTwo = styled.div`
+  padding: 5px 0px;
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`
 const DivOptionsRow = styled.div`
   display: flex;
   justify-content: space-between;
@@ -33,7 +40,7 @@ const DivOptionsRow2 = styled.div`
   box-sizing: border-box;
 `
 const CustomInputBlock = styled.div`
-  width: 123px;
+  width: 100%;
   height: 27px;
   border-radius: 6px;
   box-sizing: border-box;
@@ -131,4 +138,4 @@ export {CardHeader, DivOptions,
         CustomInputBlock, CustomInputBlockAll,
         Input, Select, ButtonsArrows,
         ButtonArrowUp, ButtonArrowDown,
-        CheckBox, OptionRow}
+        CheckBox, OptionRow, DivOptionsTwo}

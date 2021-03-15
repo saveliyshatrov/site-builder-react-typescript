@@ -57,6 +57,13 @@ const Input = styled.input`
   box-sizing: border-box;
   padding-left: 9px;
   color: white;
+  transition: all 0.2s ease;
+  :hover{
+    border: 1px solid #404040;
+  }
+  :focus{
+    border: 1px solid lightgray;
+  }
 `
 
 const Button = styled.button`
@@ -67,6 +74,10 @@ const Button = styled.button`
   background-color: #545454;
   outline: none;
   color: white;
+  transition: all 0.2s ease;
+  :hover {
+    background-color: #404040;
+  }
 `
 
 type PropsModal = {

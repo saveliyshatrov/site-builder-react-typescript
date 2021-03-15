@@ -35,6 +35,13 @@ const Select = styled.select`
   margin-top: 5px;
   outline: none;
   padding: 0px 5px;
+  font-size: 13px;
+  :hover{
+    border: 1px solid #404040;
+  }
+  :focus{
+    border: 1px solid lightgray;
+  }
 `
 type CardProp = {
     elemID: number,

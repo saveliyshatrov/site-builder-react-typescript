@@ -5,7 +5,8 @@ import {CardHeader, DivOptions,
     CustomInputBlock, CustomInputBlockAll,
     Input, Select, ButtonsArrows,
     ButtonArrowUp, ButtonArrowDown,
-    CheckBox, OptionRow} from '../elems'
+    CheckBox, OptionRow, DivOptionsTwo} from '../elems'
+
 
 
 type CIProps = {
@@ -24,18 +25,15 @@ const DivMargin = styled.div`
   box-sizing: border-box;
   padding: 0px 7px 8px;
 `
+const DivName = styled.div`
+  color: lightgray;
+  font-size: 10px;
+  margin-bottom: 3px;
+  margin-left: 3px;
+`
 
-type simpleCSS = {
-    top: number
-    bottom: number
-    left: number
-    right: number
-    typeSize: 'px' | '%'
-    all: boolean
-}
-
-class PaddingCard extends Component<any, any>{
-    state: simpleCSS = {
+class MarginCard extends Component<any, any>{
+    state = {
         top: 0,
         bottom: 0,
         left: 0,
@@ -85,17 +83,17 @@ class PaddingCard extends Component<any, any>{
             }
         }
         if(name == 'right'){
-            if(this.state.right > -1){
+            if(this.state.right > 0){
                 this.state.right--;
             }
         }
         if(name == 'bottom'){
-            if(this.state.bottom > -1){
+            if(this.state.bottom > 0){
                 this.state.bottom--;
             }
         }
         if(name == 'left'){
-            if(this.state.left > -1){
+            if(this.state.left > 0){
                 this.state.left--;
             }
         }
@@ -126,8 +124,9 @@ class PaddingCard extends Component<any, any>{
             <DivMargin>
                 <CardHeader>Padding</CardHeader>
                 {this.state.all?<DivOptions>
+                    <DivName>All</DivName>
                     <CustomInputBlockAll>
-                        <Input placeholder={'All'} type={"text"} value={this.state.top == 0?'':this.state.top + this.state.typeSize}/>
+                        <Input placeholder={'All'} type={"text"} value={this.state.top + this.state.typeSize}/>
                         <ButtonsArrows>
                             <ButtonArrowUp onClick={()=>this.incrementElem('all')}>+</ButtonArrowUp>
                             <ButtonArrowDown onClick={()=>this.decrementElem('all')}>-</ButtonArrowDown>
@@ -135,37 +134,49 @@ class PaddingCard extends Component<any, any>{
                     </CustomInputBlockAll>
                 </DivOptions>:<DivOptions>
                     <DivOptionsRow2>
-                        <CustomInputBlock>
-                            <Input placeholder={'top'} type={"text"} value={this.state.top == 0?'':this.state.top + this.state.typeSize}/>
-                            <ButtonsArrows>
-                                <ButtonArrowUp onClick={()=>this.incrementElem('top')}>+</ButtonArrowUp>
-                                <ButtonArrowDown onClick={()=>this.decrementElem('top')}>-</ButtonArrowDown>
-                            </ButtonsArrows>
-                        </CustomInputBlock>
-                        <CustomInputBlock>
-                            <Input placeholder={'left'} type={"text"} value={this.state.left == 0?'':this.state.left + this.state.typeSize}/>
-                            <ButtonsArrows>
-                                <ButtonArrowUp onClick={()=>this.incrementElem('left')}>+</ButtonArrowUp>
-                                <ButtonArrowDown onClick={()=>this.decrementElem('left')}>-</ButtonArrowDown>
-                            </ButtonsArrows>
-                        </CustomInputBlock>
+                        <DivOptionsTwo>
+                            <DivName>Top</DivName>
+                            <CustomInputBlock>
+                                <Input placeholder={'top'} type={"text"} value={this.state.top + this.state.typeSize}/>
+                                <ButtonsArrows>
+                                    <ButtonArrowUp onClick={()=>this.incrementElem('top')}>+</ButtonArrowUp>
+                                    <ButtonArrowDown onClick={()=>this.decrementElem('top')}>-</ButtonArrowDown>
+                                </ButtonsArrows>
+                            </CustomInputBlock>
+                        </DivOptionsTwo>
+                        <DivOptionsTwo>
+                            <DivName>Left</DivName>
+                            <CustomInputBlock>
+                                <Input placeholder={'left'} type={"text"} value={this.state.left + this.state.typeSize}/>
+                                <ButtonsArrows>
+                                    <ButtonArrowUp onClick={()=>this.incrementElem('left')}>+</ButtonArrowUp>
+                                    <ButtonArrowDown onClick={()=>this.decrementElem('left')}>-</ButtonArrowDown>
+                                </ButtonsArrows>
+                            </CustomInputBlock>
+                        </DivOptionsTwo>
                     </DivOptionsRow2>
-                    <DivOptionsRow>
-                        <CustomInputBlock>
-                            <Input placeholder={'bottom'} type={"text"} value={this.state.bottom == 0?'':this.state.bottom + this.state.typeSize}/>
-                            <ButtonsArrows>
-                                <ButtonArrowUp onClick={()=>this.incrementElem('bottom')}>+</ButtonArrowUp>
-                                <ButtonArrowDown onClick={()=>this.decrementElem('bottom')}>-</ButtonArrowDown>
-                            </ButtonsArrows>
-                        </CustomInputBlock>
-                        <CustomInputBlock>
-                            <Input placeholder={'right'} type={"text"} value={this.state.right == 0?'':this.state.right + this.state.typeSize}/>
-                            <ButtonsArrows>
-                                <ButtonArrowUp onClick={()=>this.incrementElem('right')}>+</ButtonArrowUp>
-                                <ButtonArrowDown onClick={()=>this.decrementElem('right')}>-</ButtonArrowDown>
-                            </ButtonsArrows>
-                        </CustomInputBlock>
-                    </DivOptionsRow>
+                    <DivOptionsRow2>
+                        <DivOptionsTwo>
+                            <DivName>Bottom</DivName>
+                            <CustomInputBlock>
+                                <Input placeholder={'bottom'} type={"text"} value={this.state.bottom + this.state.typeSize}/>
+                                <ButtonsArrows>
+                                    <ButtonArrowUp onClick={()=>this.incrementElem('bottom')}>+</ButtonArrowUp>
+                                    <ButtonArrowDown onClick={()=>this.decrementElem('bottom')}>-</ButtonArrowDown>
+                                </ButtonsArrows>
+                            </CustomInputBlock>
+                        </DivOptionsTwo>
+                        <DivOptionsTwo>
+                            <DivName>Right</DivName>
+                            <CustomInputBlock>
+                                <Input placeholder={'right'} type={"text"} value={this.state.right + this.state.typeSize}/>
+                                <ButtonsArrows>
+                                    <ButtonArrowUp onClick={()=>this.incrementElem('right')}>+</ButtonArrowUp>
+                                    <ButtonArrowDown onClick={()=>this.decrementElem('right')}>-</ButtonArrowDown>
+                                </ButtonsArrows>
+                            </CustomInputBlock>
+                        </DivOptionsTwo>
+                    </DivOptionsRow2>
                 </DivOptions>}
                 <OptionRow onClick={()=>this.changeAll(this.state.all)}>
                     <CheckBox>
@@ -182,4 +193,4 @@ class PaddingCard extends Component<any, any>{
     }
 }
 
-export default PaddingCard;
+export default MarginCard;

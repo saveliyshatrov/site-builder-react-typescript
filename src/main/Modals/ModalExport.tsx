@@ -65,10 +65,10 @@ class ModalExport extends Component<any, any>{
                 <Main>
                     <SelectionExport>
                         <ButtonSelectExport show={this.state.htmlCss.state} onClick={()=>{this.unsetAllStates();this.setHTMLCSS()}}>HTML + CSS</ButtonSelectExport>
-                        <ButtonSelectExport className={"unavaileble"} show={this.state.react} onClick={()=>{this.unsetAllStates();this.setReact()}}>React</ButtonSelectExport>
-                        <ButtonSelectExport className={"unavaileble"} show={this.state.vue} onClick={()=>{this.unsetAllStates();this.setVue()}}>Vue</ButtonSelectExport>
-                        <ButtonSelectExport className={"unavaileble"} show={this.state.angular} onClick={()=>{this.unsetAllStates();this.setAngular()}}>Angular</ButtonSelectExport>
-                        <ButtonSelectExport className={"unavaileble"} show={this.state.flutter} onClick={()=>{this.unsetAllStates();this.setFlutter()}}>Flutter</ButtonSelectExport>
+                        <ButtonSelectExport show={this.state.react} onClick={()=>{this.unsetAllStates();this.setReact()}}>React</ButtonSelectExport>
+                        <ButtonSelectExport show={this.state.vue} onClick={()=>{this.unsetAllStates();this.setVue()}}>Vue</ButtonSelectExport>
+                        <ButtonSelectExport show={this.state.angular} onClick={()=>{this.unsetAllStates();this.setAngular()}}>Angular</ButtonSelectExport>
+                        <ButtonSelectExport show={this.state.flutter} onClick={()=>{this.unsetAllStates();this.setFlutter()}}>Flutter</ButtonSelectExport>
                     </SelectionExport>
                     {this.state.htmlCss.state?
                         <Menu>

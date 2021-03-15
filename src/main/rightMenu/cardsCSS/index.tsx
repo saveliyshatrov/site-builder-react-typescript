@@ -8,7 +8,7 @@ import SrcCard from "./srcCard";
 import ForCard from "./forCard"
 import IDCard from "./IDCard"
 
-let arrayOfWithTextElements = ['div', 'main', 'header', 'footer', 'li', 'button', 'label', 'p']
+let arrayOfWithTextElements = ['div', 'main', 'header', 'footer', 'li', 'button', 'label', 'p', 'body']
 let arrayOfWithoutTextElements = ['ul', 'hr']
 let arrayOfInput = ['input']
 let arrayOfLabel = ['label']
@@ -29,7 +29,6 @@ class Cards extends Component<cardProps, any>{
     render(){
         return (
             <>
-                {console.log(this.props.objInfo)}
                 {arrayOfWithTextElements.includes(this.props.template[this.props.elem].tagName)?<TextCard insertInfo={this.props.insertInfo}
                                                                                                           elemID={this.props.elemID}
                                                                                                           info={this.props.objInfo.text}/>:''}

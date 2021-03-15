@@ -24,19 +24,6 @@ const CardHeader = styled.div`
 `
 
 
-const Select = styled.select`
-  width: 253px;
-  height: 30px;
-  box-sizing: border-box;
-  border: 1px solid #545454;
-  background-color: transparent;
-  color: white;
-  border-radius: 6px;
-  margin-top: 5px;
-  outline: none;
-  padding: 0px 5px;
-`
-
 const Input = styled.input`
   width: 100%;
   height: 30px;
@@ -47,6 +34,13 @@ const Input = styled.input`
   border: 1px solid #545454;
   color: white;
   outline: none;
+  font-size: 13px;
+  :hover{
+    border: 1px solid #404040;
+  }
+  :focus{
+    border: 1px solid lightgray;
+  }
 `
 type CardProp = {
     elemID: number,

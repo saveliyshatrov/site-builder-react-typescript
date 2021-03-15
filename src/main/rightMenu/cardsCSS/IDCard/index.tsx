@@ -47,6 +47,13 @@ const Input = styled.input`
   border: 1px solid #545454;
   color: white;
   outline: none;
+  font-size: 13px;
+  :hover{
+    border: 1px solid #404040;
+  }
+  :focus{
+    border: 1px solid lightgray;
+  }
 `
 type CardProp = {
     elemID: number,

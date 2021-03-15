@@ -54,6 +54,13 @@ const TextArea = styled.textarea`
   resize: vertical;
   min-height: 30px;
   border: 1px solid #545454;
+  font-size: 13px;
+  :hover{
+    border: 1px solid #404040;
+  }
+  :focus{
+    border: 1px solid lightgray;
+  }
 `
 
 type CardProp = {

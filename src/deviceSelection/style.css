@@ -94,6 +94,39 @@
     padding: 0px 12.5px;
     justify-content: space-between;
     align-items: center;
+    animation: showRotation 0.4s forwards;
+}
+
+.rotation-hidden{
+    width: 20%;
+    height: 60px;
+    background-color: black;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    display: flex;
+    box-sizing: border-box;
+    padding: 0px 12.5px;
+    justify-content: space-between;
+    align-items: center;
+    animation: hideRotation 0.4s forwards;
+}
+
+@keyframes hideRotation {
+    0%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(100%);
+    }
+}
+
+@keyframes showRotation {
+    0%{
+        transform: translateX(100%);
+    }
+    100%{
+        transform: translateX(0%);
+    }
 }
 
 .size-huge{
