@@ -172,7 +172,7 @@ const generateHTMLTree = (Tree: treeOfTree):string => {
 }
 const generateCSS = (Style: styleTemplate) => {
     let allStyles = Object.keys(Style)
-    let stringStyles = allStyles.map(elem => convertStyleToString(elem))
+    //let stringStyles = allStyles.map(elem => convertStyleToString(elem))
     console.log(allStyles)
 }
 
@@ -197,11 +197,11 @@ const constructPage = ():string => {
                         }
                         @keyframes boxShadow {
                             0%{
-                                box-shadow: 0px 0px 0px 2px red; 
+                                box-shadow: 0 0 0 2px red; 
                                 border-radius: 3px;
                             }
                             100%{
-                                box-shadow: 0px 0px 0px 0px red; 
+                                box-shadow: 0 0 0 0 red; 
                             }
                         }` + `
                         ${generateCSS(styleTemplates)}
@@ -685,10 +685,10 @@ class Main extends Component<any, any>{
                     {this.state.addToLayerUp?<button className={"btn-choice"} onClick={() => this.setChosenOption('up')}>Add layer up</button>:''}
                     <button className={"btn-choice"} onClick={()=>this.setChosenOption('inside')}>Add inside</button>
                     {this.state.addToLayerDown?<button className={"btn-choice"} onClick={() => this.setChosenOption('down')}>Add layer down</button>:''}
-                    <div className="hr"></div>
+                    <div className="hr"/>
                     <button className={"btn-choice"} onClick={()=>{this.showStyles()}}>Styles</button>
                     {this.state.showDeleteBtn?<button className={"btn-choice"} onClick={this.showModalTemplateName}>Save Template</button>:''}
-                    {this.state.hide?<div className="hr"></div>:''}
+                    {this.state.hide?<div className="hr"/>:''}
                     {this.state.hide?<button className={"btn-choice"} onClick={()=>{reCreatePathTree(this.state.lastClickedElementId, 'hide', '')}}>Hide/Show children</button>:''}
                     {this.state.showDeleteBtn?<button className={"btn-choice"} onClick={()=>{reCreatePathTree(this.state.lastClickedElementId, 'duplicate', '')}}>Duplicate</button>:''}
                     {this.state.showDeleteBtn?<div className="hr"/>:''}
