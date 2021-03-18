@@ -36,7 +36,10 @@ class rightMenu extends Component<rightMenuProps, any>{
                                    elemID={this.props.elemID}
                                    insertInfo={this.props.insertInfo}
                                    objInfo={this.props.objInfo}/>:
-                            <Styles/>)
+                            <Styles elem={this.props.elem}
+                                    elemID={this.props.elemID}
+                                    objInfo={this.props.objInfo}
+                                    insertInfo={this.props.insertInfo}/>)
                             :this.props.children}
                     </div>
                     <div className={"btnDownload"} style={{display: (this.props.css||this.props.styles?'flex':'none')}}>Close</div>

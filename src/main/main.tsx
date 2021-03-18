@@ -11,7 +11,7 @@ import styleTemplates, {styleTemplate} from "./styles";
 // import template from "./templates"
 
 
-const useBootstrap: boolean = false;
+const useBootstrap: boolean = true;
 
 type treeOfTree = {
     name: string,
@@ -173,7 +173,7 @@ const generateHTMLTree = (Tree: treeOfTree):string => {
 const generateCSS = (Style: styleTemplate) => {
     let allStyles = Object.keys(Style)
     //let stringStyles = allStyles.map(elem => convertStyleToString(elem))
-    console.log(allStyles)
+    //console.log(allStyles)
 }
 
 const convertStyleToString = (elem: string) => {
@@ -415,7 +415,7 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
             return array
         }
         if(command === 'insertClasses'){
-            array.classList = elemName.split('.')
+            array.classList = [...array.classList, ...(elemName.split('.').filter(elem => !array.classList.includes(elem)))]
             createHTMLPage();
         }   //elemName as string - class1.class2.class3
         if(command === 'removeClass'){
@@ -594,7 +594,8 @@ class Main extends Component<any, any>{
                         showDuplicate: true,
                         hide: true,
                         addToLayerUp: true,
-                        addToLayerDown: true
+                        addToLayerDown: true,
+                        styles: false
                     })
                     //console.log('event.target -- ', (event.target as Element).getAttribute('id'))
                 } else {
@@ -604,13 +605,15 @@ class Main extends Component<any, any>{
                             showDuplicate: false,
                             hide: false,
                             addToLayerUp: false,
-                            addToLayerDown: false
+                            addToLayerDown: false,
+                            styles: false
                         })
                     } else {
                         self.setState({
                             showDeleteBtn: false,
                             showDuplicate: false,
-                            hide: true
+                            hide: true,
+                            styles: false
                         })
                     }
                 }
