@@ -2,6 +2,9 @@
 
 ![alt text](./src/screenShot.png)
 
+## How it looks when Bootstrap added
+![](./src/15.gif)
+
 
 # Getting Started with Create React App
 
