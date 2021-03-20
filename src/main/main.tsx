@@ -684,19 +684,35 @@ class Main extends Component<any, any>{
                                    template={Templates}/>
                 <Modal header={"Alert user"} main={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."} func={this.hideAlert} show={this.state.alert}/>
                 <ModalExport show={this.state.export} func={this.hideExport}/>
-                <ModalChoice showModal={this.state.showModal} XPos={this.state.x} YPos={this.state.y}>
-                    {this.state.addToLayerUp?<button className={"btn-choice"} onClick={() => this.setChosenOption('up')}>Add layer up</button>:''}
-                    <button className={"btn-choice"} onClick={()=>this.setChosenOption('inside')}>Add inside</button>
-                    {this.state.addToLayerDown?<button className={"btn-choice"} onClick={() => this.setChosenOption('down')}>Add layer down</button>:''}
+                {this.state.showModal?<ModalChoice showModal={this.state.showModal} XPos={this.state.x} YPos={this.state.y}>
+                    {this.state.addToLayerUp ?
+                        <button className={"btn-choice"} onClick={() => this.setChosenOption('up')}>Add layer
+                            up</button> : ''}
+                    <button className={"btn-choice"} onClick={() => this.setChosenOption('inside')}>Add inside</button>
+                    {this.state.addToLayerDown ?
+                        <button className={"btn-choice"} onClick={() => this.setChosenOption('down')}>Add layer
+                            down</button> : ''}
                     <div className="hr"/>
-                    <button className={"btn-choice"} onClick={()=>{this.showStyles()}}>Styles</button>
-                    {this.state.showDeleteBtn?<button className={"btn-choice"} onClick={this.showModalTemplateName}>Save Template</button>:''}
-                    {this.state.hide?<div className="hr"/>:''}
-                    {this.state.hide?<button className={"btn-choice"} onClick={()=>{reCreatePathTree(this.state.lastClickedElementId, 'hide', '')}}>Hide/Show children</button>:''}
-                    {this.state.showDeleteBtn?<button className={"btn-choice"} onClick={()=>{reCreatePathTree(this.state.lastClickedElementId, 'duplicate', '')}}>Duplicate</button>:''}
-                    {this.state.showDeleteBtn?<div className="hr"/>:''}
-                    {this.state.showDeleteBtn?<button className={"btn-choice"} onClick={()=>{reCreatePathTree(this.state.lastClickedElementId, 'remove',''); this.state.showCss=false}}>Delete</button>:''}
-                </ModalChoice>
+                    <button className={"btn-choice"} onClick={() => {
+                        this.showStyles()
+                    }}>Styles
+                    </button>
+                    {this.state.showDeleteBtn ?
+                        <button className={"btn-choice"} onClick={this.showModalTemplateName}>Save
+                            Template</button> : ''}
+                    {this.state.hide ? <div className="hr"/> : ''}
+                    {this.state.hide ? <button className={"btn-choice"} onClick={() => {
+                        reCreatePathTree(this.state.lastClickedElementId, 'hide', '')
+                    }}>Hide/Show children</button> : ''}
+                    {this.state.showDeleteBtn ? <button className={"btn-choice"} onClick={() => {
+                        reCreatePathTree(this.state.lastClickedElementId, 'duplicate', '')
+                    }}>Duplicate</button> : ''}
+                    {this.state.showDeleteBtn ? <div className="hr"/> : ''}
+                    {this.state.showDeleteBtn ? <button className={"btn-choice"} onClick={() => {
+                        reCreatePathTree(this.state.lastClickedElementId, 'remove', '');
+                        this.state.showCss = false
+                    }}>Delete</button> : ''}
+                </ModalChoice>:''}
                 <LeftMenu tree={createTree(tree)}/>
                 <DevicePreview>
                     {this.props.children}

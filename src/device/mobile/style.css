@@ -1,3 +1,16 @@
+.phone-1{
+    height: calc(1014px/1.5);
+    width: calc(480px/1.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #636363;
+    border-radius: calc(50px/1.5);
+    box-shadow: 30px 60px 60px rgba(99,99,99, 0.5);
+    border: none;
+    /*animation: rotation-portrait 0.4s forwards;*/
+}
+
 .phone{
     height: calc(1014px/1.5);
     width: calc(480px/1.5);
@@ -7,7 +20,8 @@
     background: #636363;
     border-radius: calc(50px/1.5);
     box-shadow: 30px 60px 60px rgba(99,99,99, 0.5);
-    /*animation: rotation-portrait 0.4s forwards;*/
+    border: none;
+    animation: portrait 0.4s forwards;
 }
 
 .phone-rotated{
@@ -19,39 +33,36 @@
     background: #636363;
     border-radius: calc(50px/1.5);
     box-shadow: 30px 60px 60px rgba(99,99,99, 0.5);
-    /*animation: rotation-landscape 0.4s forwards;*/
+    border: none;
+    animation: portrait 0.4s forwards reverse;
 }
 
-@keyframes rotation-portrait {
-    0%{
-        transform: rotate(-90deg);
-    }
-    100%{
-        transform: rotate(0deg);
-    }
-}
-
-@keyframes rotation-landscape {
-    0%{
-        transform: rotate(90deg);
-    }
-    100%{
-        transform: rotate(0deg);
-    }
+.phone-rotated-animation{
+    height: calc(470px/1.5);
+    width: calc(1014px/1.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #636363;
+    border-radius: calc(50px/1.5);
+    box-shadow: 30px 60px 60px rgba(99,99,99, 0.5);
+    border: none;
 }
 
 .screen{
-    height: calc(988px/1.5);
+    height: calc(989px/1.5);
     width: calc(456px/1.5);
     border-radius: calc(42px/1.5);
     border: none;
-    background-color: #F1F3F6;
+    background-color: white;
+    animation: portrait-s 0.4s forwards;
 }
 
 .screen-rotated{
     height: calc(456px/1.5);
-    width: calc(988px/1.5);
+    width: calc(989px/1.5);
     border-radius: calc(50px/1.5);
     border: none;
-    background-color: #F1F3F6;
+    background-color: white;
+    animation: portrait-s 0.4s forwards reverse;
 }

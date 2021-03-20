@@ -79,6 +79,18 @@ let Templates: temp = {
         For: undefined,
         ID: undefined,
     },
+    'Nav':{
+        name: 'Nav',
+        tagName: 'nav',
+        classList: [],
+        text: '',
+        children: [],
+        placeholder: undefined,
+        type: undefined,
+        src: undefined,
+        For: undefined,
+        ID: undefined,
+    },
     'Main':{
         name: 'Main',
         tagName: 'main',
@@ -222,6 +234,83 @@ let Templates: temp = {
         src: undefined,
         For: undefined,
         ID: undefined,
+    },
+    "h5":{
+        name: "h5",
+        tagName: "h5",
+        classList: [],
+        text: '',
+        children: [],
+        placeholder: undefined,
+        type: undefined,
+        src: undefined,
+        For: undefined,
+        ID: undefined,
+    }
+}
+let bootstrap: boolean = true
+if(bootstrap){
+    Templates['CARD'] = {
+        name: "CARD",
+        tagName: "div",
+        classList: ['card', 'col-12'],
+        text: '',
+        placeholder: undefined,
+        type: undefined,
+        src: undefined,
+        For: undefined,
+        ID: undefined,
+        children: [
+            {
+                name: "Block",
+                tagName: "div",
+                classList: ['card-body'],
+                text: '',
+                placeholder: undefined,
+                type: undefined,
+                src: undefined,
+                For: undefined,
+                ID: undefined,
+                children: [
+                    {
+                        name: "h5",
+                        tagName: "h5",
+                        classList: ['card-title'],
+                        text: 'Title',
+                        children: [],
+                        placeholder: undefined,
+                        type: undefined,
+                        src: undefined,
+                        For: undefined,
+                        ID: undefined,
+                    },
+                    {
+                        name: 'paragraph',
+                        tagName: 'p',
+                        classList: ['card-text'],
+                        text: 'text',
+                        children: [],
+                        placeholder: undefined,
+                        type: undefined,
+                        src: undefined,
+                        For: undefined,
+                        ID: undefined,
+                    },
+                    {
+                        name: "button",
+                        tagName: 'button',
+                        classList: ['btn', 'btn-primary'],
+                        text: 'Button',
+                        children: [],
+                        placeholder: undefined,
+                        type: undefined,
+                        src: undefined,
+                        For: undefined,
+                        ID: undefined,
+                    }
+                ]
+            }
+        ],
     }
 }
 

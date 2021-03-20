@@ -8,7 +8,7 @@ import SrcCard from "./srcCard";
 import ForCard from "./forCard"
 import IDCard from "./IDCard"
 
-let arrayOfWithTextElements = ['div', 'main', 'header', 'footer', 'li', 'button', 'label', 'p', 'body']
+let arrayOfWithTextElements = ['div', 'main', 'header', 'footer', 'li', 'button', 'label', 'p', 'body','h1', 'h2', 'h3', 'h4', 'h5', 'h6']
 let arrayOfWithoutTextElements = ['ul', 'hr']
 let arrayOfInput = ['input']
 let arrayOfLabel = ['label']

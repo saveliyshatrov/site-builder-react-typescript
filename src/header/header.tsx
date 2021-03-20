@@ -211,7 +211,7 @@ class HeaderSettings extends Component<any, any>{
         return (
             <HeaderSett>
                 <ModalExport show={this.state.exportModal} func={this.hideExportModal}/>
-                <ModalChoice showModal={this.state.show} XPos={this.state.x} YPos={this.state.y}>
+                {this.state.show?<ModalChoice showModal={this.state.show} XPos={this.state.x} YPos={this.state.y}>
                     {this.state.save?<button className={"btn-choice"}>Save</button>:''}
                     {this.state.share?<button className={"btn-choice"}>Share</button>:''}
                     {this.state.export?<button className={"btn-choice"} onClick={()=>this.setState({exportModal: true})}>Export</button>:''}
@@ -224,7 +224,7 @@ class HeaderSettings extends Component<any, any>{
                     {this.state.user?<button className={"btn-choice"}>Settings</button>:''}
                     {this.state.user?<div className={'hr'}/>:''}
                     {this.state.user?<button className={"btn-choice"}>Log out</button>:''}
-                </ModalChoice>
+                </ModalChoice>:''}
                 <FlexSpaceBetween>
                     <Flex>
                         <Logo>

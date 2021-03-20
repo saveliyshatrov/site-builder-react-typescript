@@ -10,6 +10,7 @@ type devices = {
   tablet: boolean
   laptop: boolean
   rotated: boolean
+  wasRotated: boolean
 }
 
 class App extends Component<any, any>{
@@ -18,13 +19,14 @@ class App extends Component<any, any>{
     mobile: true,
     tablet: false,
     laptop: false,
-    rotated: false
+    rotated: false,
+    wasRotated: false
   }
   setMobile = () => {
     this.setState(()=>({mobile: true, tablet: false, laptop: false, rotated: false}));
   }
   setMobileRotated = () => {
-    this.setState(()=>({mobile: true, tablet: false, laptop: false, rotated: true}));
+    this.setState(()=>({mobile: true, tablet: false, laptop: false, rotated: true, wasRotated: true}));
   }
   setTablet = () => {
     this.setState(()=>({mobile: false, tablet: true, laptop: false, rotated: false}));
@@ -35,7 +37,13 @@ class App extends Component<any, any>{
   setLaptop(){
     this.setState(()=>({mobile: false, tablet: false, laptop: true, rotated: false}));
   }
+  setPrevUnRotated = () => {
+    this.setState(()=>({
+      wasRotated: false
+    }))
+  }
   render(){
+    console.log('prevRotated =',this.state.wasRotated)
     return <div>
       <Header text={this.Name} mainHeader={false}/>
       <DeviceSelection

@@ -21,6 +21,7 @@
     margin-top: calc(-868px/4);
     margin-left: calc(-868px/2.55);
     background-color: white;
+    border: none;
 }
 
 .keyboard{
