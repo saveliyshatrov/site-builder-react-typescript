@@ -5,25 +5,24 @@ import DeviceSelection from "./deviceSelection";
 import {Mobile, MobileRotated, Tablet, TabletRotated, Laptop} from './device';
 import Main from "./main";
 
-type devices = {
-  mobile: boolean
-  tablet: boolean
-  laptop: boolean
-  rotated: boolean
-  wasRotated: boolean
-}
-
 class App extends Component<any, any>{
   Name:string = "Constructor";
-  state:devices = {
+  state = {
     mobile: true,
     tablet: false,
     laptop: false,
     rotated: false,
-    wasRotated: false
+    wasRotated: false,
+    UIFramework: ''
   }
   setMobile = () => {
     this.setState(()=>({mobile: true, tablet: false, laptop: false, rotated: false}));
+  }
+  setUIFramework = (frameworkName: string) => {
+    console.log(frameworkName)
+    this.setState(()=>({
+      UIFramework: frameworkName
+    }))
   }
   setMobileRotated = () => {
     this.setState(()=>({mobile: true, tablet: false, laptop: false, rotated: true, wasRotated: true}));
@@ -37,15 +36,18 @@ class App extends Component<any, any>{
   setLaptop(){
     this.setState(()=>({mobile: false, tablet: false, laptop: true, rotated: false}));
   }
-  setPrevUnRotated = () => {
-    this.setState(()=>({
-      wasRotated: false
-    }))
-  }
+  // componentDidMount = () => {
+  //   console.log(this.state)
+  // }
+  // componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
+  //   if(prevState !== this.state){
+  //     console.log(this.state.UIFramework, prevState.UIFramework)
+  //   }
+  // }
+
   render(){
-    console.log('prevRotated =',this.state.wasRotated)
     return <div>
-      <Header text={this.Name} mainHeader={false}/>
+      <Header text={this.Name} mainHeader={false} func={this.setUIFramework}/>
       <DeviceSelection
           ClickHandler={()=>window.alert(123)}
           MobileClick={()=>this.setMobile()}
@@ -55,7 +57,7 @@ class App extends Component<any, any>{
           LaptopClick={()=>this.setLaptop()}
           Rotated={this.state.rotated}
       />
-      <Main>
+      <Main uiFramework={this.state.UIFramework}>
         {this.state.mobile?(this.state.rotated?<MobileRotated/>:<Mobile/>):""}
         {this.state.tablet?(this.state.rotated?<TabletRotated/>:<Tablet/>):""}
         {this.state.laptop?<Laptop/>:""}

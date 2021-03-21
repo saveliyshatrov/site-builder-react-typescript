@@ -13,7 +13,12 @@ type rightMenuProps = {
     elemID: number,
     insertInfo: any,
     objInfo: any,
-    styles: boolean
+    styles: boolean,
+    uiFramework: string,
+    showCssFunc: any,
+    hideStylesFunc: any,
+    tagChanges: boolean,
+    hideTagChanges: any
 }
 
 class rightMenu extends Component<rightMenuProps, any>{
@@ -23,26 +28,38 @@ class rightMenu extends Component<rightMenuProps, any>{
     showText = (e: any) => {
         this.props.changeSearchString(e.target.value);
     }
+    getPropsResult = () => {
+        return this.props.css || this.props.styles || this.props.tagChanges
+    }
     render (){
         return (
             <div className={"menu"}>
                 <div className={"rightModalMenu"} id={"rightModalMenu"} style={{height: `${(window.innerHeight - 120) * 0.9}px`}}>
-                    {this.props.css||this.props.styles?<div className={"logoOfRightMenu"}>{this.props.elem}</div>:<input className={"inputRightMenu"} type={"text"} placeholder={"Search"} onChange={(e)=>this.props.changeSearchString(e.target.value)}/>}
+                    {this.getPropsResult()?<div className={"logoOfRightMenu"}>{this.props.elem}</div>:<input className={"inputRightMenu"} type={"text"} placeholder={"Search"} onChange={(e)=>this.props.changeSearchString(e.target.value)}/>}
                     {/*<div className={"logoOfRightMenu"}>{this.props.css?this.props.elem:"Elements"}</div>*/}
-                    <div className={"MenuOfElements"} style={{height: (this.props.css||this.props.styles?'80%':'calc(90% - 2px)')}}>
-                        {this.props.css||this.props.styles?(this.props.css?
-                            <Cards elem={this.props.elem}
-                                   template={this.props.template}
-                                   elemID={this.props.elemID}
-                                   insertInfo={this.props.insertInfo}
-                                   objInfo={this.props.objInfo}/>:
-                            <Styles elem={this.props.elem}
-                                    elemID={this.props.elemID}
-                                    objInfo={this.props.objInfo}
-                                    insertInfo={this.props.insertInfo}/>)
-                            :this.props.children}
+                    <div className={"MenuOfElements"} style={{height: (this.getPropsResult()?'80%':'calc(90% - 2px)')}}>
+                        {this.props.tagChanges?<Cards elem={this.props.elem}
+                                                      template={this.props.template}
+                                                      elemID={this.props.elemID}
+                                                      insertInfo={this.props.insertInfo}
+                                                      objInfo={this.props.objInfo}
+                                                      type={'tagChanges'}/>:''}
+                        {this.props.css?<Cards elem={this.props.elem}
+                                               template={this.props.template}
+                                               elemID={this.props.elemID}
+                                               insertInfo={this.props.insertInfo}
+                                               objInfo={this.props.objInfo}
+                                               type={'cssChanges'}/>:''}
+                        {this.props.styles?<Styles elem={this.props.elem}
+                                                   elemID={this.props.elemID}
+                                                   objInfo={this.props.objInfo}
+                                                   insertInfo={this.props.insertInfo}
+                                                   uiFramework={this.props.uiFramework}
+                                                   showCssFunc={this.props.showCssFunc}
+                                                   hideStylesFunc={this.props.hideStylesFunc}/>: ''}
+                        {this.getPropsResult()? '': this.props.children}
                     </div>
-                    <div className={"btnDownload"} style={{display: (this.props.css||this.props.styles?'flex':'none')}}>Close</div>
+                    <div className={"btnDownload"} style={{display: (this.getPropsResult()?'flex':'none')}}>Close</div>
                 </div>
             </div>
         )

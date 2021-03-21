@@ -52,60 +52,68 @@ class MarginCard extends Component<any, any>{
         }
     }
     changeAll(elem:boolean){
-        this.state.all = !elem
+        this.setState({
+            all: !elem
+        })
     }
     incrementElem(name: string){
-        if(name == 'top'){
-            this.state.top++
-        }
-        if(name == 'right'){
-            this.state.right++;
-        }
-        if(name == 'bottom'){
-            this.state.bottom++;
-        }
-        if(name == 'left'){
-            this.state.left++;
-        }
-        if(name == 'all'){
-            this.state.top++;
+        if(name === 'top'){
             this.setState({
-                left: this.state.top,
-                bottom: this.state.top,
-                right: this.state.top
+                top: this.state.top + 1
+            })
+        }
+        if(name === 'right'){
+            this.setState({
+                right: this.state.right + 1
+            })
+        }
+        if(name === 'bottom'){
+            this.setState({
+                bottom: this.state.bottom + 1
+            })
+        }
+        if(name === 'left'){
+            this.setState({
+                left: this.state.left+1
+            })
+        }
+        if(name === 'all'){
+            this.setState({
+                top: this.state.top+1,
+                left: this.state.top+1,
+                bottom: this.state.top+1,
+                right: this.state.top+1
             })
         }
     }
     decrementElem(name: string){
-        if(name == 'top'){
-            if(this.state.top > 0){
-                this.state.top--;
-            }
+        if(name === 'top'){
+            this.setState({
+                top: this.state.top - 1
+            })
         }
-        if(name == 'right'){
-            if(this.state.right > 0){
-                this.state.right--;
-            }
+        if(name === 'right'){
+            this.setState({
+                right: this.state.right - 1
+            })
         }
-        if(name == 'bottom'){
-            if(this.state.bottom > 0){
-                this.state.bottom--;
-            }
+        if(name === 'bottom'){
+            this.setState({
+                bottom: this.state.bottom - 1
+            })
         }
-        if(name == 'left'){
-            if(this.state.left > 0){
-                this.state.left--;
-            }
+        if(name === 'left'){
+            this.setState({
+                left: this.state.left - 1
+            })
         }
-        if(name == 'all'){
-            if(this.state.top > 0){
-                this.state.top--;
-                this.setState({
-                    left: this.state.top,
-                    bottom: this.state.top,
-                    right: this.state.top
-                })
-            }
+        if(name === 'all'){
+            this.setState({
+                top: this.state.top - 1,
+                left: this.state.top - 1,
+                bottom: this.state.top - 1,
+                right: this.state.top - 1
+            })
         }
     }
     CustomInput({Placeholder, Value, NameElem}:CIProps){

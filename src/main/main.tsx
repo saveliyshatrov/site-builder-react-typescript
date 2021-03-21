@@ -179,6 +179,16 @@ const generateCSS = (Style: styleTemplate) => {
 const convertStyleToString = (elem: string) => {
     return Object.keys(styleTemplates[elem])
 }
+interface uiF {
+    [key:string]:string
+}
+
+const UIF: uiF = {
+    "Bootstrap": '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">',
+    "Materialize":'<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">'
+}
+
+let UIFName = ''
 
 const constructPage = ():string => {
     return '<!DOCTYPE html> \n' +
@@ -186,7 +196,7 @@ const constructPage = ():string => {
         '     <head> \n' +
         '         <meta charset="UTF-8"> \n' +
         '         <meta name="viewport" content="width=device-width, initial-scale=1.0"> \n' +
-        `         ${useBootstrap?'<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">':''}` +
+        `         ${UIF[UIFName]?UIF[UIFName]:''}` +
         '         <link rel="stylesheet" href="style.css"> \n' +
         '            <title> \n' +
         `                ${tree.name}` + ' \n' +
@@ -538,7 +548,8 @@ class Main extends Component<any, any>{
         searchString: '',
         addToLayerUp: true,
         addToLayerDown: true,
-        styles: false
+        styles: false,
+        tagChanges: false
     }
     changeSearchString = (text: string) => {
         this.setState({searchString: text});
@@ -557,6 +568,26 @@ class Main extends Component<any, any>{
     showAlert = () => {
         this.setState(()=>({alert: true}))
     }
+    showCSS = () => {
+        this.setState({
+            showCss: true
+        })
+    }
+    hideCSS = () => {
+        this.setState({
+            showCss: false
+        })
+    }
+    hideStyles = () => {
+        this.setState({
+            styles: false
+        })
+    }
+    hideTagChanges = () => {
+        this.setState({
+            tagChanges: false
+        })
+    }
     hideAlert = () => {
         this.setState(()=>({alert: false}))
     }
@@ -574,7 +605,15 @@ class Main extends Component<any, any>{
             styles: true
         })
     }
+    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
+        if(this.props !== prevProps){
+            this.componentDidMount()
+        }
+    }
+
     componentDidMount() {
+        console.log(UIFName)
+        UIFName = this.props.uiFramework;
         const self = this;
         window.addEventListener('resize', function (){
             let elemR = document.getElementById('rightModalMenu')//.style.height = 1;//`${window.innerHeight - 120) * 0.9}px`
@@ -595,7 +634,9 @@ class Main extends Component<any, any>{
                         hide: true,
                         addToLayerUp: true,
                         addToLayerDown: true,
-                        styles: false
+                        styles: false,
+                        tagChanges: false,
+                        showCss: false
                     })
                     //console.log('event.target -- ', (event.target as Element).getAttribute('id'))
                 } else {
@@ -606,14 +647,16 @@ class Main extends Component<any, any>{
                             hide: false,
                             addToLayerUp: false,
                             addToLayerDown: false,
-                            styles: false
+                            styles: false,
+                            tagChanges: false
                         })
                     } else {
                         self.setState({
                             showDeleteBtn: false,
                             showDuplicate: false,
                             hide: true,
-                            styles: false
+                            styles: false,
+                            tagChanges: false
                         })
                     }
                 }
@@ -646,10 +689,11 @@ class Main extends Component<any, any>{
             }
             if((event.target as Element).className === 'tree-elem' || (event.target as Element).className === 'tree-elem-bb-1'){
                 self.setState({
-                    showCss: false
+                    showCss: false,
+                    styles: false
                 })
                 self.setState({
-                    showCss: true,
+                    tagChanges: true,
                     lastClickedElement: (event.target as Element).innerHTML,
                     lastClickedElementId: (event.target as Element).getAttribute('id')
                 });
@@ -657,7 +701,8 @@ class Main extends Component<any, any>{
             if((event.target as Element).className === 'btnDownload'){
                 self.setState({
                     showCss: false,
-                    styles: false
+                    styles: false,
+                    tagChanges: false
                 });
             }
             //создание страницы;
@@ -719,6 +764,11 @@ class Main extends Component<any, any>{
                 </DevicePreview>
                 <RightMenu exportModal={this.showExport}
                            css={this.state.showCss}
+                           showCssFunc={this.showCSS}
+                           styles={this.state.styles}
+                           hideStylesFunc={this.hideStyles}
+                           tagChanges={this.state.tagChanges}
+                           hideTagChanges={this.hideTagChanges}
                            elem={this.state.lastClickedElement}
                            elemID={this.state.lastClickedElementId}
                            insertInfo={reCreatePathTree}
@@ -726,7 +776,7 @@ class Main extends Component<any, any>{
                            changeSearchString={this.changeSearchString}
                            template={Templates}
                            objInfo={reCreatePathTree(this.state.lastClickedElementId, 'getInfo', '')}
-                           styles={this.state.styles}>
+                           uiFramework={this.props.uiFramework}>
                     {HTMLTags(Templates, this.state.searchString)}
                 </RightMenu>
             </div>

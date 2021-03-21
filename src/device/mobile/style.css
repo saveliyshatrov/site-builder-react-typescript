@@ -12,57 +12,39 @@
 }
 
 .phone{
-    height: calc(1014px/1.5);
-    width: calc(480px/1.5);
+    height: 677px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #636363;
-    border-radius: calc(50px/1.5);
-    box-shadow: 30px 60px 60px rgba(99,99,99, 0.5);
+    background: transparent;
     border: none;
-    animation: portrait 0.4s forwards;
 }
 
 .phone-rotated{
-    height: calc(470px/1.5);
-    width: calc(1014px/1.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #636363;
-    border-radius: calc(50px/1.5);
-    box-shadow: 30px 60px 60px rgba(99,99,99, 0.5);
+    background: transparent;
     border: none;
-    animation: portrait 0.4s forwards reverse;
 }
 
-.phone-rotated-animation{
-    height: calc(470px/1.5);
-    width: calc(1014px/1.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #636363;
-    border-radius: calc(50px/1.5);
-    box-shadow: 30px 60px 60px rgba(99,99,99, 0.5);
-    border: none;
-}
 
 .screen{
-    height: calc(989px/1.5);
-    width: calc(456px/1.5);
-    border-radius: calc(42px/1.5);
+    height: 896px;
+    width: 414px;
+    transform: scale(calc(1/1.35));
+    border-radius: 42px;
     border: none;
     background-color: white;
-    animation: portrait-s 0.4s forwards;
+    box-shadow: 0px 0px 0px 13px #636363, 30px 60px 60px rgba(99,99,99, 0.5);
 }
 
 .screen-rotated{
-    height: calc(456px/1.5);
-    width: calc(989px/1.5);
-    border-radius: calc(50px/1.5);
+    height: 414px;
+    width: 896px;
+    transform: scale(calc(1/1.35));
+    border-radius: 42px;
     border: none;
     background-color: white;
-    animation: portrait-s 0.4s forwards reverse;
+    box-shadow: 0px 0px 0px 13px #636363, 30px 60px 60px rgba(99,99,99, 0.5);
 }

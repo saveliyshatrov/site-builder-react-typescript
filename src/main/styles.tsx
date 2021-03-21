@@ -1,8 +1,5 @@
 import React from "react";
 
-
-
-
 type Width = {
     width: number
     size: 'px' | '%' | 'em'
@@ -60,7 +57,6 @@ type Border = {
     left?: number
     size: 'px' | '%' | 'em'
 }
-//size: 'px' | '%'
 type styleTemplate = {
     width?: {
         mobile?: Width
@@ -88,6 +84,7 @@ type styleTemplate = {
     }
     color?: string,
     backgroundColor?: string,
+    background?: string,
     boxShadow?: {
         mobile?: BoxShadow
         tablet?: BoxShadow
@@ -309,7 +306,6 @@ type styleTemplate = {
         }
         objectFit?: 'fill' | 'contain' | 'cover' | 'scale-down' | 'none'
     }
-    bootstrap?: boolean
 }
 
 export interface styleCSS {

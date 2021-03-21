@@ -19,42 +19,66 @@ type cardProps = {
     elemID: number,
     insertInfo: any
     elem: string,
-    objInfo: any
+    objInfo: any,
+    type: 'cssChanges' | 'tagChanges'
 }
 
 class Cards extends Component<cardProps, any>{
     constructor(props: any) {
         super(props);
     }
-    render(){
+    showTagChanges = () => {
         return (
             <>
-                {arrayOfWithTextElements.includes(this.props.template[this.props.elem].tagName)?<TextCard insertInfo={this.props.insertInfo}
-                                                                                                          elemID={this.props.elemID}
-                                                                                                          info={this.props.objInfo.text}/>:''}
-                {arrayOfWithoutTextElements.includes(this.props.template[this.props.elem].tagName)?'':''}
-                {arrayOfInput.includes(this.props.template[this.props.elem].tagName)?<PlaceholderCard insertInfo={this.props.insertInfo}
-                                                                                                      elemID={this.props.elemID}
-                                                                                                      info={this.props.objInfo.placeholder}/>:''}
-                {arrayOfInput.includes(this.props.template[this.props.elem].tagName)?<TypeCard insertInfo={this.props.insertInfo}
-                                                                                               elemID={this.props.elemID}
-                                                                                               info={this.props.objInfo.type}/>:''}
-                {arrayOfInput.includes(this.props.template[this.props.elem].tagName)?<IDCard insertInfo={this.props.insertInfo}
-                                                                                             elemID={this.props.elemID}
-                                                                                             info={this.props.objInfo.ID}/>:''}
-                {arrayOfLabel.includes(this.props.template[this.props.elem].tagName)?<ForCard insertInfo={this.props.insertInfo}
-                                                                                              elemID={this.props.elemID}
-                                                                                              info={this.props.objInfo.For}/>:''}
-                {arrayOfImg.includes(this.props.template[this.props.elem].tagName)?<SrcCard insertInfo={this.props.insertInfo}
-                                                                                            elemID={this.props.elemID}
-                                                                                            info={this.props.objInfo.src}/>:''}
-                {/*<MarginCard/>*/}
-                {/*<PaddingCard/>*/}
-                {/*<TextCard/>*/}
-                {/*<PlaceholderCard/>*/}
-                {/*<TypeCard/>*/}
-                {/*<SrcCard/>*/}
+                {arrayOfWithTextElements.includes(this.props.template[this.props.elem].tagName) ?
+                    <TextCard insertInfo={this.props.insertInfo}
+                              elemID={this.props.elemID}
+                              info={this.props.objInfo.text}/> : ''}
+                {arrayOfWithoutTextElements.includes(this.props.template[this.props.elem].tagName) ? '' : ''}
+                {arrayOfInput.includes(this.props.template[this.props.elem].tagName) ?
+                    <PlaceholderCard insertInfo={this.props.insertInfo}
+                                     elemID={this.props.elemID}
+                                     info={this.props.objInfo.placeholder}/> : ''}
+                {arrayOfInput.includes(this.props.template[this.props.elem].tagName) ?
+                    <TypeCard insertInfo={this.props.insertInfo}
+                              elemID={this.props.elemID}
+                              info={this.props.objInfo.type}/> : ''}
+                {arrayOfInput.includes(this.props.template[this.props.elem].tagName) ?
+                    <IDCard insertInfo={this.props.insertInfo}
+                            elemID={this.props.elemID}
+                            info={this.props.objInfo.ID}/> : ''}
+                {arrayOfLabel.includes(this.props.template[this.props.elem].tagName) ?
+                    <ForCard insertInfo={this.props.insertInfo}
+                             elemID={this.props.elemID}
+                             info={this.props.objInfo.For}/> : ''}
+                {arrayOfImg.includes(this.props.template[this.props.elem].tagName) ?
+                    <SrcCard insertInfo={this.props.insertInfo}
+                             elemID={this.props.elemID}
+                             info={this.props.objInfo.src}/> : ''}
             </>
+
+        )
+    }
+    showCssChanges = () => {
+        return (
+            <>
+                <MarginCard/>
+                <PaddingCard/>
+            </>
+            )
+    }
+    getCards = () => {
+        if(this.props.type === 'tagChanges'){
+            return this.showTagChanges()
+        }
+        if(this.props.type === 'cssChanges'){
+            return this.showCssChanges()
+        }
+        return <></>
+    }
+    render(){
+        return (
+            this.getCards()
         )
     }
 }

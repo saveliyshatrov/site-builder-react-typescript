@@ -80,6 +80,27 @@ const StyleClass = styled.div`
   border-radius: 3px;
 `
 
+const ButtonAddStyle = styled.div`
+  height: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid gray;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  :hover{
+    background-color: transparent;
+  }
+  :active{
+    background-color: lightgray;
+  }
+`
+
 const StyleClassName = styled.div`
   color: white;
   font-size: 13px;
@@ -114,6 +135,14 @@ const StyleClassGreen = styled.div`
   border-radius: 3px;
   border: 1px solid green;
   color: green;
+`
+
+const InputAndButton = styled.div`
+  width: 100%;
+  height: 30px;
+  display: grid;
+  grid-template-columns: 69% 29%;
+  justify-content: space-between;
 `
 
 const StyleClassRed = styled.div`
@@ -153,7 +182,7 @@ const StyleClassBtnPlus = styled.div`
   }
 `
 
-const arrayOfStyles = ['btn', 'btn-lg', 'btn-md', 'btn-xs', 'active', 'disabled',
+const arrayOfStylesBootstrap = ['btn', 'btn-lg', 'btn-md', 'btn-xs', 'active', 'disabled',
                        'btn-warning', 'btn-danger', 'btn-info', 'btn-secondary', 'btn-primary', 'btn-link', 'btn-success', 'close',
                        'btn-outline-warning', "btn-outline-danger", "btn-outline-info", "btn-outline-secondary", 'btn-outline-primary', 'btn-outline-success',
                        'bg-warning', 'bg-danger', 'bg-info', 'bg-secondary', 'bg-primary', 'bg-success', 'bg-light', 'bg-dark', 'bg-white','btn-default',
@@ -188,6 +217,13 @@ const arrayOfStyles = ['btn', 'btn-lg', 'btn-md', 'btn-xs', 'active', 'disabled'
                        'card', 'card-img-top', 'card-body', 'card-header', 'card-footer', 'card-title', 'card-subtitle', 'card-text', 'card-link',
                        'list-group', 'list-group-flush', 'list-group-item', 'blockquote', 'blockquote-footer']
 
+interface uiF {
+    [key: string]: Array<string>
+}
+
+const uiFrameWorks:uiF = {
+    'Bootstrap': arrayOfStylesBootstrap
+}
 
 type PropsElemForCSS = {
     elem: string,
@@ -195,61 +231,87 @@ type PropsElemForCSS = {
     objInfo: {
         classList: Array<string>
     }
-    insertInfo: any
+    insertInfo: any,
+    uiFramework: string,
+    showCssFunc: any,
+    hideStylesFunc: any
 }
 
-class Styles extends Component<PropsElemForCSS, any>{
+class Styles extends Component<PropsElemForCSS, any> {
     constructor(props: PropsElemForCSS) {
         super(props);
     }
+
     state = {
         searchInElement: '',
-        searchExisted: ''
+        searchExisted: '',
+        arrayElemIn: [],
+        arrayElem: []
     }
-    setSearchInElement = (text: string) => {
-        this.setState({
-            searchInElement: text
-        })
+    showCSS = () => {
+        this.props.showCssFunc()
+        this.props.hideStylesFunc()
     }
-    setSearchExisted = (text: string) => {
-        this.setState({
-            searchExisted: text
-        })
+    getArrayOfStyles = (): Array<string> => {
+        let arr: Array<string> = [];
+        if (uiFrameWorks[this.props.uiFramework] !== undefined) {
+            return [...arr, ...uiFrameWorks[this.props.uiFramework]]
+        } else {
+            return [...arr]
+        }
     }
-    sortElements = (array: Array<string>, text: string, command: string, symbol:string) => {
+    sortElements = (array: Array<string>, text: string, command: string, symbol: string) => {
         let arr = []
-        if(text === ''){
-            for(let i:number= 0; i < array.length; i++){
+        if (text === '') {
+            for (let i: number = 0; i < array.length; i++) {
                 arr.push(
                     <StyleClass>
                         <StyleClassName>{array[i]}</StyleClassName>
-                        <StyleClassBtnPlus onClick={()=>this.props.insertInfo(this.props.elemID,command,array[i])}>{symbol}</StyleClassBtnPlus>
+                        <StyleClassBtnPlus
+                            onClick={() => this.props.insertInfo(this.props.elemID, command, array[i])}>{symbol}</StyleClassBtnPlus>
                     </StyleClass>
                 )
             }
         } else {
             let foundedElem = array.filter(elem => elem.toLowerCase().includes(text.toLowerCase()))
             let unfoundedElem = array.filter(elem => !elem.toLowerCase().includes(text.toLowerCase()))
-            for(let i:number= 0; i < foundedElem.length; i++){
+            for (let i: number = 0; i < foundedElem.length; i++) {
                 arr.push(
                     <StyleClassGreen>
                         <StyleClassName>{foundedElem[i]}</StyleClassName>
-                        <StyleClassBtnPlus onClick={()=>this.props.insertInfo(this.props.elemID,command,foundedElem[i])}>{symbol}</StyleClassBtnPlus>
+                        <StyleClassBtnPlus
+                            onClick={() => this.props.insertInfo(this.props.elemID, command, foundedElem[i])}>{symbol}</StyleClassBtnPlus>
                     </StyleClassGreen>
                 )
             }
-            for(let i:number= 0; i < unfoundedElem.length; i++){
+            for (let i: number = 0; i < unfoundedElem.length; i++) {
                 arr.push(
                     <StyleClassRed>
                         <StyleClassName>{unfoundedElem[i]}</StyleClassName>
-                        <StyleClassBtnPlus onClick={()=>this.props.insertInfo(this.props.elemID,command,unfoundedElem[i])}>{symbol}</StyleClassBtnPlus>
+                        <StyleClassBtnPlus
+                            onClick={() => this.props.insertInfo(this.props.elemID, command, unfoundedElem[i])}>{symbol}</StyleClassBtnPlus>
                     </StyleClassRed>
                 )
             }
         }
         return arr
     }
-    render(){
+    componentDidMount = (textIn: string = '', textEl: string = '') => {
+        this.setState({arrayElemIn: this.sortElements(this.props.objInfo.classList.filter(elem => elem !== 'checkElem'), textIn, 'removeClass', '-')})
+        this.setState({arrayElem: this.sortElements(this.getArrayOfStyles().filter(elem => !(this.props.objInfo.classList.includes(elem))), textEl, 'insertClasses', '+')})
+        this.setState({
+            searchInElement: textIn,
+            searchExisted: textEl,
+        })
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsElemForCSS>, prevState: Readonly<any>, snapshot?: any) {
+        if (prevProps !== this.props) {
+            this.componentDidMount(this.state.searchInElement, this.state.searchExisted)
+        }
+    }
+
+    render() {
         return (
             <>
                 <Field>
@@ -257,18 +319,27 @@ class Styles extends Component<PropsElemForCSS, any>{
                         <HeaderForField>Styles in element</HeaderForField>
                         <CustomInput placeholder={"Search"}
                                      value={this.state.searchInElement}
-                                     onChange={(e)=>{this.setSearchInElement(e.target.value)}}/>
+                                     onChange={(e) => {
+                                         this.componentDidMount(e.target.value, this.state.searchExisted)
+                                     }}/>
                         <FieldForListOfElements>
-                            {this.sortElements(this.props.objInfo.classList.filter(elem => elem!=='checkElem'), this.state.searchInElement, 'removeClass', '-')}
+                            {this.state.arrayElemIn}
                         </FieldForListOfElements>
                     </FieldWithStyles>
                     <FieldWithStyles>
                         <HeaderForField>Existing styles</HeaderForField>
-                        <CustomInput placeholder={"Search"}
-                                     value={this.state.searchExisted}
-                                     onChange={(e)=>{this.setSearchExisted(e.target.value)}}/>
+                        <InputAndButton>
+                            <CustomInput placeholder={"Search"}
+                                         value={this.state.searchExisted}
+                                         onChange={(e) => {
+                                             this.componentDidMount(this.state.searchInElement, e.target.value)
+                                         }}/>
+                            <ButtonAddStyle onClick={this.showCSS}>
+                                <StyleClassName>Add style</StyleClassName>
+                            </ButtonAddStyle>
+                        </InputAndButton>
                         <FieldForListOfElements>
-                            {this.sortElements(arrayOfStyles, this.state.searchExisted, 'insertClasses', '+')}
+                            {this.state.arrayElem}
                         </FieldForListOfElements>
                     </FieldWithStyles>
                 </Field>

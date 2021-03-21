@@ -1,13 +1,13 @@
 import React, {Component, FC} from 'react';
 import './style.css';
 import styled from "styled-components";
-import {CategoryIcon, BuyIcon, BootstrapIcon, ShareIcon, ProjectIcon, UserIcon} from "../icons"
 import ModalChoice from "../main/modalChoice";
 import {ModalExport} from "../main/Modals";
 
 type HeaderProp = {
     text: string;
-    mainHeader: boolean
+    mainHeader: boolean,
+    func: any
 }
 
 const HeaderMain = (props:any) => {
@@ -130,7 +130,7 @@ const Icon = styled.div`
   height: 100%;
 `
 
-class HeaderSettings extends Component<any, any>{
+class HeaderSettings extends Component<any, any> {
     state = {
         show: false,
         x: 0,
@@ -139,9 +139,13 @@ class HeaderSettings extends Component<any, any>{
         save: false,
         export: false,
         getLaterSavedTemplates: false,
-        bootstrap: false,
+        materialFrameworks: {
+            show: false,
+        },
         exportModal: false,
-        user: false
+        user: false,
+        bootstrap: false,
+        materialize: false
     }
     showModal = (event: any, posX: number, posY: number) => {
         this.setState({
@@ -150,34 +154,40 @@ class HeaderSettings extends Component<any, any>{
             y: posY
         });
     }
+
     componentDidMount() {
-        document.addEventListener('click', (event)=>{
+        document.addEventListener('click', (event) => {
             event.preventDefault();
-            if((event.target as Element).classList.toString().includes('hdr-btn')) {
+            if ((event.target as Element).classList.toString().includes('hdr-btn')) {
                 let rect = (event.target as Element).getBoundingClientRect();
                 let posX = rect.left;
                 let posY = rect.top + (event.target as Element).clientHeight + 5;
                 this.showModal(event, posX, posY)
             }
-            if((event.target as Element).classList.toString().includes('user')) {
+            if ((event.target as Element).classList.toString().includes('user')) {
                 let rect = (event.target as Element).getBoundingClientRect();
                 let posX = rect.left - 205 + (event.target as Element).clientWidth;
                 let posY = rect.top + (event.target as Element).clientHeight + 5;
                 this.showModal(event, posX, posY)
             }
-            if(!(event.target as Element).classList.toString().includes('user') && !(event.target as Element).classList.toString().includes('hdr-btn')) {
+            if (!(event.target as Element).classList.toString().includes('user') && !(event.target as Element).classList.toString().includes('hdr-btn')) {
                 this.setState({show: false})
             }
         })
     }
+
     allToFalse = () => {
         this.setState({
             share: false,
             save: false,
             export: false,
             getLaterSavedTemplates: false,
-            bootstrap: false,
-            user: false
+            materialFrameworks: {
+                show: false,
+            },
+            user: false,
+            bootstrap: this.state.bootstrap,
+            materialize: this.state.materialize,
         })
     }
     projectModal = () => {
@@ -194,42 +204,73 @@ class HeaderSettings extends Component<any, any>{
             getLaterSavedTemplates: true
         })
     }
-    bootstrapModal = () => {
+    materialFrameworksModal = () => {
         this.allToFalse();
         this.setState({
-            bootstrap: true
+            materialFrameworks: {
+                show: true
+            }
         })
     }
     hideExportModal = () => {
-        this.setState(()=>({exportModal: false}))
+        this.setState(() => ({exportModal: false}))
     }
     userModal = () => {
         this.allToFalse()
         this.setState({user: true})
     }
-    render(){
+    setBootstrap = () => {
+        this.props.func('Bootstrap');
+        this.setState({
+                bootstrap: true,
+                materialize: false
+        })
+    }
+    setMaterialize = () => {
+        this.props.func('Materialize')
+        this.setState({
+                bootstrap: false,
+                materialize: true
+        })
+    }
+    unsetAll = () => {
+        this.props.func('')
+        this.setState({
+                bootstrap: false,
+                materialize: false
+        })
+    }
+
+    render() {
         return (
             <HeaderSett>
                 <ModalExport show={this.state.exportModal} func={this.hideExportModal}/>
-                {this.state.show?<ModalChoice showModal={this.state.show} XPos={this.state.x} YPos={this.state.y}>
-                    {this.state.save?<button className={"btn-choice"}>Save</button>:''}
-                    {this.state.share?<button className={"btn-choice"}>Share</button>:''}
-                    {this.state.export?<button className={"btn-choice"} onClick={()=>this.setState({exportModal: true})}>Export</button>:''}
-                    {this.state.save?<div className={'hr'}/>:''}
-                    {this.state.save?<button className={"btn-choice"}>Quit</button>:''}
-                    {this.state.getLaterSavedTemplates?<button className={"btn-choice"}>Add my templates</button>:''}
-                    {this.state.bootstrap?<button className={"btn-choice"}>Use Bootstrap presets</button>:''}
+                {this.state.show ? <ModalChoice showModal={this.state.show} XPos={this.state.x} YPos={this.state.y}>
+                    {this.state.save ? <button className={"btn-choice"}>Save</button> : ''}
+                    {this.state.share ? <button className={"btn-choice"}>Share</button> : ''}
+                    {this.state.export ? <button className={"btn-choice"}
+                                                 onClick={() => this.setState({exportModal: true})}>Export</button> : ''}
+                    {this.state.save ? <div className={'hr'}/> : ''}
+                    {this.state.save ? <button className={"btn-choice"}>Quit</button> : ''}
+                    {this.state.getLaterSavedTemplates ?
+                        <button className={"btn-choice"}>Add my templates</button> : ''}
+                    {this.state.materialFrameworks.show ? <>
+                        <button className={`btn-choice${this.state.bootstrap?'-active':''}`} onClick={this.setBootstrap}>Use Bootstrap</button>
+                        <button className={`btn-choice${this.state.materialize?'-active':''}`} onClick={this.setMaterialize}>Use Materialize</button>
+                        <button className={"btn-choice"} onClick={this.unsetAll}>Clear</button>
+                    </> : ''}
 
-                    {this.state.user?<button className={"btn-choice"}>Go to main</button>:''}
-                    {this.state.user?<button className={"btn-choice"}>Settings</button>:''}
-                    {this.state.user?<div className={'hr'}/>:''}
-                    {this.state.user?<button className={"btn-choice"}>Log out</button>:''}
-                </ModalChoice>:''}
+                    {this.state.user ? <button className={"btn-choice"}>Go to main</button> : ''}
+                    {this.state.user ? <button className={"btn-choice"}>Settings</button> : ''}
+                    {this.state.user ? <div className={'hr'}/> : ''}
+                    {this.state.user ? <button className={"btn-choice"}>Log out</button> : ''}
+                </ModalChoice> : ''}
                 <FlexSpaceBetween>
                     <Flex>
                         <Logo>
                             <div className="logo">
-                                <svg width="40" height="40" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="40" height="40" viewBox="0 0 88 88" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fillRule="evenodd" clipRule="evenodd"
                                           d="M21.0858 42C21.029 42.6591 21 43.3262 21 44C21 56.7025 31.2975 67 44 67C44.6738 67 45.3409 66.971 46 66.9142V83C46 85.7614 43.7614 88 41 88H5C2.23858 88 0 85.7614 0 83V47C0 44.2386 2.23858 42 5 42H21.0858ZM21.0858 42C22.0993 30.2339 31.9713 21 44 21C56.7025 21 67 31.2975 67 44C67 56.0287 57.7661 65.9007 46 66.9142V47C46 44.2386 43.7614 42 41 42H21.0858Z"
                                           fill="url(#paint0_linear)"/>
@@ -246,11 +287,14 @@ class HeaderSettings extends Component<any, any>{
                         <FlexMenu>
                             <ProjectName>Constructor</ProjectName>
                             <FlexRow>
-                                <ButtonHeader className={'hdr-btn'} onClick={this.projectModal}>Project</ButtonHeader>
+                                <ButtonHeader className={'hdr-btn'}
+                                              onClick={this.projectModal}>Project</ButtonHeader>
                                 {/*<ButtonHeader>Share</ButtonHeader>*/}
                                 {/*<ButtonHeader>Store</ButtonHeader>*/}
-                                <ButtonHeader className={'hdr-btn'} onClick={this.templatesModal}>Templates</ButtonHeader>
-                                <ButtonHeader className={'hdr-btn'} onClick={this.bootstrapModal}>Bootstrap</ButtonHeader>
+                                <ButtonHeader className={'hdr-btn'}
+                                              onClick={this.templatesModal}>Templates</ButtonHeader>
+                                <ButtonHeader className={'hdr-btn'}
+                                              onClick={this.materialFrameworksModal}>UI Frameworks</ButtonHeader>
                             </FlexRow>
                         </FlexMenu>
                     </Flex>
@@ -263,8 +307,10 @@ class HeaderSettings extends Component<any, any>{
     }
 }
 
-const Header = ({text, mainHeader}: HeaderProp)=>{
-    return mainHeader?<HeaderMain text={text}/>:<HeaderSettings/>
+class Header extends Component<any, any>{
+    render(){
+        return this.props.mainHeader?<HeaderMain text={this.props.text}/>:<HeaderSettings func={this.props.func}/>
+    }
 }
 
 export default Header;
