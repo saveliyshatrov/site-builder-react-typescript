@@ -37,98 +37,73 @@ type TRBLTSA = {
     right: number,
     bottom: number,
     left: number,
-    typeSize: 'px' | '%',
+    typeSize: 'px' | '%'
     all: boolean
 }
 
-class PaddingCard extends Component<any, any> {
+export default class BorderRadiusCard extends Component<any, any> {
     state:TRBLTSA = {
         top: 0,
         bottom: 0,
         left: 0,
         right: 0,
         typeSize: 'px',
-        all: false,
+        all: true
     }
 
     changeTypeSize() {
-        if (this.state.typeSize == 'px') {
+        if (this.state.typeSize === 'px') {
             this.setState({
                 typeSize: '%'
             })
         }
-        if (this.state.typeSize == '%') {
+        if (this.state.typeSize === '%') {
             this.setState({typeSize: 'px'})
         }
     }
 
-    changeAll(elem: boolean) {
-        this.setState({
-            all: !elem,
-            bottom: this.state.top,
-            left: this.state.top,
-            right: this.state.top,
-        })
-    }
-
     incrementElem(name: string) {
-        if (name === 'top') {
+        if (name === 'top' || name === 'all') {
             this.setState({
                 top: this.state.top + 1
             })
         }
-        if (name === 'right') {
+        if (name === 'right' || name === 'all') {
             this.setState({
                 right: this.state.right + 1
             })
         }
-        if (name === 'bottom') {
+        if (name === 'bottom' || name === 'all') {
             this.setState({
                 bottom: this.state.bottom + 1
             })
         }
-        if (name === 'left') {
+        if (name === 'left' || name === 'all') {
             this.setState({
                 left: this.state.left + 1
-            })
-        }
-        if (name === 'all') {
-            this.setState({
-                top: this.state.top + 1,
-                left: this.state.top + 1,
-                bottom: this.state.top + 1,
-                right: this.state.top + 1
             })
         }
     }
 
     decrementElem(name: string) {
-        if (name === 'top') {
+        if (name === 'top' || name === 'all') {
             this.setState({
-                top: this.state.top - 1
+                top: this.state.top > 0? this.state.top - 1 : 0
             })
         }
-        if (name === 'right') {
+        if (name === 'right' || name === 'all') {
             this.setState({
-                right: this.state.right - 1
+                right: this.state.right > 0? this.state.right - 1 : 0
             })
         }
-        if (name === 'bottom') {
+        if (name === 'bottom' || name === 'all') {
             this.setState({
-                bottom: this.state.bottom - 1
+                bottom: this.state.bottom > 0? this.state.bottom - 1 : 0
             })
         }
-        if (name === 'left') {
+        if (name === 'left' || name === 'all') {
             this.setState({
-                left: this.state.left - 1
-            })
-        }
-        if (name === 'all') {
-            this.setState({
-                top: this.state.top - 1,
-                left: this.state.top - 1,
-                bottom: this.state.top - 1,
-                right: this.state.top - 1
+                left: this.state.left > 0? this.state.left - 1 : 0
             })
         }
     }
@@ -149,72 +124,67 @@ class PaddingCard extends Component<any, any> {
         text = text.replace('px', '').replace('%', '')
         let num = parseInt(text)
         if (!num || num < 0) {
-            if (name === 'top' || name === 'all') {
+            if (name === 'top' || this.state.all) {
                 this.setState({
                     top: 0
                 })
             }
-            if (name === 'right' || name === 'all') {
+            if (name === 'right' || this.state.all) {
                 this.setState({
                     right: 0
                 })
             }
-            if (name === 'bottom' || name === 'all') {
+            if (name === 'bottom' || this.state.all) {
                 this.setState({
                     bottom: 0
                 })
             }
-            if (name === 'left' || name === 'all') {
+            if (name === 'left' || this.state.all) {
                 this.setState({
                     left: 0
                 })
             }
         } else {
-            if (name === 'top' || name === 'all') {
+            if (name === 'top' || this.state.all) {
                 this.setState({
                     top: parseInt(text)
                 })
             }
-            if (name === 'right' || name === 'all') {
+            if (name === 'right' || this.state.all) {
                 this.setState({
                     right: parseInt(text)
                 })
             }
-            if (name === 'bottom' || name === 'all') {
+            if (name === 'bottom' || this.state.all) {
                 this.setState({
                     bottom: parseInt(text)
                 })
             }
-            if (name === 'left' || name === 'all') {
+            if (name === 'left' || this.state.all) {
                 this.setState({
                     left: parseInt(text)
                 })
             }
         }
     }
+    changeAll = () => {
+        this.setState({
+            top: this.state.top,
+            bottom: this.state.top,
+            right: this.state.top,
+            left: this.state.top,
+            all: !this.state.all
+        })
+    }
 
     render() {
         return (
             <DivMargin>
-                <CardHeader>Padding</CardHeader>
-                {this.state.all ? <DivOptions>
-                    <DivName>All</DivName>
-                    <CustomInputBlockAll>
-                        <Input placeholder={'All'}
-                               type={"text"}
-                               value={this.state.top + this.state.typeSize}
-                               onChange={(e) => {
-                                   this.updateValue(e.target.value, 'all')
-                               }}/>
-                        <ButtonsArrows>
-                            <ButtonArrowUp onClick={() => this.incrementElem('all')}>+</ButtonArrowUp>
-                            <ButtonArrowDown onClick={() => this.decrementElem('all')}>-</ButtonArrowDown>
-                        </ButtonsArrows>
-                    </CustomInputBlockAll>
-                </DivOptions> : <DivOptions>
+                <CardHeader>Border radius</CardHeader>
+                {!this.state.all?<DivOptions>
                     <DivOptionsRow2>
                         <DivOptionsTwo>
-                            <DivName>Top</DivName>
+                            <DivName>Top Left</DivName>
                             <CustomInputBlock>
                                 <Input placeholder={'top'}
                                        type={"text"}
@@ -229,7 +199,7 @@ class PaddingCard extends Component<any, any> {
                             </CustomInputBlock>
                         </DivOptionsTwo>
                         <DivOptionsTwo>
-                            <DivName>Left</DivName>
+                            <DivName>Top Right</DivName>
                             <CustomInputBlock>
                                 <Input placeholder={'left'}
                                        type={"text"}
@@ -246,7 +216,7 @@ class PaddingCard extends Component<any, any> {
                     </DivOptionsRow2>
                     <DivOptionsRow2>
                         <DivOptionsTwo>
-                            <DivName>Bottom</DivName>
+                            <DivName>Bottom Left</DivName>
                             <CustomInputBlock>
                                 <Input placeholder={'bottom'}
                                        type={"text"}
@@ -261,7 +231,7 @@ class PaddingCard extends Component<any, any> {
                             </CustomInputBlock>
                         </DivOptionsTwo>
                         <DivOptionsTwo>
-                            <DivName>Right</DivName>
+                            <DivName>Bottom Right</DivName>
                             <CustomInputBlock>
                                 <Input placeholder={'right'}
                                        type={"text"}
@@ -276,12 +246,26 @@ class PaddingCard extends Component<any, any> {
                             </CustomInputBlock>
                         </DivOptionsTwo>
                     </DivOptionsRow2>
+                </DivOptions> : <DivOptions>
+                    <DivName>All</DivName>
+                    <CustomInputBlock>
+                        <Input placeholder={'all'}
+                               type={"text"}
+                               value={this.state.right + this.state.typeSize}
+                               onChange={(e) => {
+                                   this.updateValue(e.target.value, 'top')
+                               }}/>
+                        <ButtonsArrows>
+                            <ButtonArrowUp onClick={() => this.incrementElem('all')}>+</ButtonArrowUp>
+                            <ButtonArrowDown onClick={() => this.decrementElem('all')}>-</ButtonArrowDown>
+                        </ButtonsArrows>
+                    </CustomInputBlock>
                 </DivOptions>}
-                <OptionRow onClick={() => this.changeAll(this.state.all)}>
+                <OptionRow onClick={() => {this.changeAll()}}>
                     <CheckBox>
                         {this.state.all ? <div>&#10004;</div> : ''}
                     </CheckBox>
-                    Change all
+                    All
                 </OptionRow>
                 <DivOptions>
                     <DivName>Metric type</DivName>
@@ -294,5 +278,3 @@ class PaddingCard extends Component<any, any> {
         )
     }
 }
-
-export default PaddingCard;

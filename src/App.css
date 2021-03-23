@@ -21,3 +21,43 @@ select {
     padding: 1rem;
     padding-right: 2rem;
 }
+
+.css-1yn2e29-InputColor{
+    background-color: gray !important;
+    width: 100% !important;
+    border: 1px solid #545454 !important;
+    margin-top: 0px !important;
+    height: 27px !important;
+    padding: 0px !important;
+    border-radius: 6px !important;
+    box-sizing: border-box !important;
+}
+
+.css-1vpurlb-InputColor{
+    border-radius: 5px !important;
+}
+
+.css-cnfek5-Popover{
+    background-color: #4a4a4a !important;
+    border: 1px solid #6b6b6b !important;
+}
+
+.css-1j0mc3w-ColorPicker{
+    color: white !important;
+}
+
+.css-1j0mc3w-ColorPicker input {
+    color: white !important;
+    background-color: #1c1c1c;
+    border: none;
+    padding: 2px;
+    border-radius: 3px;
+}
+
+.css-1iqvnao-ColorPicker div{
+    border-radius: 2px !important;
+}
+
+.css-6fii2q-Arrow{
+    display: none !important;
+}

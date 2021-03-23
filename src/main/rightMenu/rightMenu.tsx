@@ -59,7 +59,7 @@ class rightMenu extends Component<rightMenuProps, any>{
                                                    hideStylesFunc={this.props.hideStylesFunc}/>: ''}
                         {this.getPropsResult()? '': this.props.children}
                     </div>
-                    <div className={"btnDownload"} style={{display: (this.getPropsResult()?'flex':'none')}}>Close</div>
+                    <div className={"btnDownload"} style={{display: (this.getPropsResult()?'flex':'none')}}>{this.props.css?'< Back':"Close"}</div>
                 </div>
             </div>
         )

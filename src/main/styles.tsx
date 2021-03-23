@@ -29,7 +29,8 @@ type BoxShadow = {
     y: number,
     blur?: number,
     sizing?: number,
-    size: 'px' | '%' | 'em'
+    size: 'px' | '%' | 'em',
+    color: string
 }
 type Font = {
     weight?: string
@@ -40,8 +41,7 @@ type Position = {
     top: number,
     right: number,
     bottom: number,
-    left: number,
-    size: 'px' | '%' | 'em'
+    left: number
 }
 type Border = {
     radius?: {

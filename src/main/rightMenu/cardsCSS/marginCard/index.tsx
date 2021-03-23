@@ -32,8 +32,17 @@ const DivName = styled.div`
   margin-left: 3px;
 `
 
-class MarginCard extends Component<any, any>{
-    state = {
+type TRBLTSA = {
+    top: number,
+    right: number,
+    bottom: number,
+    left: number,
+    typeSize: 'px' | '%',
+    all: boolean
+}
+
+class MarginCard extends Component<any, any> {
+    state:TRBLTSA = {
         top: 0,
         bottom: 0,
         left: 0,
@@ -41,73 +50,80 @@ class MarginCard extends Component<any, any>{
         typeSize: 'px',
         all: false,
     }
-    changeTypeSize(){
-        if(this.state.typeSize == 'px'){
+
+    changeTypeSize() {
+        if (this.state.typeSize == 'px') {
             this.setState({
                 typeSize: '%'
             })
         }
-        if(this.state.typeSize == '%'){
+        if (this.state.typeSize == '%') {
             this.setState({typeSize: 'px'})
         }
     }
-    changeAll(elem:boolean){
+
+    changeAll(elem: boolean) {
         this.setState({
-            all: !elem
+            all: !elem,
+            bottom: this.state.top,
+            left: this.state.top,
+            right: this.state.top,
         })
     }
-    incrementElem(name: string){
-        if(name === 'top'){
+
+    incrementElem(name: string) {
+        if (name === 'top') {
             this.setState({
                 top: this.state.top + 1
             })
         }
-        if(name === 'right'){
+        if (name === 'right') {
             this.setState({
                 right: this.state.right + 1
             })
         }
-        if(name === 'bottom'){
+        if (name === 'bottom') {
             this.setState({
                 bottom: this.state.bottom + 1
             })
         }
-        if(name === 'left'){
+        if (name === 'left') {
             this.setState({
-                left: this.state.left+1
+                left: this.state.left + 1
             })
         }
-        if(name === 'all'){
+        if (name === 'all') {
             this.setState({
-                top: this.state.top+1,
-                left: this.state.top+1,
-                bottom: this.state.top+1,
-                right: this.state.top+1
+                top: this.state.top + 1,
+                left: this.state.top + 1,
+                bottom: this.state.top + 1,
+                right: this.state.top + 1
             })
         }
     }
-    decrementElem(name: string){
-        if(name === 'top'){
+
+    decrementElem(name: string) {
+        if (name === 'top') {
             this.setState({
                 top: this.state.top - 1
             })
         }
-        if(name === 'right'){
+        if (name === 'right') {
             this.setState({
                 right: this.state.right - 1
             })
         }
-        if(name === 'bottom'){
+        if (name === 'bottom') {
             this.setState({
                 bottom: this.state.bottom - 1
             })
         }
-        if(name === 'left'){
+        if (name === 'left') {
             this.setState({
                 left: this.state.left - 1
             })
         }
-        if(name === 'all'){
+        if (name === 'all') {
             this.setState({
                 top: this.state.top - 1,
                 left: this.state.top - 1,
@@ -116,49 +132,114 @@ class MarginCard extends Component<any, any>{
             })
         }
     }
-    CustomInput({Placeholder, Value, NameElem}:CIProps){
+
+    CustomInput({Placeholder, Value, NameElem}: CIProps) {
         return (
             <CustomInputBlock>
                 <Input placeholder={Placeholder} type={"text"} value={Value}/>
                 <ButtonsArrows>
-                    <ButtonArrowUp onClick={()=>this.incrementElem(NameElem)}>+</ButtonArrowUp>
-                    <ButtonArrowDown onClick={()=>this.decrementElem(NameElem)}>-</ButtonArrowDown>
+                    <ButtonArrowUp onClick={() => this.incrementElem(NameElem)}>+</ButtonArrowUp>
+                    <ButtonArrowDown onClick={() => this.decrementElem(NameElem)}>-</ButtonArrowDown>
                 </ButtonsArrows>
             </CustomInputBlock>
         )
     }
-    render(){
+
+    updateValue = (text: string, name: string) => {
+        text = text.replace('px', '').replace('%', '')
+        let num = parseInt(text)
+        if (!num || num < 0) {
+            if (name === 'top' || name === 'all') {
+                this.setState({
+                    top: 0
+                })
+            }
+            if (name === 'right' || name === 'all') {
+                this.setState({
+                    right: 0
+                })
+            }
+            if (name === 'bottom' || name === 'all') {
+                this.setState({
+                    bottom: 0
+                })
+            }
+            if (name === 'left' || name === 'all') {
+                this.setState({
+                    left: 0
+                })
+            }
+        } else {
+            if (name === 'top' || name === 'all') {
+                this.setState({
+                    top: parseInt(text)
+                })
+            }
+            if (name === 'right' || name === 'all') {
+                this.setState({
+                    right: parseInt(text)
+                })
+            }
+            if (name === 'bottom' || name === 'all') {
+                this.setState({
+                    bottom: parseInt(text)
+                })
+            }
+            if (name === 'left' || name === 'all') {
+                this.setState({
+                    left: parseInt(text)
+                })
+            }
+        }
+    }
+
+    render() {
         return (
             <DivMargin>
                 <CardHeader>Margin</CardHeader>
-                {this.state.all?<DivOptions>
+                {this.state.all ? <DivOptions>
                     <DivName>All</DivName>
                     <CustomInputBlockAll>
-                        <Input placeholder={'All'} type={"text"} value={this.state.top + this.state.typeSize}/>
+                        <Input placeholder={'All'}
+                               type={"text"}
+                               value={this.state.top + this.state.typeSize}
+                               onChange={(e) => {
+                                   this.updateValue(e.target.value, 'all')
+                               }}/>
                         <ButtonsArrows>
-                            <ButtonArrowUp onClick={()=>this.incrementElem('all')}>+</ButtonArrowUp>
-                            <ButtonArrowDown onClick={()=>this.decrementElem('all')}>-</ButtonArrowDown>
+                            <ButtonArrowUp onClick={() => this.incrementElem('all')}>+</ButtonArrowUp>
+                            <ButtonArrowDown onClick={() => this.decrementElem('all')}>-</ButtonArrowDown>
                         </ButtonsArrows>
                     </CustomInputBlockAll>
-                </DivOptions>:<DivOptions>
+                </DivOptions> : <DivOptions>
                     <DivOptionsRow2>
                         <DivOptionsTwo>
                             <DivName>Top</DivName>
                             <CustomInputBlock>
-                                <Input placeholder={'top'} type={"text"} value={this.state.top + this.state.typeSize}/>
+                                <Input placeholder={'top'}
+                                       type={"text"}
+                                       value={this.state.top + this.state.typeSize}
+                                       onChange={(e) => {
+                                           this.updateValue(e.target.value, 'top')
+                                       }}/>
                                 <ButtonsArrows>
-                                    <ButtonArrowUp onClick={()=>this.incrementElem('top')}>+</ButtonArrowUp>
-                                    <ButtonArrowDown onClick={()=>this.decrementElem('top')}>-</ButtonArrowDown>
+                                    <ButtonArrowUp onClick={() => this.incrementElem('top')}>+</ButtonArrowUp>
+                                    <ButtonArrowDown onClick={() => this.decrementElem('top')}>-</ButtonArrowDown>
                                 </ButtonsArrows>
                             </CustomInputBlock>
                         </DivOptionsTwo>
                         <DivOptionsTwo>
                             <DivName>Left</DivName>
                             <CustomInputBlock>
-                                <Input placeholder={'left'} type={"text"} value={this.state.left + this.state.typeSize}/>
+                                <Input placeholder={'left'}
+                                       type={"text"}
+                                       value={this.state.left + this.state.typeSize}
+                                       onChange={(e) => {
+                                           this.updateValue(e.target.value, 'left')
+                                       }}/>
                                 <ButtonsArrows>
-                                    <ButtonArrowUp onClick={()=>this.incrementElem('left')}>+</ButtonArrowUp>
-                                    <ButtonArrowDown onClick={()=>this.decrementElem('left')}>-</ButtonArrowDown>
+                                    <ButtonArrowUp onClick={() => this.incrementElem('left')}>+</ButtonArrowUp>
+                                    <ButtonArrowDown onClick={() => this.decrementElem('left')}>-</ButtonArrowDown>
                                 </ButtonsArrows>
                             </CustomInputBlock>
                         </DivOptionsTwo>
@@ -167,35 +248,48 @@ class MarginCard extends Component<any, any>{
                         <DivOptionsTwo>
                             <DivName>Bottom</DivName>
                             <CustomInputBlock>
-                                <Input placeholder={'bottom'} type={"text"} value={this.state.bottom + this.state.typeSize}/>
+                                <Input placeholder={'bottom'}
+                                       type={"text"}
+                                       value={this.state.bottom + this.state.typeSize}
+                                       onChange={(e) => {
+                                           this.updateValue(e.target.value, 'bottom')
+                                       }}/>
                                 <ButtonsArrows>
-                                    <ButtonArrowUp onClick={()=>this.incrementElem('bottom')}>+</ButtonArrowUp>
-                                    <ButtonArrowDown onClick={()=>this.decrementElem('bottom')}>-</ButtonArrowDown>
+                                    <ButtonArrowUp onClick={() => this.incrementElem('bottom')}>+</ButtonArrowUp>
+                                    <ButtonArrowDown onClick={() => this.decrementElem('bottom')}>-</ButtonArrowDown>
                                 </ButtonsArrows>
                             </CustomInputBlock>
                         </DivOptionsTwo>
                         <DivOptionsTwo>
                             <DivName>Right</DivName>
                             <CustomInputBlock>
-                                <Input placeholder={'right'} type={"text"} value={this.state.right + this.state.typeSize}/>
+                                <Input placeholder={'right'}
+                                       type={"text"}
+                                       value={this.state.right + this.state.typeSize}
+                                       onChange={(e) => {
+                                           this.updateValue(e.target.value, 'right')
+                                       }}/>
                                 <ButtonsArrows>
-                                    <ButtonArrowUp onClick={()=>this.incrementElem('right')}>+</ButtonArrowUp>
-                                    <ButtonArrowDown onClick={()=>this.decrementElem('right')}>-</ButtonArrowDown>
+                                    <ButtonArrowUp onClick={() => this.incrementElem('right')}>+</ButtonArrowUp>
+                                    <ButtonArrowDown onClick={() => this.decrementElem('right')}>-</ButtonArrowDown>
                                 </ButtonsArrows>
                             </CustomInputBlock>
                         </DivOptionsTwo>
                     </DivOptionsRow2>
                 </DivOptions>}
-                <OptionRow onClick={()=>this.changeAll(this.state.all)}>
+                <OptionRow onClick={() => this.changeAll(this.state.all)}>
                     <CheckBox>
-                        {this.state.all?<div>&#10004;</div>:''}
+                        {this.state.all ? <div>&#10004;</div> : ''}
                     </CheckBox>
-                    {this.state.all?"Make every custom":"Change all"}
+                    Change all
                 </OptionRow>
-                <Select onChange={()=>this.changeTypeSize()}>
-                    <option>px</option>
-                    <option>%</option>
-                </Select>
+                <DivOptions>
+                    <DivName>Metric type</DivName>
+                    <Select onChange={() => this.changeTypeSize()}>
+                        <option>px</option>
+                        <option>%</option>
+                    </Select>
+                </DivOptions>
             </DivMargin>
         )
     }

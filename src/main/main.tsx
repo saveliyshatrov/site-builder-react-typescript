@@ -11,8 +11,6 @@ import styleTemplates, {styleTemplate} from "./styles";
 // import template from "./templates"
 
 
-const useBootstrap: boolean = true;
-
 type treeOfTree = {
     name: string,
     tagName: string
@@ -174,6 +172,7 @@ const generateCSS = (Style: styleTemplate) => {
     let allStyles = Object.keys(Style)
     //let stringStyles = allStyles.map(elem => convertStyleToString(elem))
     //console.log(allStyles)
+    return ''
 }
 
 const convertStyleToString = (elem: string) => {
@@ -612,7 +611,6 @@ class Main extends Component<any, any>{
     }
 
     componentDidMount() {
-        console.log(UIFName)
         UIFName = this.props.uiFramework;
         const self = this;
         window.addEventListener('resize', function (){
@@ -699,11 +697,19 @@ class Main extends Component<any, any>{
                 });
             }
             if((event.target as Element).className === 'btnDownload'){
-                self.setState({
-                    showCss: false,
-                    styles: false,
-                    tagChanges: false
-                });
+                if(self.state.showCss){
+                    self.setState({
+                        showCss: false,
+                        styles: true,
+                        tagChanges: false
+                    });
+                } else {
+                    self.setState({
+                        showCss: false,
+                        styles: false,
+                        tagChanges: false
+                    });
+                }
             }
             //создание страницы;
             createHTMLPage();

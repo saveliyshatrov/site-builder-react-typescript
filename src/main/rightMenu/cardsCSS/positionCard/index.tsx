@@ -37,18 +37,16 @@ type TRBLTSA = {
     right: number,
     bottom: number,
     left: number,
-    typeSize: 'px' | '%',
-    all: boolean
+    typeSize: 'px' | '%'
 }
 
-class PaddingCard extends Component<any, any> {
+export default class PositionCard extends Component<any, any> {
     state:TRBLTSA = {
         top: 0,
         bottom: 0,
         left: 0,
         right: 0,
-        typeSize: 'px',
-        all: false,
+        typeSize: 'px'
     }
 
     changeTypeSize() {
@@ -60,15 +58,6 @@ class PaddingCard extends Component<any, any> {
         if (this.state.typeSize == '%') {
             this.setState({typeSize: 'px'})
         }
-    }
-
-    changeAll(elem: boolean) {
-        this.setState({
-            all: !elem,
-            bottom: this.state.top,
-            left: this.state.top,
-            right: this.state.top,
-        })
     }
 
     incrementElem(name: string) {
@@ -196,22 +185,8 @@ class PaddingCard extends Component<any, any> {
     render() {
         return (
             <DivMargin>
-                <CardHeader>Padding</CardHeader>
-                {this.state.all ? <DivOptions>
-                    <DivName>All</DivName>
-                    <CustomInputBlockAll>
-                        <Input placeholder={'All'}
-                               type={"text"}
-                               value={this.state.top + this.state.typeSize}
-                               onChange={(e) => {
-                                   this.updateValue(e.target.value, 'all')
-                               }}/>
-                        <ButtonsArrows>
-                            <ButtonArrowUp onClick={() => this.incrementElem('all')}>+</ButtonArrowUp>
-                            <ButtonArrowDown onClick={() => this.decrementElem('all')}>-</ButtonArrowDown>
-                        </ButtonsArrows>
-                    </CustomInputBlockAll>
-                </DivOptions> : <DivOptions>
+                <CardHeader>Position</CardHeader>
+                <DivOptions>
                     <DivOptionsRow2>
                         <DivOptionsTwo>
                             <DivName>Top</DivName>
@@ -276,23 +251,8 @@ class PaddingCard extends Component<any, any> {
                             </CustomInputBlock>
                         </DivOptionsTwo>
                     </DivOptionsRow2>
-                </DivOptions>}
-                <OptionRow onClick={() => this.changeAll(this.state.all)}>
-                    <CheckBox>
-                        {this.state.all ? <div>&#10004;</div> : ''}
-                    </CheckBox>
-                    Change all
-                </OptionRow>
-                <DivOptions>
-                    <DivName>Metric type</DivName>
-                    <Select onChange={() => this.changeTypeSize()}>
-                        <option>px</option>
-                        <option>%</option>
-                    </Select>
                 </DivOptions>
             </DivMargin>
         )
     }
 }
-
-export default PaddingCard;
