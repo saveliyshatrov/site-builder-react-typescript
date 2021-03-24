@@ -1,11 +1,13 @@
 import React, {Component} from "react";
 import styled from "styled-components";
-import {CardHeader, DivOptions,
+import {
+    CardHeader, DivOptions,
     DivOptionsRow, DivOptionsRow2,
     CustomInputBlock, CustomInputBlockAll,
     Input, Select, ButtonsArrows,
     ButtonArrowUp, ButtonArrowDown,
-    CheckBox, OptionRow, DivOptionsTwo} from '../elems'
+    CheckBox, OptionRow, DivOptionsTwo, ButtonHeaderCard, DivOptionsSelector
+} from '../elems'
 
 
 
@@ -38,7 +40,13 @@ type TRBLTSA = {
     bottom: number,
     left: number,
     typeSize: 'px' | '%'
-    all: boolean
+    all: boolean,
+    mob: false,
+    tab: false,
+    des: false,
+    hov: false,
+    act: false,
+    foc: false
 }
 
 export default class BorderCard extends Component<any, any> {
@@ -48,9 +56,92 @@ export default class BorderCard extends Component<any, any> {
         left: 0,
         right: 0,
         typeSize: 'px',
-        all: true
+        all: true,
+        mob: false,
+        tab: false,
+        des: false,
+        hov: false,
+        act: false,
+        foc: false
     }
-
+    setMobFocus = () => {
+        if(this.state.mob){
+            this.setState({
+                mob: false
+            })
+        } else {
+            this.setState({
+                mob: true,
+                tab: false,
+                des: false
+            })
+        }
+    }
+    setTabFocus = () => {
+        if(this.state.tab){
+            this.setState({
+                tab: false
+            })
+        } else {
+            this.setState({
+                mob: false,
+                tab: true,
+                des: false
+            })
+        }
+    }
+    setDesFocus = () => {
+        if(this.state.des){
+            this.setState({
+                des: false
+            })
+        } else {
+            this.setState({
+                mob: false,
+                tab: false,
+                des: true
+            })
+        }
+    }
+    setHovFocus = () => {
+        if(this.state.hov){
+            this.setState({
+                hov: false
+            })
+        } else {
+            this.setState({
+                hov: true,
+                act: false,
+                foc: false
+            })
+        }
+    }
+    setActFocus = () => {
+        if(this.state.act){
+            this.setState({
+                act: false
+            })
+        } else {
+            this.setState({
+                hov: false,
+                act: true,
+                foc: false
+            })
+        }
+    }
+    setFocFocus = () => {
+        if(this.state.des){
+            this.setState({
+                foc: false
+            })
+        } else {
+            this.setState({
+                hov: false,
+                act: false,
+                foc: true
+            })
+        }
+    }
     changeTypeSize() {
         if (this.state.typeSize === 'px') {
             this.setState({
@@ -181,6 +272,16 @@ export default class BorderCard extends Component<any, any> {
         return (
             <DivMargin>
                 <CardHeader>Border</CardHeader>
+                <DivOptionsSelector>
+                    <ButtonHeaderCard focus={this.state.mob} onClick={this.setMobFocus}>:mob</ButtonHeaderCard>
+                    <ButtonHeaderCard focus={this.state.tab} onClick={this.setTabFocus}>:tab</ButtonHeaderCard>
+                    <ButtonHeaderCard focus={this.state.des} onClick={this.setDesFocus}>:des</ButtonHeaderCard>
+                    <div/>
+                    <ButtonHeaderCard focus={this.state.hov} onClick={this.setHovFocus}>:hov</ButtonHeaderCard>
+                    <ButtonHeaderCard focus={this.state.act} onClick={this.setActFocus}>:act</ButtonHeaderCard>
+                    <ButtonHeaderCard focus={this.state.foc} onClick={this.setFocFocus}>:foc</ButtonHeaderCard>
+                </DivOptionsSelector>
+
                 {!this.state.all?<DivOptions>
                     <DivOptionsRow2>
                         <DivOptionsTwo>

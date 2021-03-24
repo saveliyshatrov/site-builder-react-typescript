@@ -85,9 +85,9 @@ export default class BackgroundCard extends Component<any, any> {
     }
 
     incrementElem() {
-            this.setState({
-                angle: this.state.angle + 1
-            })
+        this.setState({
+            angle: this.state.angle + 1
+        })
     }
     decrementElem() {
         if(this.state.angle > 0){
@@ -118,11 +118,11 @@ export default class BackgroundCard extends Component<any, any> {
                 <CardHeader>Background color</CardHeader>
                 {this.state.all ? <DivOptions>
                     <DivName>Color</DivName>
-                        <InputColor
-                            initialValue={this.state.color}
-                            onChange={(color)=>{this.setColor(color.hex)}}
-                            placement="top"
-                        />
+                    <InputColor
+                        initialValue={this.state.color}
+                        onChange={(color)=>{this.setColor(color.hex)}}
+                        placement="top"
+                    />
                 </DivOptions> : <DivOptions>
                     <DivOptionsRow2>
                         <DivOptionsTwo>

@@ -6,7 +6,7 @@ import {
     CardHeader,
     CustomInputBlock,
     DivOptions, DivOptionsRow2, DivOptionsTwo,
-    Input, Select, DivMargin, DivName
+    Input, Select, DivMargin, DivName, ButtonHeaderCard, DivOptionsSelector
 } from "../elems";
 import styled from "styled-components";
 import InputColor from 'react-input-color';
@@ -17,7 +17,13 @@ type TRBLTSA = {
     blur: number,
     y: number,
     typeSize: 'px' | '%',
-    color: string
+    color: string,
+    mob: false,
+    tab: false,
+    des: false,
+    hov: false,
+    act: false,
+    foc: false
 }
 
 export default class BoxShadowCard extends Component<any, any> {
@@ -27,7 +33,91 @@ export default class BoxShadowCard extends Component<any, any> {
         y: 0,
         sizing: 0,
         typeSize: 'px',
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        mob: false,
+        tab: false,
+        des: false,
+        hov: false,
+        act: false,
+        foc: false
+    }
+    setMobFocus = () => {
+        if(this.state.mob){
+            this.setState({
+                mob: false
+            })
+        } else {
+            this.setState({
+                mob: true,
+                tab: false,
+                des: false
+            })
+        }
+    }
+    setTabFocus = () => {
+        if(this.state.tab){
+            this.setState({
+                tab: false
+            })
+        } else {
+            this.setState({
+                mob: false,
+                tab: true,
+                des: false
+            })
+        }
+    }
+    setDesFocus = () => {
+        if(this.state.des){
+            this.setState({
+                des: false
+            })
+        } else {
+            this.setState({
+                mob: false,
+                tab: false,
+                des: true
+            })
+        }
+    }
+    setHovFocus = () => {
+        if(this.state.hov){
+            this.setState({
+                hov: false
+            })
+        } else {
+            this.setState({
+                hov: true,
+                act: false,
+                foc: false
+            })
+        }
+    }
+    setActFocus = () => {
+        if(this.state.act){
+            this.setState({
+                act: false
+            })
+        } else {
+            this.setState({
+                hov: false,
+                act: true,
+                foc: false
+            })
+        }
+    }
+    setFocFocus = () => {
+        if(this.state.des){
+            this.setState({
+                foc: false
+            })
+        } else {
+            this.setState({
+                hov: false,
+                act: false,
+                foc: true
+            })
+        }
     }
     setColor = (color:string) => {
         this.setState({
@@ -144,6 +234,15 @@ export default class BoxShadowCard extends Component<any, any> {
         return (
             <DivMargin>
                 <CardHeader>Box-shadow</CardHeader>
+                <DivOptionsSelector>
+                    <ButtonHeaderCard focus={this.state.mob} onClick={this.setMobFocus}>:mob</ButtonHeaderCard>
+                    <ButtonHeaderCard focus={this.state.tab} onClick={this.setTabFocus}>:tab</ButtonHeaderCard>
+                    <ButtonHeaderCard focus={this.state.des} onClick={this.setDesFocus}>:des</ButtonHeaderCard>
+                    <div/>
+                    <ButtonHeaderCard focus={this.state.hov} onClick={this.setHovFocus}>:hov</ButtonHeaderCard>
+                    <ButtonHeaderCard focus={this.state.act} onClick={this.setActFocus}>:act</ButtonHeaderCard>
+                    <ButtonHeaderCard focus={this.state.foc} onClick={this.setFocFocus}>:foc</ButtonHeaderCard>
+                </DivOptionsSelector>
                 <DivOptions>
                     <DivOptionsRow2>
                         <DivOptionsTwo>
