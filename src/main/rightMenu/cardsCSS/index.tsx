@@ -54,13 +54,13 @@ class Cards extends Component<cardProps, any>{
                 focus: '4%'
             },
             backgroundColor: {
-                none: '#AAABFF',
-                hover: '#898989',
-                active: '#FFFFFF',
-                focus: '#FFFFFF'
+                none: [30, '#AAABFF', '#BA55AF'],
+                hover: ['#898989'],
+                active: ['#FFFFFF'],
+                focus: ['#FFFFFF']
             },
-            margin: '',
-            padding: '',
+            margin: ['22%'],
+            padding: ['22%'],
             boxShadow: '',
             font: '',
             position: '',
@@ -84,13 +84,13 @@ class Cards extends Component<cardProps, any>{
                 focus: '14px'
             },
             backgroundColor: {
-                none: '#995634',
-                hover: '#FFFFFF',
-                active: '#FFFFFF',
-                focus: '#FFFFFF'
+                none: [30, '#AAABFF', '#909090'],
+                hover: ['#898989'],
+                active: ['#FFFFFF'],
+                focus: ['#FFFFFF']
             },
-            margin: '',
-            padding: '',
+            margin: ['30px'],
+            padding: ['30px'],
             boxShadow: '',
             font: '',
             position: '',
@@ -114,13 +114,13 @@ class Cards extends Component<cardProps, any>{
                 focus: '24px'
             },
             backgroundColor: {
-                none: '#FFFFFF',
-                hover: '#FFFFFF',
-                active: '#FFFFFF',
-                focus: '#FFFFFF'
+                none: [40, '#AAABFF', '#909090'],
+                hover: ['#898989'],
+                active: ['#FFFFFF'],
+                focus: ['#FFFFFF']
             },
-            margin: '',
-            padding: '',
+            margin: ['1%', '11%', '21%', '31%'],
+            padding: ['1%', '11%', '21%', '31%'],
             boxShadow: '',
             font: '',
             position: '',
@@ -144,13 +144,13 @@ class Cards extends Component<cardProps, any>{
                 focus: '43px'
             },
             backgroundColor: {
-                none: '#FFFFFF',
-                hover: '#FFFFFF',
-                active: '#FFFFFF',
-                focus: '#FFFFFF'
+                none: [30, '#AAABFA', '#0090AA'],
+                hover: ['#898989'],
+                active: ['#FFFFFF'],
+                focus: ['#FFFFFF']
             },
-            margin: '',
-            padding: '',
+            margin: ['0px', '10px', '20px', '30px'],
+            padding: ['0px', '10px', '20px', '30px'],
             boxShadow: '',
             font: '',
             position: '',
@@ -574,7 +574,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
 
-    allBackgroundColor = (text: string, type: string) => {
+    allBackgroundColor = (text: Array<any>, type: string) => {
         if(type === 'none'){
             this.setState({
                 all:{
@@ -620,7 +620,7 @@ class Cards extends Component<cardProps, any>{
             })
         }
     }
-    mobileBackgroundColor = (text: string, type: string) => {
+    mobileBackgroundColor = (text: Array<any>, type: string) => {
         if(type === 'none'){
             this.setState({
                 mobile:{
@@ -666,7 +666,7 @@ class Cards extends Component<cardProps, any>{
             })
         }
     }
-    tabletBackgroundColor = (text: string, type: string) => {
+    tabletBackgroundColor = (text: Array<any>, type: string) => {
         if(type === 'none'){
             this.setState({
                 tablet:{
@@ -712,7 +712,7 @@ class Cards extends Component<cardProps, any>{
             })
         }
     }
-    desktopBackgroundColor = (text: string, type: string) => {
+    desktopBackgroundColor = (text: Array<any>, type: string) => {
         if(type === 'none'){
             this.setState({
                 desktop:{
@@ -757,6 +757,72 @@ class Cards extends Component<cardProps, any>{
                 }
             })
         }
+    }
+
+    allMargin = (args:Array<string>) => { 
+        this.setState({
+            all: {
+                ...this.state.all,
+                margin: args
+            }
+        })
+    }
+    mobileMargin = (args:Array<string>) => { 
+        this.setState({
+            mobile: {
+                ...this.state.mobile,
+                margin: args
+            }
+        })
+    }
+    tabletMargin = (args:Array<string>) => { 
+        this.setState({
+            tablet: {
+                ...this.state.tablet,
+                margin: args
+            }
+        })
+    }
+    desktopMargin = (args:Array<string>) => { 
+        this.setState({
+            desktop: {
+                ...this.state.desktop,
+                margin: args
+            }
+        })
+    }
+
+    allPadding = (args:Array<string>) => { 
+        this.setState({
+            all: {
+                ...this.state.all,
+                padding: args
+            }
+        })
+    }
+    mobilePadding = (args:Array<string>) => { 
+        this.setState({
+            mobile: {
+                ...this.state.mobile,
+                padding: args
+            }
+        })
+    }
+    tabletPadding = (args:Array<string>) => { 
+        this.setState({
+            tablet: {
+                ...this.state.tablet,
+                padding: args
+            }
+        })
+    }
+    desktopPadding = (args:Array<string>) => { 
+        this.setState({
+            desktop: {
+                ...this.state.desktop,
+                padding: args
+            }
+        })
     }
 
 
@@ -851,7 +917,7 @@ class Cards extends Component<cardProps, any>{
     showCssChanges = () => {
         return (
             <>
-                <NameCard/>
+                {/*<NameCard/>*/}
                 <WidthCard funcAll={this.allWidth}
                            funcMobile={this.mobileWidth}
                            funcTablet={this.tabletWidth}
@@ -867,8 +933,16 @@ class Cards extends Component<cardProps, any>{
                                 funcTablet={this.tabletBackgroundColor}
                                 funcDesktop={this.desktopBackgroundColor}
                                 obj={this.state}/>
-                <MarginCard/>
-                <PaddingCard/>
+                <MarginCard funcAll={this.allMargin}
+                            funcMobile={this.mobileMargin}
+                            funcTablet={this.tabletMargin}
+                            funcDesktop={this.desktopMargin}
+                            obj={this.state}/>
+                <PaddingCard funcAll={this.allPadding}
+                             funcMobile={this.mobilePadding}
+                             funcTablet={this.tabletPadding}
+                             funcDesktop={this.desktopPadding}
+                             obj={this.state}/>
                 <BoxShadowCard/>
                 <FontCard/>
                 <PositionCard/>
