@@ -61,8 +61,46 @@ class Cards extends Component<cardProps, any>{
             },
             margin: ['22%'],
             padding: ['22%'],
-            boxShadow: '',
-            font: '',
+            boxShadow: {
+                none: ['1px', '2px', '3px', '4px', '#BA3A5A'],
+                hover: ['11%', '21%', '31%', '41%', '#935238'],
+                active: ['12px', '22px', '32px', '42px', '#723045'],
+                focus: ['13px', '23px', '32px', '43px', '#103739']
+            },
+            font: {
+                none: {
+                    fontFamily: 'Arial',
+                    customFontFamily: '1',
+                    size: 10,
+                    fontWeight: '100',
+                    typeSize: '%',
+                    color: '#000000',
+                },
+                hover: {
+                    fontFamily: 'Times',
+                    customFontFamily: '2',
+                    size: 11,
+                    fontWeight: '200',
+                    typeSize: 'px',
+                    color: '#FFFFFF',
+                },
+                active: {
+                    fontFamily: 'Arial',
+                    customFontFamily: '3',
+                    size: 12,
+                    fontWeight: '300',
+                    typeSize: '%',
+                    color: '#FFF000',
+                },
+                focus: {
+                    fontFamily: 'Times',
+                    customFontFamily: '4',
+                    size: 13,
+                    fontWeight: '400',
+                    typeSize: 'px',
+                    color: '#000FFF',
+                },
+            },
             position: '',
             border: '',
             borderColor: '',
@@ -91,8 +129,46 @@ class Cards extends Component<cardProps, any>{
             },
             margin: ['30px'],
             padding: ['30px'],
-            boxShadow: '',
-            font: '',
+            boxShadow: {
+                none: ['2px', '3px', '4px', '5px', '#1A3A5A'],
+                hover: ['21px', '31px', '41px', '51px', '#535258'],
+                active: ['22px', '32px', '42px', '52px', '#72F045'],
+                focus: ['23px', '33px', '43px', '53px', '#103AA9']
+            },
+            font: {
+                none: {
+                    fontFamily: 'Times New Roman',
+                    customFontFamily: '1q',
+                    size: 20,
+                    fontWeight: '200',
+                    typeSize: '%',
+                    color: '#FF0000',
+                },
+                hover: {
+                    fontFamily: 'Impact',
+                    customFontFamily: '2q',
+                    size: 21,
+                    fontWeight: '300',
+                    typeSize: 'px',
+                    color: '#00FF00',
+                },
+                active: {
+                    fontFamily: 'Times New Roman',
+                    customFontFamily: '3q',
+                    size: 22,
+                    fontWeight: '400',
+                    typeSize: '%',
+                    color: '#0000FF',
+                },
+                focus: {
+                    fontFamily: 'Impact',
+                    customFontFamily: '4q',
+                    size: 24,
+                    fontWeight: '500',
+                    typeSize: 'px',
+                    color: '#FF00FF',
+                },
+            },
             position: '',
             border: '',
             borderColor: '',
@@ -121,8 +197,46 @@ class Cards extends Component<cardProps, any>{
             },
             margin: ['1%', '11%', '21%', '31%'],
             padding: ['1%', '11%', '21%', '31%'],
-            boxShadow: '',
-            font: '',
+            boxShadow: {
+                none: ['1px', '2px', '3px', '4px', '#BA3A5A'],
+                hover: ['11px', '21px', '31px', '41px', '#935238'],
+                active: ['12px', '22px', '32px', '42px', '#723045'],
+                focus: ['13px', '23px', '32px', '43px', '#103739']
+            },
+            font: {
+                none: {
+                    fontFamily: '',
+                    customFontFamily: '',
+                    size: 10,
+                    fontWeight: '',
+                    typeSize: 'px',
+                    color: '#FFFFFF',
+                },
+                hover: {
+                    fontFamily: '',
+                    customFontFamily: '',
+                    size: 10,
+                    fontWeight: '',
+                    typeSize: 'px',
+                    color: '#FFFFFF',
+                },
+                active: {
+                    fontFamily: '',
+                    customFontFamily: '',
+                    size: 10,
+                    fontWeight: '',
+                    typeSize: 'px',
+                    color: '#FFFFFF',
+                },
+                focus: {
+                    fontFamily: '',
+                    customFontFamily: '',
+                    size: 10,
+                    fontWeight: '',
+                    typeSize: 'px',
+                    color: '#FFFFFF',
+                },
+            },
             position: '',
             border: '',
             borderColor: '',
@@ -151,8 +265,46 @@ class Cards extends Component<cardProps, any>{
             },
             margin: ['0px', '10px', '20px', '30px'],
             padding: ['0px', '10px', '20px', '30px'],
-            boxShadow: '',
-            font: '',
+            boxShadow: {
+                none: ['1px', '2px', '3px', '4px', '#BA3A5A'],
+                hover: ['11px', '21px', '31px', '41px', '#935238'],
+                active: ['12px', '22px', '32px', '42px', '#723045'],
+                focus: ['13px', '23px', '32px', '43px', '#103739']
+            },
+            font: {
+                none: {
+                    fontFamily: '',
+                    customFontFamily: '',
+                    size: 10,
+                    fontWeight: '',
+                    typeSize: 'px',
+                    color: '#FFFFFF',
+                },
+                hover: {
+                    fontFamily: '',
+                    customFontFamily: '',
+                    size: 10,
+                    fontWeight: '',
+                    typeSize: 'px',
+                    color: '#FFFFFF',
+                },
+                active: {
+                    fontFamily: '',
+                    customFontFamily: '',
+                    size: 10,
+                    fontWeight: '',
+                    typeSize: 'px',
+                    color: '#FFFFFF',
+                },
+                focus: {
+                    fontFamily: '',
+                    customFontFamily: '',
+                    size: 10,
+                    fontWeight: '',
+                    typeSize: 'px',
+                    color: '#FFFFFF',
+                },
+            },
             position: '',
             border: '',
             borderColor: '',
@@ -825,27 +977,492 @@ class Cards extends Component<cardProps, any>{
         })
     }
 
+    allBoxShadow = (args: Array<string>, type: string) => {
+        if(type === 'none'){
+            this.setState({
+                all:{
+                    ...this.state.all,
+                    boxShadow: {
+                        ...this.state.all.boxShadow,
+                        none: args
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                all:{
+                    ...this.state.all,
+                    boxShadow: {
+                        ...this.state.all.boxShadow,
+                        hover: args
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                all:{
+                    ...this.state.all,
+                    boxShadow: {
+                        ...this.state.all.boxShadow,
+                        active: args
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                all:{
+                    ...this.state.all,
+                    boxShadow: {
+                        ...this.state.all.boxShadow,
+                        focus: args
+                    }
+                }
+            })
+        }
+    }
+    mobileBoxShadow = (args: Array<string>, type: string) => {
+        if(type === 'none'){
+            this.setState({
+                mobile:{
+                    ...this.state.mobile,
+                    boxShadow: {
+                        ...this.state.mobile.boxShadow,
+                        none: args
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                mobile:{
+                    ...this.state.mobile,
+                    boxShadow: {
+                        ...this.state.mobile.boxShadow,
+                        hover: args
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                mobile:{
+                    ...this.state.mobile,
+                    boxShadow: {
+                        ...this.state.mobile.boxShadow,
+                        active: args
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                mobile:{
+                    ...this.state.mobile,
+                    boxShadow: {
+                        ...this.state.mobile.boxShadow,
+                        focus: args
+                    }
+                }
+            })
+        }
+    }
+    tabletBoxShadow = (args: Array<string>, type: string) => {
+        if(type === 'none'){
+            this.setState({
+                tablet:{
+                    ...this.state.tablet,
+                    boxShadow: {
+                        ...this.state.tablet.boxShadow,
+                        none: args
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                tablet:{
+                    ...this.state.tablet,
+                    boxShadow: {
+                        ...this.state.tablet.boxShadow,
+                        hover: args
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                tablet:{
+                    ...this.state.tablet,
+                    boxShadow: {
+                        ...this.state.tablet.boxShadow,
+                        active: args
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                tablet:{
+                    ...this.state.tablet,
+                    boxShadow: {
+                        ...this.state.tablet.boxShadow,
+                        focus: args
+                    }
+                }
+            })
+        }
+    }
+    desktopBoxShadow = (args: Array<string>, type: string) => {
+        if(type === 'none'){
+            this.setState({
+                desktop:{
+                    ...this.state.desktop,
+                    boxShadow: {
+                        ...this.state.desktop.boxShadow,
+                        none: args
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                desktop:{
+                    ...this.state.desktop,
+                    boxShadow: {
+                        ...this.state.desktop.boxShadow,
+                        hover: args
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                desktop:{
+                    ...this.state.desktop,
+                    boxShadow: {
+                        ...this.state.desktop.boxShadow,
+                        active: args
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                desktop:{
+                    ...this.state.desktop,
+                    boxShadow: {
+                        ...this.state.desktop.boxShadow,
+                        focus: args
+                    }
+                }
+            })
+        }
+    }
 
-    setBackgroundColor = (text: string) => {
-        this.setState({
-            backgroundColor: text
-        })
+    allFont = (arg: string|number, command:string, type:string) => {
+        console.warn('all', arg, command, type)
+        if(type === 'none'){
+            this.setState({
+                all: {
+                    ...this.state.all,
+                    font:{
+                        ...this.state.all.font,
+                        none: {
+                            fontFamily: command==='fontFamily'?arg:this.state.all.font.none.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.all.font.none.customFontFamily,
+                            size: command==='size'?arg:this.state.all.font.none.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.all.font.none.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.all.font.none.typeSize,
+                            color: command==='color'?arg:this.state.all.font.none.color,
+                        }
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                all: {
+                    ...this.state.all,
+                    font:{
+                        ...this.state.all.font,
+                        hover: {
+                            fontFamily: command==='fontFamily'?arg:this.state.all.font.hover.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.all.font.hover.customFontFamily,
+                            size: command==='size'?arg:this.state.all.font.hover.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.all.font.hover.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.all.font.hover.typeSize,
+                            color: command==='color'?arg:this.state.all.font.hover.color,
+                        }
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                all: {
+                    ...this.state.all,
+                    font:{
+                        ...this.state.all.font,
+                        active: {
+                            fontFamily: command==='fontFamily'?arg:this.state.all.font.active.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.all.font.active.customFontFamily,
+                            size: command==='size'?arg:this.state.all.font.active.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.all.font.active.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.all.font.active.typeSize,
+                            color: command==='color'?arg:this.state.all.font.active.color,
+                        }
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                all: {
+                    ...this.state.all,
+                    font:{
+                        ...this.state.all.font,
+                        focus: {
+                            fontFamily: command==='fontFamily'?arg:this.state.all.font.focus.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.all.font.focus.customFontFamily,
+                            size: command==='size'?arg:this.state.all.font.focus.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.all.font.focus.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.all.font.focus.typeSize,
+                            color: command==='color'?arg:this.state.all.font.focus.color,
+                        }
+                    }
+                }
+            })
+        }
     }
-    setMargin = (text: string) => {
-        this.setState({
-            margin: text
-        })
+    mobileFont = (arg: string|number, command:string, type:string) => {
+        console.warn('mobile', arg, command, type)
+        if(type === 'none'){
+            this.setState({
+                mobile: {
+                    ...this.state.mobile,
+                    font:{
+                        ...this.state.mobile.font,
+                        none: {
+                            fontFamily: command==='fontFamily'?arg:this.state.mobile.font.none.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.mobile.font.none.customFontFamily,
+                            size: command==='size'?arg:this.state.mobile.font.none.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.mobile.font.none.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.mobile.font.none.typeSize,
+                            color: command==='color'?arg:this.state.mobile.font.none.color,
+                        }
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                mobile: {
+                    ...this.state.mobile,
+                    font:{
+                        ...this.state.mobile.font,
+                        hover: {
+                            fontFamily: command==='fontFamily'?arg:this.state.mobile.font.hover.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.mobile.font.hover.customFontFamily,
+                            size: command==='size'?arg:this.state.mobile.font.hover.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.mobile.font.hover.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.mobile.font.hover.typeSize,
+                            color: command==='color'?arg:this.state.mobile.font.hover.color,
+                        }
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                mobile: {
+                    ...this.state.mobile,
+                    font:{
+                        ...this.state.mobile.font,
+                        active: {
+                            fontFamily: command==='fontFamily'?arg:this.state.mobile.font.active.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.mobile.font.active.customFontFamily,
+                            size: command==='size'?arg:this.state.mobile.font.active.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.mobile.font.active.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.mobile.font.active.typeSize,
+                            color: command==='color'?arg:this.state.mobile.font.active.color,
+                        }
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                mobile: {
+                    ...this.state.mobile,
+                    font:{
+                        ...this.state.mobile.font,
+                        focus: {
+                            fontFamily: command==='fontFamily'?arg:this.state.mobile.font.focus.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.mobile.font.focus.customFontFamily,
+                            size: command==='size'?arg:this.state.mobile.font.focus.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.mobile.font.focus.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.mobile.font.focus.typeSize,
+                            color: command==='color'?arg:this.state.mobile.font.focus.color,
+                        }
+                    }
+                }
+            })
+        }
     }
-    setPadding = (text: string) => {
-        this.setState({
-            padding: text
-        })
+    tabletFont = (arg: string|number, command:string, type:string) => {
+        console.warn('tablet', arg, command, type)
+        if(type === 'none'){
+            this.setState({
+                tablet: {
+                    ...this.state.tablet,
+                    font:{
+                        ...this.state.tablet.font,
+                        none: {
+                            fontFamily: command==='fontFamily'?arg:this.state.tablet.font.none.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.tablet.font.none.customFontFamily,
+                            size: command==='size'?arg:this.state.tablet.font.none.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.tablet.font.none.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.tablet.font.none.typeSize,
+                            color: command==='color'?arg:this.state.tablet.font.none.color,
+                        }
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                tablet: {
+                    ...this.state.tablet,
+                    font:{
+                        ...this.state.tablet.font,
+                        hover: {
+                            fontFamily: command==='fontFamily'?arg:this.state.tablet.font.hover.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.tablet.font.hover.customFontFamily,
+                            size: command==='size'?arg:this.state.tablet.font.hover.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.tablet.font.hover.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.tablet.font.hover.typeSize,
+                            color: command==='color'?arg:this.state.tablet.font.hover.color,
+                        }
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                tablet: {
+                    ...this.state.tablet,
+                    font:{
+                        ...this.state.tablet.font,
+                        active: {
+                            fontFamily: command==='fontFamily'?arg:this.state.tablet.font.active.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.tablet.font.active.customFontFamily,
+                            size: command==='size'?arg:this.state.tablet.font.active.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.tablet.font.active.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.tablet.font.active.typeSize,
+                            color: command==='color'?arg:this.state.tablet.font.active.color,
+                        }
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                tablet: {
+                    ...this.state.tablet,
+                    font:{
+                        ...this.state.tablet.font,
+                        focus: {
+                            fontFamily: command==='fontFamily'?arg:this.state.tablet.font.focus.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.tablet.font.focus.customFontFamily,
+                            size: command==='size'?arg:this.state.tablet.font.focus.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.tablet.font.focus.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.tablet.font.focus.typeSize,
+                            color: command==='color'?arg:this.state.tablet.font.focus.color,
+                        }
+                    }
+                }
+            })
+        }
     }
-    setBoxShadow = (text: string) => {
-        this.setState({
-            boxShadow: text
-        })
+    desktopFont = (arg: string|number, command:string, type:string) => {
+        console.warn('desktop', arg, command, type)
+        if(type === 'none'){
+            this.setState({
+                desktop: {
+                    ...this.state.desktop,
+                    font:{
+                        ...this.state.desktop.font,
+                        none: {
+                            fontFamily: command==='fontFamily'?arg:this.state.desktop.font.none.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.desktop.font.none.customFontFamily,
+                            size: command==='size'?arg:this.state.desktop.font.none.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.desktop.font.none.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.desktop.font.none.typeSize,
+                            color: command==='color'?arg:this.state.desktop.font.none.color,
+                        }
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                desktop: {
+                    ...this.state.desktop,
+                    font:{
+                        ...this.state.desktop.font,
+                        hover: {
+                            fontFamily: command==='fontFamily'?arg:this.state.desktop.font.hover.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.desktop.font.hover.customFontFamily,
+                            size: command==='size'?arg:this.state.desktop.font.hover.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.desktop.font.hover.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.desktop.font.hover.typeSize,
+                            color: command==='color'?arg:this.state.desktop.font.hover.color,
+                        }
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                desktop: {
+                    ...this.state.desktop,
+                    font:{
+                        ...this.state.desktop.font,
+                        active: {
+                            fontFamily: command==='fontFamily'?arg:this.state.desktop.font.active.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.desktop.font.active.customFontFamily,
+                            size: command==='size'?arg:this.state.desktop.font.active.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.desktop.font.active.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.desktop.font.active.typeSize,
+                            color: command==='color'?arg:this.state.desktop.font.active.color,
+                        }
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                desktop: {
+                    ...this.state.desktop,
+                    font:{
+                        ...this.state.desktop.font,
+                        focus: {
+                            fontFamily: command==='fontFamily'?arg:this.state.desktop.font.focus.fontFamily,
+                            customFontFamily: command==='customFontFamily'?arg:this.state.desktop.font.focus.customFontFamily,
+                            size: command==='size'?arg:this.state.desktop.font.focus.size,
+                            fontWeight: command==='fontWeight'?arg:this.state.desktop.font.focus.fontWeight,
+                            typeSize: command==='typeSize'?arg:this.state.desktop.font.focus.typeSize,
+                            color: command==='color'?arg:this.state.desktop.font.focus.color,
+                        }
+                    }
+                }
+            })
+        }
     }
+
     setFont = (text: string) => {
         this.setState({
             font: text
@@ -943,8 +1560,16 @@ class Cards extends Component<cardProps, any>{
                              funcTablet={this.tabletPadding}
                              funcDesktop={this.desktopPadding}
                              obj={this.state}/>
-                <BoxShadowCard/>
-                <FontCard/>
+                <BoxShadowCard funcAll={this.allBoxShadow}
+                               funcMobile={this.mobileBoxShadow}
+                               funcTablet={this.tabletBoxShadow}
+                               funcDesktop={this.desktopBoxShadow}
+                               obj={this.state}/>
+                <FontCard funcAll={this.allFont}
+                          funcMobile={this.mobileFont}
+                          funcTablet={this.tabletFont}
+                          funcDesktop={this.desktopFont}
+                          obj={this.state}/>
                 <PositionCard/>
                 <BorderCard/>
                 <BorderColorCard/>
