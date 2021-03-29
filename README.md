@@ -1,4 +1,4 @@
-#It should be simple site-builder which allows creating simple pages for projects
+# It should be simple site-builder which allows creating simple pages for projects
 
 My site builder supports styles from Bootstrap and Materialize.
 You can create your own Templates or use default from style-frameworks.
@@ -7,36 +7,36 @@ Its like figma, but you create fully working HTML-page.
 
 ![alt text](./src/screenShot.png)
 
-#How it looks when Bootstrap added
+# How it looks when Bootstrap added
 ![](./src/15.gif)
 
-#Style Cards 
+# Style Cards 
 Should be used to create custom CSS Styles.
-##WidthCard
+## WidthCard
 ![alt text](./Cards/Width.png)
-##HeightCard
+## HeightCard
 ![alt text](./Cards/Height.png)
-##FlexCard
+## FlexCard
 ![alt text](./Cards/Flex.png)
-##BackgroundColorCard
+## BackgroundColorCard
 ![alt text](./Cards/Background.png)
-##MarginCard
+## MarginCard
 ![alt text](./Cards/Margin.png)
-##PaddingCard
+## PaddingCard
 ![alt text](./Cards/Padding.png)
-##BoxShadowCard
+## BoxShadowCard
 ![alt text](./Cards/BoxShadow.png)
-##FontCard
+## FontCard
 ![alt text](./Cards/Font.png)
-##BorderCard
+## BorderCard
 ![alt text](./Cards/Border.png)
-##BorderColorCard
+## BorderColorCard
 ![alt text](./Cards/BorderColor.png)
-##BorderRadiusCard
+## BorderRadiusCard
 ![alt text](./Cards/BorderRadius.png)
-##PositionCard
+## PositionCard
 ![alt text](./Cards/Position.png)
-##TransitionCard
+## TransitionCard
 ![alt text](./Cards/Transition.png)
-##ObjectFitCard
+## ObjectFitCard
 ![alt text](./Cards/Object-fit.png)
