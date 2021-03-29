@@ -68,6 +68,11 @@ const CustomInputBlock = styled.div`
   justify-content: space-between;
   align-items: center;
 `
+
+const CustomInputBlockCheckBox = styled.div`
+  width: 100%;
+`
+
 const CustomInputBlockAll = styled.div`
   width: 100%;
   height: 27px;
@@ -221,4 +226,4 @@ export {CardHeader, CardLogo, DivOptions,
         CustomInputBlock, CustomInputBlockAll,
         Input, Select, ButtonsArrows,
         ButtonArrowUp, ButtonArrowDown,
-        CheckBox, OptionRow, DivOptionsTwo, DivMargin, DivName, ButtonHeaderCard, DivOptionsSelector}
+        CheckBox, OptionRow, DivOptionsTwo, DivMargin, DivName, ButtonHeaderCard, DivOptionsSelector, CustomInputBlockCheckBox}

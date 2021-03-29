@@ -27,29 +27,32 @@ const CardHeader = styled.div`
 
 export default class TransitionCard extends Component<any, any>{
     state = {
-        ms: 0
+        ms: this.props.obj!==undefined?this.props.obj:0
     }
     changeText = (str: string) => {
         str = str.replace('ms', '')
         if(parseInt(str)){
             this.setState({
                 ms: parseInt(str)
-            })
+            }, this.setInfo)
         } else {
             this.setState({
                 ms: 0
-            })
+            }, this.setInfo)
         }
+    }
+    setInfo = () => {
+        this.props.funcAll(this.state.ms)
     }
     incrementElem = () => {
         this.setState({
             ms: this.state.ms + 1
-        })
+        }, this.setInfo)
     }
     decrementElem = () => {
         this.setState({
             ms: this.state.ms > 0? this.state.ms - 1: 0
-        })
+        }, this.setInfo)
     }
     render(){
         return (

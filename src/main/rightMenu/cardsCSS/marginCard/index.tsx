@@ -34,15 +34,6 @@ const DivName = styled.div`
   margin-left: 3px;
 `
 
-type TRBLTSA = {
-    top: number,
-    right: number,
-    bottom: number,
-    left: number,
-    typeSize: 'px' | '%',
-    all: boolean
-}
-
 export default class MarginCard extends Component<any, any> {
     state = {
         all:{

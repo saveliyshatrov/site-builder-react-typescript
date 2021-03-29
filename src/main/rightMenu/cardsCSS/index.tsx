@@ -19,6 +19,7 @@ import BorderColorCard from "./borderColorCard";
 import BorderRadiusCard from "./borderRadiusCard";
 import TransitionCard from "./transitionCard";
 import ObjectFitCard from "./objectFitCard";
+import FlexCard from "./flexCard";
 
 let arrayOfWithTextElements = ['div', 'main', 'header', 'footer', 'li', 'button', 'label', 'p', 'body','h1', 'h2', 'h3', 'h4', 'h5', 'h6']
 let arrayOfWithoutTextElements = ['ul', 'hr']
@@ -35,7 +36,10 @@ type cardProps = {
     type: 'cssChanges' | 'tagChanges'
 }
 
+let SHOWDedug = true
+
 class Cards extends Component<cardProps, any>{
+    public SHOWDebug:boolean = true
     constructor(props: any) {
         super(props);
     }
@@ -101,12 +105,28 @@ class Cards extends Component<cardProps, any>{
                     color: '#000FFF',
                 },
             },
-            position: '',
-            border: '',
-            borderColor: '',
-            borderRadius: '',
-            transition: '',
-            objectFit: ''
+            position: [false, true, true, false],
+            border: ['22%'],
+            borderColor: {
+                none: ['#FFF000','#000FFF','#F0F0F0','#0F0F0F'],
+                hover: ['#0F0F0F'],
+                active: ['#00FFFF'],
+                focus: ['#000FFF','#F0F0F0','#0F0F0F','#FFF000']
+            },
+            borderRadius: {
+                none: ['1px', '2px', '3px', '4px'],
+                hover: ['11%', '21%', '31%', '41%'],
+                active: ['42px'],
+                focus: ['13px']
+            },
+            transition: 400,
+            objectFit: 'cover',
+            flex: {
+                enable: false,
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                alignItems: 'center'
+            }
         },
         mobile: {
             width: {
@@ -169,12 +189,28 @@ class Cards extends Component<cardProps, any>{
                     color: '#FF00FF',
                 },
             },
-            position: '',
-            border: '',
-            borderColor: '',
-            borderRadius: '',
-            transition: '',
-            objectFit: ''
+            position: [true, true, false, false],
+            border: ['30px'],
+            borderColor: {
+                none: ['#FFF000','#000FFF','#F0F0F0','#0F0F0F'],
+                hover: ['#00FFFF','#50A5F0','#0F0F0F','#FFF000'],
+                active: ['#0F0F0F','#FFF000','#000FFF','#50F550'],
+                focus: ['#0F0F0F']
+            },
+            borderRadius: {
+                none: ['1px', '2px', '3px', '4px'],
+                hover: ['11%', '21%', '31%', '41%'],
+                active: ['42px'],
+                focus: ['13px']
+            },
+            transition: 400,
+            objectFit: 'cover',
+            flex: {
+                enable: false,
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                alignItems: 'center'
+            }
         },
         tablet: {
             width: {
@@ -237,12 +273,28 @@ class Cards extends Component<cardProps, any>{
                     color: '#FFFFFF',
                 },
             },
-            position: '',
-            border: '',
-            borderColor: '',
-            borderRadius: '',
-            transition: '',
-            objectFit: ''
+            position: [false, false, false, false],
+            border: ['1%', '11%', '21%', '31%'],
+            borderColor: {
+                none: ['#FF0000','#0000FF','#00FF00','#000000'],
+                hover: ['#F0F0F0','#0F0F0F','#00F00F','#F00F00'],
+                active: ['#FFF000'],
+                focus: ['#0F0F0F']
+            },
+            borderRadius: {
+                none: ['1px', '2px', '3px', '4px'],
+                hover: ['11%', '21%', '31%', '41%'],
+                active: ['42px'],
+                focus: ['13px']
+            },
+            transition: 400,
+            objectFit: 'cover',
+            flex: {
+                enable: false,
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                alignItems: 'center'
+            }
         },
         desktop: {
             width: {
@@ -305,16 +357,33 @@ class Cards extends Component<cardProps, any>{
                     color: '#FFFFFF',
                 },
             },
-            position: '',
-            border: '',
-            borderColor: '',
-            borderRadius: '',
-            transition: '',
-            objectFit: ''
+            position: [false, false, true, true],
+            border: ['0px', '10px', '20px', '30px'],
+            borderColor: {
+                none: ['#FFF000','#000FFF','#F0F0F0','#0F0F0F'],
+                hover: ['#000FFF','#F0F0F0','#0F0F0F','#FFF000'],
+                active: ['#0F0F0F','#FFF000','#000FFF','#F0F0F0'],
+                focus: ['#0F0F0F']
+            },
+            borderRadius: {
+                none: ['1px', '2px', '3px', '4px'],
+                hover: ['11%', '21%', '31%', '41%'],
+                active: ['42px'],
+                focus: ['13px']
+            },
+            transition: 400,
+            objectFit: 'cover',
+            flex: {
+                enable: false,
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                alignItems: 'center'
+            }
         }
     }
 
     allWidth = (text: string, command: string, type: string) => {
+        if(this.SHOWDebug){console.log('allWidth', type, text)}
         if(command === 'set'){
             if(type === 'none'){
                 this.setState({
@@ -363,6 +432,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     mobileWidth = (text: string, command: string, type: string) => {
+        if(this.SHOWDebug){console.log('mobileWidth', type, text)}
         if(command === 'set'){
             if(type === 'none'){
                 this.setState({
@@ -419,6 +489,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     tabletWidth = (text: string, command: string, type: string) => {
+        if(this.SHOWDebug){console.log('tabletWidth', type, text)}
         if(command === 'set'){
             if(type === 'none'){
                 this.setState({
@@ -475,6 +546,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     desktopWidth = (text: string, command: string, type: string) => {
+        if(this.SHOWDebug){console.log('desktopWidth', type, text)}
         if(command === 'set'){
             if(type === 'none'){
                 this.setState({
@@ -532,6 +604,7 @@ class Cards extends Component<cardProps, any>{
     }
 
     allHeight = (text: string, command: string, type: string) => {
+        if(this.SHOWDebug){console.log('allHeight', type, text)}
         if(command === 'set'){
             if(type === 'none'){
                 this.setState({
@@ -580,6 +653,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     mobileHeight = (text: string, command: string, type: string) => {
+        if(this.SHOWDebug){console.log('mobileHeight', type, text)}
         if(command === 'set'){
             if(type === 'none'){
                 this.setState({
@@ -630,6 +704,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     tabletHeight = (text: string, command: string, type: string) => {
+        if(this.SHOWDebug){console.log('tabletHeight', type, text)}
         if(command === 'set'){
             if(type === 'none'){
                 this.setState({
@@ -678,6 +753,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     desktopHeight = (text: string, command: string, type: string) => {
+        if(this.SHOWDebug){console.log('desktopHeight', type, text)}
         if(command === 'set'){
             if(type === 'none'){
                 this.setState({
@@ -727,6 +803,7 @@ class Cards extends Component<cardProps, any>{
     }
 
     allBackgroundColor = (text: Array<any>, type: string) => {
+        if(this.SHOWDebug){console.log('allBackgroundColor', type, text)}
         if(type === 'none'){
             this.setState({
                 all:{
@@ -773,6 +850,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     mobileBackgroundColor = (text: Array<any>, type: string) => {
+        if(this.SHOWDebug){console.log('mobileBackgroundColor', type, text)}
         if(type === 'none'){
             this.setState({
                 mobile:{
@@ -819,6 +897,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     tabletBackgroundColor = (text: Array<any>, type: string) => {
+        if(this.SHOWDebug){console.log('tabletBackgroundColor', type, text)}
         if(type === 'none'){
             this.setState({
                 tablet:{
@@ -865,6 +944,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     desktopBackgroundColor = (text: Array<any>, type: string) => {
+        if(this.SHOWDebug){console.log('desktopBackgroundColor', type, text)}
         if(type === 'none'){
             this.setState({
                 desktop:{
@@ -911,7 +991,8 @@ class Cards extends Component<cardProps, any>{
         }
     }
 
-    allMargin = (args:Array<string>) => { 
+    allMargin = (args:Array<string>) => {
+        if(this.SHOWDebug){console.log('allMargin', args)}
         this.setState({
             all: {
                 ...this.state.all,
@@ -919,7 +1000,8 @@ class Cards extends Component<cardProps, any>{
             }
         })
     }
-    mobileMargin = (args:Array<string>) => { 
+    mobileMargin = (args:Array<string>) => {
+        if(this.SHOWDebug){console.log('mobileMargin', args)}
         this.setState({
             mobile: {
                 ...this.state.mobile,
@@ -927,7 +1009,8 @@ class Cards extends Component<cardProps, any>{
             }
         })
     }
-    tabletMargin = (args:Array<string>) => { 
+    tabletMargin = (args:Array<string>) => {
+        if(this.SHOWDebug){console.log('tabletMargin', args)}
         this.setState({
             tablet: {
                 ...this.state.tablet,
@@ -935,7 +1018,8 @@ class Cards extends Component<cardProps, any>{
             }
         })
     }
-    desktopMargin = (args:Array<string>) => { 
+    desktopMargin = (args:Array<string>) => {
+        if(this.SHOWDebug){console.log('desktopMargin', args)}
         this.setState({
             desktop: {
                 ...this.state.desktop,
@@ -944,7 +1028,8 @@ class Cards extends Component<cardProps, any>{
         })
     }
 
-    allPadding = (args:Array<string>) => { 
+    allPadding = (args:Array<string>) => {
+        if(this.SHOWDebug){console.log('allPadding', args)}
         this.setState({
             all: {
                 ...this.state.all,
@@ -952,7 +1037,8 @@ class Cards extends Component<cardProps, any>{
             }
         })
     }
-    mobilePadding = (args:Array<string>) => { 
+    mobilePadding = (args:Array<string>) => {
+        if(this.SHOWDebug){console.log('mobilePadding', args)}
         this.setState({
             mobile: {
                 ...this.state.mobile,
@@ -960,7 +1046,8 @@ class Cards extends Component<cardProps, any>{
             }
         })
     }
-    tabletPadding = (args:Array<string>) => { 
+    tabletPadding = (args:Array<string>) => {
+        if(this.SHOWDebug){console.log('tabletPadding', args)}
         this.setState({
             tablet: {
                 ...this.state.tablet,
@@ -968,7 +1055,8 @@ class Cards extends Component<cardProps, any>{
             }
         })
     }
-    desktopPadding = (args:Array<string>) => { 
+    desktopPadding = (args:Array<string>) => {
+        if(this.SHOWDebug){console.log('desktopPadding', args)}
         this.setState({
             desktop: {
                 ...this.state.desktop,
@@ -978,6 +1066,7 @@ class Cards extends Component<cardProps, any>{
     }
 
     allBoxShadow = (args: Array<string>, type: string) => {
+        if(this.SHOWDebug){console.log('allBoxShadow', args, type)}
         if(type === 'none'){
             this.setState({
                 all:{
@@ -1024,6 +1113,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     mobileBoxShadow = (args: Array<string>, type: string) => {
+        if(this.SHOWDebug){console.log('mobileBoxShadow', args, type)}
         if(type === 'none'){
             this.setState({
                 mobile:{
@@ -1070,6 +1160,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     tabletBoxShadow = (args: Array<string>, type: string) => {
+        if(this.SHOWDebug){console.log('tabletBoxShadow', args, type)}
         if(type === 'none'){
             this.setState({
                 tablet:{
@@ -1116,6 +1207,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     desktopBoxShadow = (args: Array<string>, type: string) => {
+        if(this.SHOWDebug){console.log('desktopBoxShadow', args, type)}
         if(type === 'none'){
             this.setState({
                 desktop:{
@@ -1163,7 +1255,7 @@ class Cards extends Component<cardProps, any>{
     }
 
     allFont = (arg: string|number, command:string, type:string) => {
-        console.warn('all', arg, command, type)
+        if(this.SHOWDebug){console.log('allFont', arg, type, command)}
         if(type === 'none'){
             this.setState({
                 all: {
@@ -1238,7 +1330,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     mobileFont = (arg: string|number, command:string, type:string) => {
-        console.warn('mobile', arg, command, type)
+        if(this.SHOWDebug){console.log('mobileFont', arg, type, command)}
         if(type === 'none'){
             this.setState({
                 mobile: {
@@ -1313,7 +1405,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     tabletFont = (arg: string|number, command:string, type:string) => {
-        console.warn('tablet', arg, command, type)
+        if(this.SHOWDebug){console.log('tabletFont', arg, type, command)}
         if(type === 'none'){
             this.setState({
                 tablet: {
@@ -1388,7 +1480,7 @@ class Cards extends Component<cardProps, any>{
         }
     }
     desktopFont = (arg: string|number, command:string, type:string) => {
-        console.warn('desktop', arg, command, type)
+        if(this.SHOWDebug){console.log('desktopFont', arg, type, command)}
         if(type === 'none'){
             this.setState({
                 desktop: {
@@ -1463,39 +1555,555 @@ class Cards extends Component<cardProps, any>{
         }
     }
 
-    setFont = (text: string) => {
+    allBorder = (args:Array<string>) => {
+        if(this.SHOWDebug){console.log('allBorder', args)}
         this.setState({
-            font: text
+            all: {
+                ...this.state.all,
+                border: args
+            }
         })
     }
-    setPosition = (text: string) => {
+    mobileBorder = (args:Array<string>) => {
+        if(this.SHOWDebug){console.log('mobileBorder', args)}
         this.setState({
-            position: text
+            mobile: {
+                ...this.state.mobile,
+                border: args
+            }
         })
     }
-    setBorder = (text: string) => {
+    tabletBorder = (args:Array<string>) => {
+        if(this.SHOWDebug){console.log('tabletBorder', args)}
         this.setState({
+            tablet: {
+                ...this.state.tablet,
+                border: args
+            }
+        })
+    }
+    desktopBorder = (args:Array<string>) => {
+        if(this.SHOWDebug){console.log('desktopBorder', args)}
+        this.setState({
+            desktop: {
+                ...this.state.desktop,
+                border: args
+            }
+        })
+    }
 
+    allBorderRadius = (args:Array<string>, type:string) => {
+        if(this.SHOWDebug){console.log('allBorderRadius', type, args)}
+        if(type === 'none'){
+            this.setState({
+                all:{
+                    ...this.state.all,
+                    borderRadius: {
+                        ...this.state.all.borderRadius,
+                        none: args
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                all:{
+                    ...this.state.all,
+                    borderRadius: {
+                        ...this.state.all.borderRadius,
+                        hover: args
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                all:{
+                    ...this.state.all,
+                    borderRadius: {
+                        ...this.state.all.borderRadius,
+                        active: args
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                all:{
+                    ...this.state.all,
+                    borderRadius: {
+                        ...this.state.all.borderRadius,
+                        focus: args
+                    }
+                }
+            })
+        }
+    }
+    mobileBorderRadius = (args:Array<string>, type:string) => {
+        if(this.SHOWDebug){console.log('mobileBorderRadius', type, args)}
+        if(type === 'none'){
+            this.setState({
+                mobile:{
+                    ...this.state.mobile,
+                    borderRadius: {
+                        ...this.state.mobile.borderRadius,
+                        none: args
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                mobile:{
+                    ...this.state.mobile,
+                    borderRadius: {
+                        ...this.state.mobile.borderRadius,
+                        hover: args
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                mobile:{
+                    ...this.state.mobile,
+                    borderRadius: {
+                        ...this.state.mobile.borderRadius,
+                        active: args
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                mobile:{
+                    ...this.state.mobile,
+                    borderRadius: {
+                        ...this.state.mobile.borderRadius,
+                        focus: args
+                    }
+                }
+            })
+        }
+    }
+    tabletBorderRadius = (args:Array<string>, type:string) => {
+        if(this.SHOWDebug){console.log('tabletBorderRadius', type, args)}
+        if(type === 'none'){
+            this.setState({
+                tablet:{
+                    ...this.state.tablet,
+                    borderRadius: {
+                        ...this.state.tablet.borderRadius,
+                        none: args
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                tablet:{
+                    ...this.state.tablet,
+                    borderRadius: {
+                        ...this.state.tablet.borderRadius,
+                        hover: args
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                tablet:{
+                    ...this.state.tablet,
+                    borderRadius: {
+                        ...this.state.tablet.borderRadius,
+                        active: args
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                tablet:{
+                    ...this.state.tablet,
+                    borderRadius: {
+                        ...this.state.tablet.borderRadius,
+                        focus: args
+                    }
+                }
+            })
+        }
+    }
+    desktopBorderRadius = (args:Array<string>, type:string) => {
+        if(this.SHOWDebug){console.log('desktopBorderRadius', type, args)}
+        if(type === 'none'){
+            this.setState({
+                desktop:{
+                    ...this.state.desktop,
+                    borderRadius: {
+                        ...this.state.desktop.borderRadius,
+                        none: args
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                desktop:{
+                    ...this.state.desktop,
+                    borderRadius: {
+                        ...this.state.desktop.borderRadius,
+                        hover: args
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                desktop:{
+                    ...this.state.desktop,
+                    borderRadius: {
+                        ...this.state.desktop.borderRadius,
+                        active: args
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                desktop:{
+                    ...this.state.desktop,
+                    borderRadius: {
+                        ...this.state.desktop.borderRadius,
+                        focus: args
+                    }
+                }
+            })
+        }
+    }
+
+    allBorderColor = (args:Array<string>, type:string) => {
+        if(this.SHOWDebug){console.log('allBorderColor', type, args)}
+        if(type === 'none'){
+            this.setState({
+                all:{
+                    ...this.state.all,
+                    borderRadius: {
+                        ...this.state.all.borderRadius,
+                        none: args
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                all:{
+                    ...this.state.all,
+                    borderRadius: {
+                        ...this.state.all.borderRadius,
+                        hover: args
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                all:{
+                    ...this.state.all,
+                    borderRadius: {
+                        ...this.state.all.borderRadius,
+                        active: args
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                all:{
+                    ...this.state.all,
+                    borderRadius: {
+                        ...this.state.all.borderRadius,
+                        focus: args
+                    }
+                }
+            })
+        }
+    }
+    mobileBorderColor = (args:Array<string>, type:string) => {
+        if(this.SHOWDebug){console.log('mobileBorderColor', type, args)}
+        if(type === 'none'){
+            this.setState({
+                mobile:{
+                    ...this.state.mobile,
+                    borderRadius: {
+                        ...this.state.mobile.borderRadius,
+                        none: args
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                mobile:{
+                    ...this.state.mobile,
+                    borderRadius: {
+                        ...this.state.mobile.borderRadius,
+                        hover: args
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                mobile:{
+                    ...this.state.mobile,
+                    borderRadius: {
+                        ...this.state.mobile.borderRadius,
+                        active: args
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                mobile:{
+                    ...this.state.mobile,
+                    borderRadius: {
+                        ...this.state.mobile.borderRadius,
+                        focus: args
+                    }
+                }
+            })
+        }
+    }
+    tabletBorderColor = (args:Array<string>, type:string) => {
+        if(this.SHOWDebug){console.log('tabletBorderColor', type, args)}
+        if(type === 'none'){
+            this.setState({
+                tablet:{
+                    ...this.state.tablet,
+                    borderRadius: {
+                        ...this.state.tablet.borderRadius,
+                        none: args
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                tablet:{
+                    ...this.state.tablet,
+                    borderRadius: {
+                        ...this.state.tablet.borderRadius,
+                        hover: args
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                tablet:{
+                    ...this.state.tablet,
+                    borderRadius: {
+                        ...this.state.tablet.borderRadius,
+                        active: args
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                tablet:{
+                    ...this.state.tablet,
+                    borderRadius: {
+                        ...this.state.tablet.borderRadius,
+                        focus: args
+                    }
+                }
+            })
+        }
+    }
+    desktopBorderColor = (args:Array<string>, type:string) => {
+        if(this.SHOWDebug){console.log('desktopBorderColor', type, args)}
+        if(type === 'none'){
+            this.setState({
+                desktop:{
+                    ...this.state.desktop,
+                    borderRadius: {
+                        ...this.state.desktop.borderRadius,
+                        none: args
+                    }
+                }
+            })
+        }
+        if(type === 'hover'){
+            this.setState({
+                desktop:{
+                    ...this.state.desktop,
+                    borderRadius: {
+                        ...this.state.desktop.borderRadius,
+                        hover: args
+                    }
+                }
+            })
+        }
+        if(type === 'active'){
+            this.setState({
+                desktop:{
+                    ...this.state.desktop,
+                    borderRadius: {
+                        ...this.state.desktop.borderRadius,
+                        active: args
+                    }
+                }
+            })
+        }
+        if(type === 'focus'){
+            this.setState({
+                desktop:{
+                    ...this.state.desktop,
+                    borderRadius: {
+                        ...this.state.desktop.borderRadius,
+                        focus: args
+                    }
+                }
+            })
+        }
+    }
+
+    allPosition = (args: Array<boolean>) => {
+        if(this.SHOWDebug){console.log('allPosition', args)}
+        this.setState({
+            all: {
+                ...this.state.all,
+                position: args
+            }
         })
     }
-    setBorderColor = (text: string) => {
+    mobilePosition = (args: Array<boolean>) => {
+        if(this.SHOWDebug){console.log('mobilePosition', args)}
         this.setState({
-            borderColor: text
+            mobile: {
+                ...this.state.mobile,
+                position: args
+            }
         })
     }
-    setBorderRadius = (text: string) => {
+    tabletPosition = (args: Array<boolean>) => {
+        if(this.SHOWDebug){console.log('tabletPosition', args)}
         this.setState({
-            borderRadius: text
+            tablet: {
+                ...this.state.tablet,
+                position: args
+            }
         })
     }
-    setTransition = (text: string) => {
+    desktopPosition = (args: Array<boolean>) => {
+        if(this.SHOWDebug){console.log('desktopPosition', args)}
         this.setState({
-            transition: text
+            desktop: {
+                ...this.state.desktop,
+                position: args
+            }
         })
     }
-    setObjectFit = (text: string) => {
+
+    allTransition = (arg:number) => {
+        if(this.SHOWDebug){console.log('allTransition', arg)}
         this.setState({
-            objectFit: text
+            all: {
+                ...this.state.all,
+                transition: arg
+            },
+            mobile: {
+                ...this.state.mobile,
+                transition: arg
+            },
+            tablet: {
+                ...this.state.tablet,
+                transition: arg
+            },
+            desktop: {
+                ...this.state.desktop,
+                transition: arg
+            }
+        })
+    }
+    allObjectFit = (arg: string) => {
+        if(this.SHOWDebug){console.log('allObjectFit', arg)}
+        this.setState({
+            all: {
+                ...this.state.all,
+                objectFit: arg
+            },
+            mobile: {
+                ...this.state.mobile,
+                objectFit: arg
+            },
+            tablet: {
+                ...this.state.tablet,
+                objectFit: arg
+            },
+            desktop: {
+                ...this.state.desktop,
+                objectFit: arg
+            }
+        })
+    }
+
+    allFlex = (args:[boolean, string, string, string]) => {
+        if(this.SHOWDebug){console.log('allFlex', args)}
+        this.setState({
+            all:{
+                ...this.state.all,
+                flex: {
+                    enable: args[0],
+                    flexDirection: args[1],
+                    justifyContent: args[2],
+                    alignItems: args[3]
+                }
+            }
+        })
+    }
+    mobileFlex = (args:[boolean, string, string, string]) => {
+        if(this.SHOWDebug){console.log('mobileFlex', args)}
+        this.setState({
+            all:{
+                ...this.state.all,
+                flex: {
+                    enable: args[0],
+                    flexDirection: args[1],
+                    justifyContent: args[2],
+                    alignItems: args[3]
+                }
+            }
+        })
+    }
+    tabletFlex = (args:[boolean, string, string, string]) => {
+        if(this.SHOWDebug){console.log('tabletFlex', args)}
+        this.setState({
+            all:{
+                ...this.state.all,
+                flex: {
+                    enable: args[0],
+                    flexDirection: args[1],
+                    justifyContent: args[2],
+                    alignItems: args[3]
+                }
+            }
+        })
+    }
+    desktopFlex = (args:[boolean, string, string, string]) => {
+        if(this.SHOWDebug){console.log('desktopFlex', args)}
+        this.setState({
+            all:{
+                ...this.state.all,
+                flex: {
+                    enable: args[0],
+                    flexDirection: args[1],
+                    justifyContent: args[2],
+                    alignItems: args[3]
+                }
+            }
         })
     }
 
@@ -1545,6 +2153,11 @@ class Cards extends Component<cardProps, any>{
                             funcTablet={this.tabletHeight}
                             funcDesktop={this.desktopHeight}
                             obj={this.state}/>
+                <FlexCard funcAll={this.allFlex}
+                          funcMobile={this.mobileFlex}
+                          funcTablet={this.tabletFlex}
+                          funcDesktop={this.desktopFlex}
+                          obj={this.state}/>
                 <BackgroundCard funcAll={this.allBackgroundColor}
                                 funcMobile={this.mobileBackgroundColor}
                                 funcTablet={this.tabletBackgroundColor}
@@ -1570,12 +2183,30 @@ class Cards extends Component<cardProps, any>{
                           funcTablet={this.tabletFont}
                           funcDesktop={this.desktopFont}
                           obj={this.state}/>
-                <PositionCard/>
-                <BorderCard/>
-                <BorderColorCard/>
-                <BorderRadiusCard/>
-                <TransitionCard/>
-                <ObjectFitCard/>
+                <BorderCard funcAll={this.allBorder}
+                            funcMobile={this.mobileBorder}
+                            funcTablet={this.tabletBorder}
+                            funcDesktop={this.desktopBorder}
+                            obj={this.state}/>
+                <BorderColorCard funcAll={this.allBorderColor}
+                                 funcMobile={this.mobileBorderColor}
+                                 funcTablet={this.tabletBorderColor}
+                                 funcDesktop={this.desktopBorderColor}
+                                 obj={this.state}/>
+                <BorderRadiusCard funcAll={this.allBorderRadius}
+                                  funcMobile={this.mobileBorderRadius}
+                                  funcTablet={this.tabletBorderRadius}
+                                  funcDesktop={this.desktopBorderRadius}
+                                  obj={this.state}/>
+                <PositionCard funcAll={this.allPosition}
+                              funcMobile={this.mobilePosition}
+                              funcTablet={this.tabletPosition}
+                              funcDesktop={this.desktopPosition}
+                              obj={this.state}/>
+                <TransitionCard funcAll={this.allTransition}
+                                obj={this.state.all.transition}/>
+                <ObjectFitCard funcAll={this.allObjectFit}
+                               obj={this.state.all.objectFit}/>
             </>
             )
     }

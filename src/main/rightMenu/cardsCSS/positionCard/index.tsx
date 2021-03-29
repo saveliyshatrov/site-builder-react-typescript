@@ -1,19 +1,15 @@
 import React, {Component} from "react";
 import styled from "styled-components";
-import {CardHeader, DivOptions,
+import {
+    CardHeader, DivOptions,
     DivOptionsRow, DivOptionsRow2,
     CustomInputBlock, CustomInputBlockAll,
     Input, Select, ButtonsArrows,
     ButtonArrowUp, ButtonArrowDown,
-    CheckBox, OptionRow, DivOptionsTwo} from '../elems'
+    CheckBox, OptionRow, DivOptionsTwo, ButtonHeaderCard, DivOptionsSelector,
+    CustomInputBlockCheckBox
+} from '../elems'
 
-
-
-type CIProps = {
-    Placeholder: string
-    Value: number
-    NameElem: string
-}
 
 const DivMargin = styled.div`
   width: 266px;
@@ -41,214 +37,398 @@ type TRBLTSA = {
 }
 
 export default class PositionCard extends Component<any, any> {
-    state:TRBLTSA = {
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        typeSize: 'px'
+    state = {
+        all: {
+            top: this.props.obj.all.position[0]!==undefined?this.props.obj.all.position[0]:false,
+            right: this.props.obj.all.position[1]!==undefined?this.props.obj.all.position[1]:false,
+            bottom: this.props.obj.all.position[2]!==undefined?this.props.obj.all.position[2]:false,
+            left: this.props.obj.all.position[3]!==undefined?this.props.obj.all.position[3]:false,
+        },
+        mobile: {
+            top: this.props.obj.mobile.position[0]!==undefined?this.props.obj.mobile.position[0]:false,
+            right: this.props.obj.mobile.position[1]!==undefined?this.props.obj.mobile.position[1]:false,
+            bottom: this.props.obj.mobile.position[2]!==undefined?this.props.obj.mobile.position[2]:false,
+            left: this.props.obj.mobile.position[3]!==undefined?this.props.obj.mobile.position[3]:false,
+        },
+        tablet: {
+            top: this.props.obj.tablet.position[0]!==undefined?this.props.obj.tablet.position[0]:false,
+            right: this.props.obj.tablet.position[1]!==undefined?this.props.obj.tablet.position[1]:false,
+            bottom: this.props.obj.tablet.position[2]!==undefined?this.props.obj.tablet.position[2]:false,
+            left: this.props.obj.tablet.position[3]!==undefined?this.props.obj.tablet.position[3]:false,
+        },
+        desktop: {
+            top: this.props.obj.desktop.position[0]!==undefined?this.props.obj.desktop.position[0]:false,
+            right: this.props.obj.desktop.position[1]!==undefined?this.props.obj.desktop.position[1]:false,
+            bottom: this.props.obj.desktop.position[2]!==undefined?this.props.obj.desktop.position[2]:false,
+            left: this.props.obj.desktop.position[3]!==undefined?this.props.obj.desktop.position[3]:false,
+        },
+        mob: false,
+        tab: false,
+        des: false,
     }
 
-    changeTypeSize() {
-        if (this.state.typeSize == 'px') {
-            this.setState({
-                typeSize: '%'
-            })
+    getTop = () => {
+        if(!(this.state.mob||this.state.tab||this.state.des)){
+            return this.state.all.top
         }
-        if (this.state.typeSize == '%') {
-            this.setState({typeSize: 'px'})
+        if(this.state.mob){
+            return this.state.mobile.top
+        }
+        if(this.state.tab){
+            return this.state.tablet.top
+        }
+        if(this.state.des){
+            return this.state.desktop.top
+        }
+        return false
+    }
+    getRight = () => {
+        if(!(this.state.mob||this.state.tab||this.state.des)){
+            return this.state.all.right
+        }
+        if(this.state.mob){
+            return this.state.mobile.right
+        }
+        if(this.state.tab){
+            return this.state.tablet.right
+        }
+        if(this.state.des){
+            return this.state.desktop.right
+        }
+        return false
+    }
+    getBottom = () => {
+        if(!(this.state.mob||this.state.tab||this.state.des)){
+            return this.state.all.bottom
+        }
+        if(this.state.mob){
+            return this.state.mobile.bottom
+        }
+        if(this.state.tab){
+            return this.state.tablet.bottom
+        }
+        if(this.state.des){
+            return this.state.desktop.bottom
+        }
+        return false
+    }
+    getLeft = () => {
+        if(!(this.state.mob||this.state.tab||this.state.des)){
+            return this.state.all.left
+        }
+        if(this.state.mob){
+            return this.state.mobile.left
+        }
+        if(this.state.tab){
+            return this.state.tablet.left
+        }
+        if(this.state.des){
+            return this.state.desktop.left
+        }
+        return false
+    }
+
+    setInfo = () => {
+        if(!(this.state.mob||this.state.tab||this.state.des)){
+            this.props.funcAll([this.getTop(), this.getRight(), this.getBottom(), this.getLeft()])
+        }
+        if(this.state.mob){
+            this.props.funcMobile([this.getTop(), this.getRight(), this.getBottom(), this.getLeft()])
+        }
+        if(this.state.tab){
+            this.props.funcTablet([this.getTop(), this.getRight(), this.getBottom(), this.getLeft()])
+        }
+        if(this.state.des){
+            this.props.funcDesktop([this.getTop(), this.getRight(), this.getBottom(), this.getLeft()])
         }
     }
 
-    incrementElem(name: string) {
-        if (name === 'top') {
+    setTop = (arg: boolean) => {
+        if(!(this.state.mob||this.state.tab||this.state.des)){
             this.setState({
-                top: this.state.top + 1
-            })
+                all: {
+                    ...this.state.all,
+                    top: arg,
+                    bottom: false
+                }
+            }, this.setInfo)
         }
-        if (name === 'right') {
+        if(this.state.mob){
             this.setState({
-                right: this.state.right + 1
-            })
+                mobile: {
+                    ...this.state.mobile,
+                    top: arg,
+                    bottom: false
+                }
+            }, this.setInfo)
         }
-        if (name === 'bottom') {
+        if(this.state.tab){
             this.setState({
-                bottom: this.state.bottom + 1
-            })
+                tablet: {
+                    ...this.state.tablet,
+                    top: arg,
+                    bottom: false
+                }
+            }, this.setInfo)
         }
-        if (name === 'left') {
+        if(this.state.des){
             this.setState({
-                left: this.state.left + 1
-            })
+                desktop: {
+                    ...this.state.desktop,
+                    top: arg,
+                    bottom: false
+                }
+            }, this.setInfo)
         }
-        if (name === 'all') {
+    }
+    setRight = (arg: boolean) => {
+        if(!(this.state.mob||this.state.tab||this.state.des)){
             this.setState({
-                top: this.state.top + 1,
-                left: this.state.top + 1,
-                bottom: this.state.top + 1,
-                right: this.state.top + 1
-            })
+                all: {
+                    ...this.state.all,
+                    right: arg,
+                    left: false
+                }
+            }, this.setInfo)
+        }
+        if(this.state.mob){
+            this.setState({
+                mobile: {
+                    ...this.state.mobile,
+                    right: arg,
+                    left: false
+                }
+            }, this.setInfo)
+        }
+        if(this.state.tab){
+            this.setState({
+                tablet: {
+                    ...this.state.tablet,
+                    right: arg,
+                    left: false
+                }
+            }, this.setInfo)
+        }
+        if(this.state.des){
+            this.setState({
+                desktop: {
+                    ...this.state.desktop,
+                    right: arg,
+                    left: false
+                }
+            }, this.setInfo)
+        }
+    }
+    setBottom = (arg: boolean) => {
+        if(!(this.state.mob||this.state.tab||this.state.des)){
+            this.setState({
+                all: {
+                    ...this.state.all,
+                    bottom: arg,
+                    top: false
+                }
+            }, this.setInfo)
+        }
+        if(this.state.mob){
+            this.setState({
+                mobile: {
+                    ...this.state.mobile,
+                    bottom: arg,
+                    top: false
+                }
+            }, this.setInfo)
+        }
+        if(this.state.tab){
+            this.setState({
+                tablet: {
+                    ...this.state.tablet,
+                    bottom: arg,
+                    top: false
+                }
+            }, this.setInfo)
+        }
+        if(this.state.des){
+            this.setState({
+                desktop: {
+                    ...this.state.desktop,
+                    bottom: arg,
+                    top: false
+                }
+            }, this.setInfo)
+        }
+    }
+    setLeft = (arg: boolean) => {
+        if(!(this.state.mob||this.state.tab||this.state.des)){
+            this.setState({
+                all: {
+                    ...this.state.all,
+                    left: arg,
+                    right: false
+                }
+            }, this.setInfo)
+        }
+        if(this.state.mob){
+            this.setState({
+                mobile: {
+                    ...this.state.mobile,
+                    left: arg,
+                    right: false
+                }
+            }, this.setInfo)
+        }
+        if(this.state.tab){
+            this.setState({
+                tablet: {
+                    ...this.state.tablet,
+                    left: arg,
+                    right: false
+                }
+            }, this.setInfo)
+        }
+        if(this.state.des){
+            this.setState({
+                desktop: {
+                    ...this.state.desktop,
+                    left: arg,
+                    right: false
+                }
+            }, this.setInfo)
         }
     }
 
-    decrementElem(name: string) {
-        if (name === 'top') {
+    setMobFocus = () => {
+        if(this.state.mob){
             this.setState({
-                top: this.state.top - 1
+                mob: false
             })
-        }
-        if (name === 'right') {
-            this.setState({
-                right: this.state.right - 1
-            })
-        }
-        if (name === 'bottom') {
-            this.setState({
-                bottom: this.state.bottom - 1
-            })
-        }
-        if (name === 'left') {
-            this.setState({
-                left: this.state.left - 1
-            })
-        }
-        if (name === 'all') {
-            this.setState({
-                top: this.state.top - 1,
-                left: this.state.top - 1,
-                bottom: this.state.top - 1,
-                right: this.state.top - 1
-            })
-        }
-    }
-
-    CustomInput({Placeholder, Value, NameElem}: CIProps) {
-        return (
-            <CustomInputBlock>
-                <Input placeholder={Placeholder} type={"text"} value={Value}/>
-                <ButtonsArrows>
-                    <ButtonArrowUp onClick={() => this.incrementElem(NameElem)}>+</ButtonArrowUp>
-                    <ButtonArrowDown onClick={() => this.decrementElem(NameElem)}>-</ButtonArrowDown>
-                </ButtonsArrows>
-            </CustomInputBlock>
-        )
-    }
-
-    updateValue = (text: string, name: string) => {
-        text = text.replace('px', '').replace('%', '')
-        let num = parseInt(text)
-        if (!num || num < 0) {
-            if (name === 'top' || name === 'all') {
-                this.setState({
-                    top: 0
-                })
-            }
-            if (name === 'right' || name === 'all') {
-                this.setState({
-                    right: 0
-                })
-            }
-            if (name === 'bottom' || name === 'all') {
-                this.setState({
-                    bottom: 0
-                })
-            }
-            if (name === 'left' || name === 'all') {
-                this.setState({
-                    left: 0
-                })
-            }
         } else {
-            if (name === 'top' || name === 'all') {
-                this.setState({
-                    top: parseInt(text)
-                })
-            }
-            if (name === 'right' || name === 'all') {
-                this.setState({
-                    right: parseInt(text)
-                })
-            }
-            if (name === 'bottom' || name === 'all') {
-                this.setState({
-                    bottom: parseInt(text)
-                })
-            }
-            if (name === 'left' || name === 'all') {
-                this.setState({
-                    left: parseInt(text)
-                })
-            }
+            this.setState({
+                mob: true,
+                tab: false,
+                des: false
+            })
         }
     }
+    setTabFocus = () => {
+        if(this.state.tab){
+            this.setState({
+                tab: false
+            })
+        } else {
+            this.setState({
+                mob: false,
+                tab: true,
+                des: false
+            })
+        }
+    }
+    setDesFocus = () => {
+        if(this.state.des){
+            this.setState({
+                des: false
+            })
+        } else {
+            this.setState({
+                mob: false,
+                tab: false,
+                des: true
+            })
+        }
+    }
+
+    // makeTop = () => {
+    //     if(this.getBottom()){
+    //         this.setBottom(false)
+    //     }
+    //     if(this.getTop()){
+    //         this.setTop(false)
+    //     } else {
+    //         this.setTop(true)
+    //     }
+    // }
+    // makeRight = () => {
+    //     if(this.getLeft()){
+    //         this.setLeft(false)
+    //     }
+    //     if(this.getRight()){
+    //         this.setRight(false)
+    //     } else {
+    //         this.setRight(true)
+    //     }
+    // }
+    // makeBottom = () => {
+    //     if(this.getTop()){
+    //         this.setTop(false)
+    //     }
+    //     if(this.getBottom()){
+    //         this.setBottom(false)
+    //     } else {
+    //         this.setBottom(true)
+    //     }
+    // }
+    // makeLeft = () => {
+    //     if(this.getRight()){
+    //         this.setRight(false)
+    //     }
+    //     if(this.getLeft()){
+    //         this.setLeft(false)
+    //     } else {
+    //         this.setLeft(true)
+    //     }
+    // }
 
     render() {
         return (
             <DivMargin>
                 <CardHeader>Position</CardHeader>
+                <DivOptionsSelector>
+                    <ButtonHeaderCard focus={this.state.mob} onClick={this.setMobFocus}>:mob</ButtonHeaderCard>
+                    <ButtonHeaderCard focus={this.state.tab} onClick={this.setTabFocus}>:tab</ButtonHeaderCard>
+                    <ButtonHeaderCard focus={this.state.des} onClick={this.setDesFocus}>:des</ButtonHeaderCard>
+                </DivOptionsSelector>
                 <DivOptions>
                     <DivOptionsRow2>
                         <DivOptionsTwo>
-                            <DivName>Top</DivName>
-                            <CustomInputBlock>
-                                <Input placeholder={'top'}
-                                       type={"text"}
-                                       value={this.state.top + this.state.typeSize}
-                                       onChange={(e) => {
-                                           this.updateValue(e.target.value, 'top')
-                                       }}/>
-                                <ButtonsArrows>
-                                    <ButtonArrowUp onClick={() => this.incrementElem('top')}>+</ButtonArrowUp>
-                                    <ButtonArrowDown onClick={() => this.decrementElem('top')}>-</ButtonArrowDown>
-                                </ButtonsArrows>
-                            </CustomInputBlock>
+                            <CustomInputBlockCheckBox>
+                                <OptionRow onClick={()=>this.setTop(!this.getTop())}>
+                                    <CheckBox>
+                                        {this.getTop() ? <div>&#10004;</div> : ''}
+                                    </CheckBox>
+                                    Top
+                                </OptionRow>
+                            </CustomInputBlockCheckBox>
                         </DivOptionsTwo>
                         <DivOptionsTwo>
-                            <DivName>Left</DivName>
-                            <CustomInputBlock>
-                                <Input placeholder={'left'}
-                                       type={"text"}
-                                       value={this.state.left + this.state.typeSize}
-                                       onChange={(e) => {
-                                           this.updateValue(e.target.value, 'left')
-                                       }}/>
-                                <ButtonsArrows>
-                                    <ButtonArrowUp onClick={() => this.incrementElem('left')}>+</ButtonArrowUp>
-                                    <ButtonArrowDown onClick={() => this.decrementElem('left')}>-</ButtonArrowDown>
-                                </ButtonsArrows>
-                            </CustomInputBlock>
+                            <CustomInputBlockCheckBox>
+                                <OptionRow onClick={()=>this.setLeft(!this.getLeft())}>
+                                    <CheckBox>
+                                        {this.getLeft() ? <div>&#10004;</div> : ''}
+                                    </CheckBox>
+                                    Left
+                                </OptionRow>
+                            </CustomInputBlockCheckBox>
                         </DivOptionsTwo>
                     </DivOptionsRow2>
                     <DivOptionsRow2>
                         <DivOptionsTwo>
-                            <DivName>Bottom</DivName>
-                            <CustomInputBlock>
-                                <Input placeholder={'bottom'}
-                                       type={"text"}
-                                       value={this.state.bottom + this.state.typeSize}
-                                       onChange={(e) => {
-                                           this.updateValue(e.target.value, 'bottom')
-                                       }}/>
-                                <ButtonsArrows>
-                                    <ButtonArrowUp onClick={() => this.incrementElem('bottom')}>+</ButtonArrowUp>
-                                    <ButtonArrowDown onClick={() => this.decrementElem('bottom')}>-</ButtonArrowDown>
-                                </ButtonsArrows>
-                            </CustomInputBlock>
+                            <CustomInputBlockCheckBox>
+                                <OptionRow onClick={()=>this.setBottom(!this.getBottom())}>
+                                    <CheckBox>
+                                        {this.getBottom() ? <div>&#10004;</div> : ''}
+                                    </CheckBox>
+                                    Bottom
+                                </OptionRow>
+                            </CustomInputBlockCheckBox>
                         </DivOptionsTwo>
                         <DivOptionsTwo>
-                            <DivName>Right</DivName>
-                            <CustomInputBlock>
-                                <Input placeholder={'right'}
-                                       type={"text"}
-                                       value={this.state.right + this.state.typeSize}
-                                       onChange={(e) => {
-                                           this.updateValue(e.target.value, 'right')
-                                       }}/>
-                                <ButtonsArrows>
-                                    <ButtonArrowUp onClick={() => this.incrementElem('right')}>+</ButtonArrowUp>
-                                    <ButtonArrowDown onClick={() => this.decrementElem('right')}>-</ButtonArrowDown>
-                                </ButtonsArrows>
-                            </CustomInputBlock>
+                            <CustomInputBlockCheckBox>
+                                <OptionRow onClick={()=>this.setRight(!this.getRight())}>
+                                    <CheckBox>
+                                        {this.getRight() ? <div>&#10004;</div> : ''}
+                                    </CheckBox>
+                                    Right
+                                </OptionRow>
+                            </CustomInputBlockCheckBox>
                         </DivOptionsTwo>
                     </DivOptionsRow2>
                 </DivOptions>
