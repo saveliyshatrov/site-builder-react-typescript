@@ -234,7 +234,8 @@ type PropsElemForCSS = {
     insertInfo: any,
     uiFramework: string,
     showCssFunc: any,
-    hideStylesFunc: any
+    hideStylesFunc: any,
+    setStyleName: any
 }
 
 class Styles extends Component<PropsElemForCSS, any> {
@@ -332,7 +333,8 @@ class Styles extends Component<PropsElemForCSS, any> {
                             <CustomInput placeholder={"Search"}
                                          value={this.state.searchExisted}
                                          onChange={(e) => {
-                                             this.componentDidMount(this.state.searchInElement, e.target.value)
+                                             this.componentDidMount(this.state.searchInElement, e.target.value);
+                                             this.props.setStyleName(e.target.value);
                                          }}/>
                             <ButtonAddStyle onClick={this.showCSS}>
                                 <StyleClassName>Add style</StyleClassName>

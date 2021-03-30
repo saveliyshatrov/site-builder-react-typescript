@@ -33,351 +33,348 @@ type cardProps = {
     insertInfo: any
     elem: string,
     objInfo: any,
-    type: 'cssChanges' | 'tagChanges'
+    type: 'cssChanges' | 'tagChanges',
+    styleTemplates: any,
+    styleName: string
 }
 
-let SHOWDedug = true
-
 class Cards extends Component<cardProps, any>{
-    public SHOWDebug:boolean = true
-    constructor(props: any) {
-        super(props);
-    }
+    public SHOWDebug:boolean = false;
     state = {
         all: {
             width: {
-                none: '10%',
-                hover: '11%',
-                active: '12%',
-                focus: '13%'
+                none: this.props.styleTemplates[this.props.styleName]?.all?.width?.none?this.props.styleTemplates[this.props.styleName].all.width.none:'0px',
+                hover: this.props.styleTemplates[this.props.styleName]?.all?.width?.hover?this.props.styleTemplates[this.props.styleName].all.width.hover:'0px',
+                active: this.props.styleTemplates[this.props.styleName]?.all?.width?.active?this.props.styleTemplates[this.props.styleName].all.width.active:'0px',
+                focus: this.props.styleTemplates[this.props.styleName]?.all?.width?.focus?this.props.styleTemplates[this.props.styleName].all.width.focus:'0px'
             },
             height: {
-                none: '1px',
-                hover: '2px',
-                active: '3px',
-                focus: '4%'
+                none: this.props.styleTemplates[this.props.styleName]?.all?.height?.none?this.props.styleTemplates[this.props.styleName].all.height.none:'0px',
+                hover: this.props.styleTemplates[this.props.styleName]?.all?.height?.hover?this.props.styleTemplates[this.props.styleName].all.height.hover:'0px',
+                active: this.props.styleTemplates[this.props.styleName]?.all?.height?.active?this.props.styleTemplates[this.props.styleName].all.height.active:'0px',
+                focus: this.props.styleTemplates[this.props.styleName]?.all?.height?.focus?this.props.styleTemplates[this.props.styleName].all.height.focus:'0px'
             },
             backgroundColor: {
-                none: [30, '#AAABFF', '#BA55AF'],
-                hover: ['#898989'],
-                active: ['#FFFFFF'],
-                focus: ['#FFFFFF']
+                none: this.props.styleTemplates[this.props.styleName]?.all?.backgroundColor?.none?this.props.styleTemplates[this.props.styleName].all.backgroundColor.none:['#000000'],
+                hover: this.props.styleTemplates[this.props.styleName]?.all?.backgroundColor?.hover?this.props.styleTemplates[this.props.styleName].all.backgroundColor.hover:['#000000'],
+                active: this.props.styleTemplates[this.props.styleName]?.all?.backgroundColor?.active?this.props.styleTemplates[this.props.styleName].all.backgroundColor.active:['#000000'],
+                focus: this.props.styleTemplates[this.props.styleName]?.all?.backgroundColor?.focus?this.props.styleTemplates[this.props.styleName].all.backgroundColor.focus:['#000000']
             },
-            margin: ['22%'],
-            padding: ['22%'],
+            margin: this.props.styleTemplates[this.props.styleName]?.all?.margin?this.props.styleTemplates[this.props.styleName].all.margin:['0px'],
+            padding: this.props.styleTemplates[this.props.styleName]?.all?.padding?this.props.styleTemplates[this.props.styleName].all.padding:['0px'],
             boxShadow: {
-                none: ['1px', '2px', '3px', '4px', '#BA3A5A'],
-                hover: ['11%', '21%', '31%', '41%', '#935238'],
-                active: ['12px', '22px', '32px', '42px', '#723045'],
-                focus: ['13px', '23px', '32px', '43px', '#103739']
+                none: this.props.styleTemplates[this.props.styleName]?.all?.boxShadow?.none?this.props.styleTemplates[this.props.styleName].all.boxShadow.none:['0px', '0px', '0px', '0px', '#000000'],
+                hover: this.props.styleTemplates[this.props.styleName]?.all?.boxShadow?.hover?this.props.styleTemplates[this.props.styleName].all.boxShadow.hover:['0px', '0px', '0px', '0px', '#000000'],
+                active: this.props.styleTemplates[this.props.styleName]?.all?.boxShadow?.active?this.props.styleTemplates[this.props.styleName].all.boxShadow.active:['0px', '0px', '0px', '0px', '#000000'],
+                focus: this.props.styleTemplates[this.props.styleName]?.all?.boxShadow?.focus?this.props.styleTemplates[this.props.styleName].all.boxShadow.focus:['0px', '0px', '0px', '0px', '#000000']
             },
             font: {
                 none: {
-                    fontFamily: 'Arial',
-                    customFontFamily: '1',
-                    size: 10,
-                    fontWeight: '100',
-                    typeSize: '%',
-                    color: '#000000',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.all?.font?.none?.fontFamily?this.props.styleTemplates[this.props.styleName]?.all?.font?.none?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.all?.font?.none?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.all?.font?.none?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.all?.font?.none?.size?this.props.styleTemplates[this.props.styleName]?.all?.font?.none?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.all?.font?.none?.fontWeight?this.props.styleTemplates[this.props.styleName]?.all?.font?.none?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.all?.font?.none?.typeSize?this.props.styleTemplates[this.props.styleName]?.all?.font?.none?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.all?.font?.none?.color?this.props.styleTemplates[this.props.styleName]?.all?.font?.none?.color:'#000000'
                 },
                 hover: {
-                    fontFamily: 'Times',
-                    customFontFamily: '2',
-                    size: 11,
-                    fontWeight: '200',
-                    typeSize: 'px',
-                    color: '#FFFFFF',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.all?.font?.hover?.fontFamily?this.props.styleTemplates[this.props.styleName]?.all?.font?.hover?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.all?.font?.hover?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.all?.font?.hover?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.all?.font?.hover?.size?this.props.styleTemplates[this.props.styleName]?.all?.font?.hover?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.all?.font?.hover?.fontWeight?this.props.styleTemplates[this.props.styleName]?.all?.font?.hover?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.all?.font?.hover?.typeSize?this.props.styleTemplates[this.props.styleName]?.all?.font?.hover?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.all?.font?.hover?.color?this.props.styleTemplates[this.props.styleName]?.all?.font?.hover?.color:'#000000'
                 },
                 active: {
-                    fontFamily: 'Arial',
-                    customFontFamily: '3',
-                    size: 12,
-                    fontWeight: '300',
-                    typeSize: '%',
-                    color: '#FFF000',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.all?.font?.active?.fontFamily?this.props.styleTemplates[this.props.styleName]?.all?.font?.active?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.all?.font?.active?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.all?.font?.active?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.all?.font?.active?.size?this.props.styleTemplates[this.props.styleName]?.all?.font?.active?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.all?.font?.active?.fontWeight?this.props.styleTemplates[this.props.styleName]?.all?.font?.active?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.all?.font?.active?.typeSize?this.props.styleTemplates[this.props.styleName]?.all?.font?.active?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.all?.font?.active?.color?this.props.styleTemplates[this.props.styleName]?.all?.font?.active?.color:'#000000'
                 },
                 focus: {
-                    fontFamily: 'Times',
-                    customFontFamily: '4',
-                    size: 13,
-                    fontWeight: '400',
-                    typeSize: 'px',
-                    color: '#000FFF',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.all?.font?.focus?.fontFamily?this.props.styleTemplates[this.props.styleName]?.all?.font?.focus?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.all?.font?.focus?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.all?.font?.focus?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.all?.font?.focus?.size?this.props.styleTemplates[this.props.styleName]?.all?.font?.focus?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.all?.font?.focus?.fontWeight?this.props.styleTemplates[this.props.styleName]?.all?.font?.focus?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.all?.font?.focus?.typeSize?this.props.styleTemplates[this.props.styleName]?.all?.font?.focus?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.all?.font?.focus?.color?this.props.styleTemplates[this.props.styleName]?.all?.font?.focus?.color:'#000000'
                 },
             },
-            position: [false, true, true, false],
-            border: ['22%'],
+            position: this.props.styleTemplates[this.props.styleName]?.all?.position?this.props.styleTemplates[this.props.styleName].all.position:[false, false, false, false],
+            border: this.props.styleTemplates[this.props.styleName]?.all?.border?this.props.styleTemplates[this.props.styleName].all.border:['0px'],
             borderColor: {
-                none: ['#FFF000','#000FFF','#F0F0F0','#0F0F0F'],
-                hover: ['#0F0F0F'],
-                active: ['#00FFFF'],
-                focus: ['#000FFF','#F0F0F0','#0F0F0F','#FFF000']
+                none: this.props.styleTemplates[this.props.styleName]?.all?.borderColor?.none?this.props.styleTemplates[this.props.styleName].all.borderColor.none:['#000000'],
+                hover: this.props.styleTemplates[this.props.styleName]?.all?.borderColor?.hover?this.props.styleTemplates[this.props.styleName].all.borderColor.hover:['#000000'],
+                active: this.props.styleTemplates[this.props.styleName]?.all?.borderColor?.active?this.props.styleTemplates[this.props.styleName].all.borderColor.active:['#000000'],
+                focus: this.props.styleTemplates[this.props.styleName]?.all?.borderColor?.focus?this.props.styleTemplates[this.props.styleName].all.borderColor.focus:['#000000'],
             },
             borderRadius: {
-                none: ['1px', '2px', '3px', '4px'],
-                hover: ['11%', '21%', '31%', '41%'],
-                active: ['42px'],
-                focus: ['13px']
+                none: this.props.styleTemplates[this.props.styleName]?.all?.borderRadius?.none?this.props.styleTemplates[this.props.styleName].all.borderRadius.none:['0px'],
+                hover: this.props.styleTemplates[this.props.styleName]?.all?.borderRadius?.hover?this.props.styleTemplates[this.props.styleName].all.borderRadius.hover:['0px'],
+                active: this.props.styleTemplates[this.props.styleName]?.all?.borderRadius?.active?this.props.styleTemplates[this.props.styleName].all.borderRadius.active:['0px'],
+                focus: this.props.styleTemplates[this.props.styleName]?.all?.borderRadius?.focus?this.props.styleTemplates[this.props.styleName].all.borderRadius.focus:['0px'],
             },
-            transition: 400,
-            objectFit: 'cover',
+            transition: this.props.styleTemplates[this.props.styleName]?.all?.transition?this.props.styleTemplates[this.props.styleName].all.transition:400,
+            objectFit: this.props.styleTemplates[this.props.styleName]?.all?.objectFit?this.props.styleTemplates[this.props.styleName].all.objectFit:'none',
             flex: {
-                enable: false,
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-                alignItems: 'center'
+                enable: this.props.styleTemplates[this.props.styleName]?.all?.flex?.enable?this.props.styleTemplates[this.props.styleName].all.flex.enable:false,
+                flexDirection: this.props.styleTemplates[this.props.styleName]?.all?.flex?.flexDirection?this.props.styleTemplates[this.props.styleName].all.flex.flexDirection:'row',
+                justifyContent: this.props.styleTemplates[this.props.styleName]?.all?.flex?.justifyContent?this.props.styleTemplates[this.props.styleName].all.flex.justifyContent:'space-around',
+                alignItems: this.props.styleTemplates[this.props.styleName]?.all?.flex?.alignItems?this.props.styleTemplates[this.props.styleName].all.flex.alignItems:'center'
             }
         },
         mobile: {
             width: {
-                none: '20px',
-                hover: '21px',
-                active: '22px',
-                focus: '23px'
+                none: this.props.styleTemplates[this.props.styleName]?.mobile?.width?.none?this.props.styleTemplates[this.props.styleName].mobile.width.none:'0px',
+                hover: this.props.styleTemplates[this.props.styleName]?.mobile?.width?.hover?this.props.styleTemplates[this.props.styleName].mobile.width.hover:'0px',
+                active: this.props.styleTemplates[this.props.styleName]?.mobile?.width?.active?this.props.styleTemplates[this.props.styleName].mobile.width.active:'0px',
+                focus: this.props.styleTemplates[this.props.styleName]?.mobile?.width?.focus?this.props.styleTemplates[this.props.styleName].mobile.width.focus:'0px'
             },
             height: {
-                none: '11px',
-                hover: '12px',
-                active: '13px',
-                focus: '14px'
+                none: this.props.styleTemplates[this.props.styleName]?.mobile?.height?.none?this.props.styleTemplates[this.props.styleName].mobile.height.none:'0px',
+                hover: this.props.styleTemplates[this.props.styleName]?.mobile?.height?.hover?this.props.styleTemplates[this.props.styleName].mobile.height.hover:'0px',
+                active: this.props.styleTemplates[this.props.styleName]?.mobile?.height?.active?this.props.styleTemplates[this.props.styleName].mobile.height.active:'0px',
+                focus: this.props.styleTemplates[this.props.styleName]?.mobile?.height?.focus?this.props.styleTemplates[this.props.styleName].mobile.height.focus:'0px'
             },
             backgroundColor: {
-                none: [30, '#AAABFF', '#909090'],
-                hover: ['#898989'],
-                active: ['#FFFFFF'],
-                focus: ['#FFFFFF']
+                none: this.props.styleTemplates[this.props.styleName]?.mobile?.backgroundColor?.none?this.props.styleTemplates[this.props.styleName].mobile.backgroundColor.none:['#000000'],
+                hover: this.props.styleTemplates[this.props.styleName]?.mobile?.backgroundColor?.hover?this.props.styleTemplates[this.props.styleName].mobile.backgroundColor.hover:['#000000'],
+                active: this.props.styleTemplates[this.props.styleName]?.mobile?.backgroundColor?.active?this.props.styleTemplates[this.props.styleName].mobile.backgroundColor.active:['#000000'],
+                focus: this.props.styleTemplates[this.props.styleName]?.mobile?.backgroundColor?.focus?this.props.styleTemplates[this.props.styleName].mobile.backgroundColor.focus:['#000000']
             },
-            margin: ['30px'],
-            padding: ['30px'],
+            margin: this.props.styleTemplates[this.props.styleName]?.mobile?.margin?this.props.styleTemplates[this.props.styleName].mobile.margin:['0px'],
+            padding: this.props.styleTemplates[this.props.styleName]?.mobile?.padding?this.props.styleTemplates[this.props.styleName].mobile.padding:['0px'],
             boxShadow: {
-                none: ['2px', '3px', '4px', '5px', '#1A3A5A'],
-                hover: ['21px', '31px', '41px', '51px', '#535258'],
-                active: ['22px', '32px', '42px', '52px', '#72F045'],
-                focus: ['23px', '33px', '43px', '53px', '#103AA9']
+                none: this.props.styleTemplates[this.props.styleName]?.mobile?.boxShadow?.none?this.props.styleTemplates[this.props.styleName].mobile.boxShadow.none:['0px', '0px', '0px', '0px', '#000000'],
+                hover: this.props.styleTemplates[this.props.styleName]?.mobile?.boxShadow?.hover?this.props.styleTemplates[this.props.styleName].mobile.boxShadow.hover:['0px', '0px', '0px', '0px', '#000000'],
+                active: this.props.styleTemplates[this.props.styleName]?.mobile?.boxShadow?.active?this.props.styleTemplates[this.props.styleName].mobile.boxShadow.active:['0px', '0px', '0px', '0px', '#000000'],
+                focus: this.props.styleTemplates[this.props.styleName]?.mobile?.boxShadow?.focus?this.props.styleTemplates[this.props.styleName].mobile.boxShadow.focus:['0px', '0px', '0px', '0px', '#000000']
             },
             font: {
                 none: {
-                    fontFamily: 'Times New Roman',
-                    customFontFamily: '1q',
-                    size: 20,
-                    fontWeight: '200',
-                    typeSize: '%',
-                    color: '#FF0000',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.none?.fontFamily?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.none?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.none?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.none?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.none?.size?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.none?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.none?.fontWeight?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.none?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.none?.typeSize?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.none?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.none?.color?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.none?.color:'#000000'
                 },
                 hover: {
-                    fontFamily: 'Impact',
-                    customFontFamily: '2q',
-                    size: 21,
-                    fontWeight: '300',
-                    typeSize: 'px',
-                    color: '#00FF00',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.hover?.fontFamily?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.hover?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.hover?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.hover?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.hover?.size?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.hover?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.hover?.fontWeight?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.hover?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.hover?.typeSize?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.hover?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.hover?.color?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.hover?.color:'#000000'
                 },
                 active: {
-                    fontFamily: 'Times New Roman',
-                    customFontFamily: '3q',
-                    size: 22,
-                    fontWeight: '400',
-                    typeSize: '%',
-                    color: '#0000FF',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.active?.fontFamily?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.active?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.active?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.active?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.active?.size?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.active?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.active?.fontWeight?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.active?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.active?.typeSize?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.active?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.active?.color?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.active?.color:'#000000'
                 },
                 focus: {
-                    fontFamily: 'Impact',
-                    customFontFamily: '4q',
-                    size: 24,
-                    fontWeight: '500',
-                    typeSize: 'px',
-                    color: '#FF00FF',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.focus?.fontFamily?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.focus?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.focus?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.focus?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.focus?.size?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.focus?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.focus?.fontWeight?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.focus?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.focus?.typeSize?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.focus?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.mobile?.font?.focus?.color?this.props.styleTemplates[this.props.styleName]?.mobile?.font?.focus?.color:'#000000'
                 },
             },
-            position: [true, true, false, false],
-            border: ['30px'],
+            position: this.props.styleTemplates[this.props.styleName]?.mobile?.position?this.props.styleTemplates[this.props.styleName].mobile.position:[false, false, false, false],
+            border: this.props.styleTemplates[this.props.styleName]?.mobile?.border?this.props.styleTemplates[this.props.styleName].mobile.border:['0px'],
             borderColor: {
-                none: ['#FFF000','#000FFF','#F0F0F0','#0F0F0F'],
-                hover: ['#00FFFF','#50A5F0','#0F0F0F','#FFF000'],
-                active: ['#0F0F0F','#FFF000','#000FFF','#50F550'],
-                focus: ['#0F0F0F']
+                none: this.props.styleTemplates[this.props.styleName]?.mobile?.borderColor?.none?this.props.styleTemplates[this.props.styleName].mobile.borderColor.none:['#000000'],
+                hover: this.props.styleTemplates[this.props.styleName]?.mobile?.borderColor?.hover?this.props.styleTemplates[this.props.styleName].mobile.borderColor.hover:['#000000'],
+                active: this.props.styleTemplates[this.props.styleName]?.mobile?.borderColor?.active?this.props.styleTemplates[this.props.styleName].mobile.borderColor.active:['#000000'],
+                focus: this.props.styleTemplates[this.props.styleName]?.mobile?.borderColor?.focus?this.props.styleTemplates[this.props.styleName].mobile.borderColor.focus:['#000000'],
             },
             borderRadius: {
-                none: ['1px', '2px', '3px', '4px'],
-                hover: ['11%', '21%', '31%', '41%'],
-                active: ['42px'],
-                focus: ['13px']
+                none: this.props.styleTemplates[this.props.styleName]?.mobile?.borderRadius?.none?this.props.styleTemplates[this.props.styleName].mobile.borderRadius.none:['0px'],
+                hover: this.props.styleTemplates[this.props.styleName]?.mobile?.borderRadius?.hover?this.props.styleTemplates[this.props.styleName].mobile.borderRadius.hover:['0px'],
+                active: this.props.styleTemplates[this.props.styleName]?.mobile?.borderRadius?.active?this.props.styleTemplates[this.props.styleName].mobile.borderRadius.active:['0px'],
+                focus: this.props.styleTemplates[this.props.styleName]?.mobile?.borderRadius?.focus?this.props.styleTemplates[this.props.styleName].mobile.borderRadius.focus:['0px'],
             },
-            transition: 400,
-            objectFit: 'cover',
+            transition: this.props.styleTemplates[this.props.styleName]?.mobile?.transition?this.props.styleTemplates[this.props.styleName].mobile.transition:400,
+            objectFit: this.props.styleTemplates[this.props.styleName]?.mobile?.objectFit?this.props.styleTemplates[this.props.styleName].mobile.objectFit:'none',
             flex: {
-                enable: false,
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-                alignItems: 'center'
+                enable: this.props.styleTemplates[this.props.styleName]?.mobile?.flex?.enable?this.props.styleTemplates[this.props.styleName].mobile.flex.enable:false,
+                flexDirection: this.props.styleTemplates[this.props.styleName]?.mobile?.flex?.flexDirection?this.props.styleTemplates[this.props.styleName].mobile.flex.flexDirection:'row',
+                justifyContent: this.props.styleTemplates[this.props.styleName]?.mobile?.flex?.justifyContent?this.props.styleTemplates[this.props.styleName].mobile.flex.justifyContent:'space-around',
+                alignItems: this.props.styleTemplates[this.props.styleName]?.mobile?.flex?.alignItems?this.props.styleTemplates[this.props.styleName].mobile.flex.alignItems:'center'
             }
         },
         tablet: {
             width: {
-                none: '30px',
-                hover: '31px',
-                active: '32px',
-                focus: '33px'
+                none: this.props.styleTemplates[this.props.styleName]?.tablet?.width?.none?this.props.styleTemplates[this.props.styleName].tablet.width.none:'0px',
+                hover: this.props.styleTemplates[this.props.styleName]?.tablet?.width?.hover?this.props.styleTemplates[this.props.styleName].tablet.width.hover:'0px',
+                active: this.props.styleTemplates[this.props.styleName]?.tablet?.width?.active?this.props.styleTemplates[this.props.styleName].tablet.width.active:'0px',
+                focus: this.props.styleTemplates[this.props.styleName]?.tablet?.width?.focus?this.props.styleTemplates[this.props.styleName].tablet.width.focus:'0px'
             },
             height: {
-                none: '21px',
-                hover: '22px',
-                active: '23px',
-                focus: '24px'
+                none: this.props.styleTemplates[this.props.styleName]?.tablet?.height?.none?this.props.styleTemplates[this.props.styleName].tablet.height.none:'0px',
+                hover: this.props.styleTemplates[this.props.styleName]?.tablet?.height?.hover?this.props.styleTemplates[this.props.styleName].tablet.height.hover:'0px',
+                active: this.props.styleTemplates[this.props.styleName]?.tablet?.height?.active?this.props.styleTemplates[this.props.styleName].tablet.height.active:'0px',
+                focus: this.props.styleTemplates[this.props.styleName]?.tablet?.height?.focus?this.props.styleTemplates[this.props.styleName].tablet.height.focus:'0px'
             },
             backgroundColor: {
-                none: [40, '#AAABFF', '#909090'],
-                hover: ['#898989'],
-                active: ['#FFFFFF'],
-                focus: ['#FFFFFF']
+                none: this.props.styleTemplates[this.props.styleName]?.tablet?.backgroundColor?.none?this.props.styleTemplates[this.props.styleName].tablet.backgroundColor.none:['#000000'],
+                hover: this.props.styleTemplates[this.props.styleName]?.tablet?.backgroundColor?.hover?this.props.styleTemplates[this.props.styleName].tablet.backgroundColor.hover:['#000000'],
+                active: this.props.styleTemplates[this.props.styleName]?.tablet?.backgroundColor?.active?this.props.styleTemplates[this.props.styleName].tablet.backgroundColor.active:['#000000'],
+                focus: this.props.styleTemplates[this.props.styleName]?.tablet?.backgroundColor?.focus?this.props.styleTemplates[this.props.styleName].tablet.backgroundColor.focus:['#000000']
             },
-            margin: ['1%', '11%', '21%', '31%'],
-            padding: ['1%', '11%', '21%', '31%'],
+            margin: this.props.styleTemplates[this.props.styleName]?.tablet?.margin?this.props.styleTemplates[this.props.styleName].tablet.margin:['0px'],
+            padding: this.props.styleTemplates[this.props.styleName]?.tablet?.padding?this.props.styleTemplates[this.props.styleName].tablet.padding:['0px'],
             boxShadow: {
-                none: ['1px', '2px', '3px', '4px', '#BA3A5A'],
-                hover: ['11px', '21px', '31px', '41px', '#935238'],
-                active: ['12px', '22px', '32px', '42px', '#723045'],
-                focus: ['13px', '23px', '32px', '43px', '#103739']
+                none: this.props.styleTemplates[this.props.styleName]?.tablet?.boxShadow?.none?this.props.styleTemplates[this.props.styleName].tablet.boxShadow.none:['0px', '0px', '0px', '0px', '#000000'],
+                hover: this.props.styleTemplates[this.props.styleName]?.tablet?.boxShadow?.hover?this.props.styleTemplates[this.props.styleName].tablet.boxShadow.hover:['0px', '0px', '0px', '0px', '#000000'],
+                active: this.props.styleTemplates[this.props.styleName]?.tablet?.boxShadow?.active?this.props.styleTemplates[this.props.styleName].tablet.boxShadow.active:['0px', '0px', '0px', '0px', '#000000'],
+                focus: this.props.styleTemplates[this.props.styleName]?.tablet?.boxShadow?.focus?this.props.styleTemplates[this.props.styleName].tablet.boxShadow.focus:['0px', '0px', '0px', '0px', '#000000']
             },
             font: {
                 none: {
-                    fontFamily: '',
-                    customFontFamily: '',
-                    size: 10,
-                    fontWeight: '',
-                    typeSize: 'px',
-                    color: '#FFFFFF',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.none?.fontFamily?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.none?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.none?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.none?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.none?.size?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.none?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.none?.fontWeight?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.none?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.none?.typeSize?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.none?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.none?.color?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.none?.color:'#000000'
                 },
                 hover: {
-                    fontFamily: '',
-                    customFontFamily: '',
-                    size: 10,
-                    fontWeight: '',
-                    typeSize: 'px',
-                    color: '#FFFFFF',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.hover?.fontFamily?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.hover?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.hover?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.hover?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.hover?.size?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.hover?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.hover?.fontWeight?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.hover?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.hover?.typeSize?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.hover?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.hover?.color?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.hover?.color:'#000000'
                 },
                 active: {
-                    fontFamily: '',
-                    customFontFamily: '',
-                    size: 10,
-                    fontWeight: '',
-                    typeSize: 'px',
-                    color: '#FFFFFF',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.active?.fontFamily?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.active?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.active?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.active?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.active?.size?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.active?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.active?.fontWeight?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.active?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.active?.typeSize?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.active?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.active?.color?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.active?.color:'#000000'
                 },
                 focus: {
-                    fontFamily: '',
-                    customFontFamily: '',
-                    size: 10,
-                    fontWeight: '',
-                    typeSize: 'px',
-                    color: '#FFFFFF',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.focus?.fontFamily?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.focus?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.focus?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.focus?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.focus?.size?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.focus?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.focus?.fontWeight?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.focus?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.focus?.typeSize?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.focus?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.tablet?.font?.focus?.color?this.props.styleTemplates[this.props.styleName]?.tablet?.font?.focus?.color:'#000000'
                 },
             },
-            position: [false, false, false, false],
-            border: ['1%', '11%', '21%', '31%'],
+            position: this.props.styleTemplates[this.props.styleName]?.tablet?.position?this.props.styleTemplates[this.props.styleName].tablet.position:[false, false, false, false],
+            border: this.props.styleTemplates[this.props.styleName]?.tablet?.border?this.props.styleTemplates[this.props.styleName].tablet.border:['0px'],
             borderColor: {
-                none: ['#FF0000','#0000FF','#00FF00','#000000'],
-                hover: ['#F0F0F0','#0F0F0F','#00F00F','#F00F00'],
-                active: ['#FFF000'],
-                focus: ['#0F0F0F']
+                none: this.props.styleTemplates[this.props.styleName]?.tablet?.borderColor?.none?this.props.styleTemplates[this.props.styleName].tablet.borderColor.none:['#000000'],
+                hover: this.props.styleTemplates[this.props.styleName]?.tablet?.borderColor?.hover?this.props.styleTemplates[this.props.styleName].tablet.borderColor.hover:['#000000'],
+                active: this.props.styleTemplates[this.props.styleName]?.tablet?.borderColor?.active?this.props.styleTemplates[this.props.styleName].tablet.borderColor.active:['#000000'],
+                focus: this.props.styleTemplates[this.props.styleName]?.tablet?.borderColor?.focus?this.props.styleTemplates[this.props.styleName].tablet.borderColor.focus:['#000000'],
             },
             borderRadius: {
-                none: ['1px', '2px', '3px', '4px'],
-                hover: ['11%', '21%', '31%', '41%'],
-                active: ['42px'],
-                focus: ['13px']
+                none: this.props.styleTemplates[this.props.styleName]?.tablet?.borderRadius?.none?this.props.styleTemplates[this.props.styleName].tablet.borderRadius.none:['0px'],
+                hover: this.props.styleTemplates[this.props.styleName]?.tablet?.borderRadius?.hover?this.props.styleTemplates[this.props.styleName].tablet.borderRadius.hover:['0px'],
+                active: this.props.styleTemplates[this.props.styleName]?.tablet?.borderRadius?.active?this.props.styleTemplates[this.props.styleName].tablet.borderRadius.active:['0px'],
+                focus: this.props.styleTemplates[this.props.styleName]?.tablet?.borderRadius?.focus?this.props.styleTemplates[this.props.styleName].tablet.borderRadius.focus:['0px'],
             },
-            transition: 400,
-            objectFit: 'cover',
+            transition: this.props.styleTemplates[this.props.styleName]?.tablet?.transition?this.props.styleTemplates[this.props.styleName].tablet.transition:400,
+            objectFit: this.props.styleTemplates[this.props.styleName]?.tablet?.objectFit?this.props.styleTemplates[this.props.styleName].tablet.objectFit:'none',
             flex: {
-                enable: false,
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-                alignItems: 'center'
+                enable: this.props.styleTemplates[this.props.styleName]?.tablet?.flex?.enable?this.props.styleTemplates[this.props.styleName].tablet.flex.enable:false,
+                flexDirection: this.props.styleTemplates[this.props.styleName]?.tablet?.flex?.flexDirection?this.props.styleTemplates[this.props.styleName].tablet.flex.flexDirection:'row',
+                justifyContent: this.props.styleTemplates[this.props.styleName]?.tablet?.flex?.justifyContent?this.props.styleTemplates[this.props.styleName].tablet.flex.justifyContent:'space-around',
+                alignItems: this.props.styleTemplates[this.props.styleName]?.tablet?.flex?.alignItems?this.props.styleTemplates[this.props.styleName].tablet.flex.alignItems:'center'
             }
         },
         desktop: {
             width: {
-                none: '40px',
-                hover: '41px',
-                active: '42px',
-                focus: '43px'
+                none: this.props.styleTemplates[this.props.styleName]?.desktop?.width?.none?this.props.styleTemplates[this.props.styleName].desktop.width.none:'0px',
+                hover: this.props.styleTemplates[this.props.styleName]?.desktop?.width?.hover?this.props.styleTemplates[this.props.styleName].desktop.width.hover:'0px',
+                active: this.props.styleTemplates[this.props.styleName]?.desktop?.width?.active?this.props.styleTemplates[this.props.styleName].desktop.width.active:'0px',
+                focus: this.props.styleTemplates[this.props.styleName]?.desktop?.width?.focus?this.props.styleTemplates[this.props.styleName].desktop.width.focus:'0px'
             },
             height: {
-                none: '40px',
-                hover: '41px',
-                active: '42px',
-                focus: '43px'
+                none: this.props.styleTemplates[this.props.styleName]?.desktop?.height?.none?this.props.styleTemplates[this.props.styleName].desktop.height.none:'0px',
+                hover: this.props.styleTemplates[this.props.styleName]?.desktop?.height?.hover?this.props.styleTemplates[this.props.styleName].desktop.height.hover:'0px',
+                active: this.props.styleTemplates[this.props.styleName]?.desktop?.height?.active?this.props.styleTemplates[this.props.styleName].desktop.height.active:'0px',
+                focus: this.props.styleTemplates[this.props.styleName]?.desktop?.height?.focus?this.props.styleTemplates[this.props.styleName].desktop.height.focus:'0px'
             },
             backgroundColor: {
-                none: [30, '#AAABFA', '#0090AA'],
-                hover: ['#898989'],
-                active: ['#FFFFFF'],
-                focus: ['#FFFFFF']
+                none: this.props.styleTemplates[this.props.styleName]?.desktop?.backgroundColor?.none?this.props.styleTemplates[this.props.styleName].desktop.backgroundColor.none:['#000000'],
+                hover: this.props.styleTemplates[this.props.styleName]?.desktop?.backgroundColor?.hover?this.props.styleTemplates[this.props.styleName].desktop.backgroundColor.hover:['#000000'],
+                active: this.props.styleTemplates[this.props.styleName]?.desktop?.backgroundColor?.active?this.props.styleTemplates[this.props.styleName].desktop.backgroundColor.active:['#000000'],
+                focus: this.props.styleTemplates[this.props.styleName]?.desktop?.backgroundColor?.focus?this.props.styleTemplates[this.props.styleName].desktop.backgroundColor.focus:['#000000']
             },
-            margin: ['0px', '10px', '20px', '30px'],
-            padding: ['0px', '10px', '20px', '30px'],
+            margin: this.props.styleTemplates[this.props.styleName]?.desktop?.margin?this.props.styleTemplates[this.props.styleName].desktop.margin:['0px'],
+            padding: this.props.styleTemplates[this.props.styleName]?.desktop?.padding?this.props.styleTemplates[this.props.styleName].desktop.padding:['0px'],
             boxShadow: {
-                none: ['1px', '2px', '3px', '4px', '#BA3A5A'],
-                hover: ['11px', '21px', '31px', '41px', '#935238'],
-                active: ['12px', '22px', '32px', '42px', '#723045'],
-                focus: ['13px', '23px', '32px', '43px', '#103739']
+                none: this.props.styleTemplates[this.props.styleName]?.desktop?.boxShadow?.none?this.props.styleTemplates[this.props.styleName].desktop.boxShadow.none:['0px', '0px', '0px', '0px', '#000000'],
+                hover: this.props.styleTemplates[this.props.styleName]?.desktop?.boxShadow?.hover?this.props.styleTemplates[this.props.styleName].desktop.boxShadow.hover:['0px', '0px', '0px', '0px', '#000000'],
+                active: this.props.styleTemplates[this.props.styleName]?.desktop?.boxShadow?.active?this.props.styleTemplates[this.props.styleName].desktop.boxShadow.active:['0px', '0px', '0px', '0px', '#000000'],
+                focus: this.props.styleTemplates[this.props.styleName]?.desktop?.boxShadow?.focus?this.props.styleTemplates[this.props.styleName].desktop.boxShadow.focus:['0px', '0px', '0px', '0px', '#000000']
             },
             font: {
                 none: {
-                    fontFamily: '',
-                    customFontFamily: '',
-                    size: 10,
-                    fontWeight: '',
-                    typeSize: 'px',
-                    color: '#FFFFFF',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.none?.fontFamily?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.none?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.none?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.none?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.none?.size?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.none?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.none?.fontWeight?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.none?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.none?.typeSize?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.none?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.none?.color?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.none?.color:'#000000'
                 },
                 hover: {
-                    fontFamily: '',
-                    customFontFamily: '',
-                    size: 10,
-                    fontWeight: '',
-                    typeSize: 'px',
-                    color: '#FFFFFF',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.hover?.fontFamily?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.hover?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.hover?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.hover?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.hover?.size?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.hover?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.hover?.fontWeight?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.hover?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.hover?.typeSize?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.hover?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.hover?.color?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.hover?.color:'#000000'
                 },
                 active: {
-                    fontFamily: '',
-                    customFontFamily: '',
-                    size: 10,
-                    fontWeight: '',
-                    typeSize: 'px',
-                    color: '#FFFFFF',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.active?.fontFamily?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.active?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.active?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.active?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.active?.size?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.active?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.active?.fontWeight?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.active?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.active?.typeSize?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.active?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.active?.color?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.active?.color:'#000000'
                 },
                 focus: {
-                    fontFamily: '',
-                    customFontFamily: '',
-                    size: 10,
-                    fontWeight: '',
-                    typeSize: 'px',
-                    color: '#FFFFFF',
+                    fontFamily: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.focus?.fontFamily?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.focus?.fontFamily:'Arial',
+                    customFontFamily: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.focus?.customFontFamily?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.focus?.customFontFamily:'',
+                    size: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.focus?.size?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.focus?.size:10,
+                    fontWeight: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.focus?.fontWeight?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.focus?.fontWeight:'100',
+                    typeSize: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.focus?.typeSize?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.focus?.typeSize:'px',
+                    color: this.props.styleTemplates[this.props.styleName]?.desktop?.font?.focus?.color?this.props.styleTemplates[this.props.styleName]?.desktop?.font?.focus?.color:'#000000'
                 },
             },
-            position: [false, false, true, true],
-            border: ['0px', '10px', '20px', '30px'],
+            position: this.props.styleTemplates[this.props.styleName]?.desktop?.position?this.props.styleTemplates[this.props.styleName].desktop.position:[false, false, false, false],
+            border: this.props.styleTemplates[this.props.styleName]?.desktop?.border?this.props.styleTemplates[this.props.styleName].desktop.border:['0px'],
             borderColor: {
-                none: ['#FFF000','#000FFF','#F0F0F0','#0F0F0F'],
-                hover: ['#000FFF','#F0F0F0','#0F0F0F','#FFF000'],
-                active: ['#0F0F0F','#FFF000','#000FFF','#F0F0F0'],
-                focus: ['#0F0F0F']
+                none: this.props.styleTemplates[this.props.styleName]?.desktop?.borderColor?.none?this.props.styleTemplates[this.props.styleName].desktop.borderColor.none:['#000000'],
+                hover: this.props.styleTemplates[this.props.styleName]?.desktop?.borderColor?.hover?this.props.styleTemplates[this.props.styleName].desktop.borderColor.hover:['#000000'],
+                active: this.props.styleTemplates[this.props.styleName]?.desktop?.borderColor?.active?this.props.styleTemplates[this.props.styleName].desktop.borderColor.active:['#000000'],
+                focus: this.props.styleTemplates[this.props.styleName]?.desktop?.borderColor?.focus?this.props.styleTemplates[this.props.styleName].desktop.borderColor.focus:['#000000'],
             },
             borderRadius: {
-                none: ['1px', '2px', '3px', '4px'],
-                hover: ['11%', '21%', '31%', '41%'],
-                active: ['42px'],
-                focus: ['13px']
+                none: this.props.styleTemplates[this.props.styleName]?.desktop?.borderRadius?.none?this.props.styleTemplates[this.props.styleName].desktop.borderRadius.none:['0px'],
+                hover: this.props.styleTemplates[this.props.styleName]?.desktop?.borderRadius?.hover?this.props.styleTemplates[this.props.styleName].desktop.borderRadius.hover:['0px'],
+                active: this.props.styleTemplates[this.props.styleName]?.desktop?.borderRadius?.active?this.props.styleTemplates[this.props.styleName].desktop.borderRadius.active:['0px'],
+                focus: this.props.styleTemplates[this.props.styleName]?.desktop?.borderRadius?.focus?this.props.styleTemplates[this.props.styleName].desktop.borderRadius.focus:['0px'],
             },
-            transition: 400,
-            objectFit: 'cover',
+            transition: this.props.styleTemplates[this.props.styleName]?.desktop?.transition?this.props.styleTemplates[this.props.styleName].desktop.transition:400,
+            objectFit: this.props.styleTemplates[this.props.styleName]?.desktop?.objectFit?this.props.styleTemplates[this.props.styleName].desktop.objectFit:'none',
             flex: {
-                enable: false,
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-                alignItems: 'center'
+                enable: this.props.styleTemplates[this.props.styleName]?.desktop?.flex?.enable?this.props.styleTemplates[this.props.styleName].desktop.flex.enable:false,
+                flexDirection: this.props.styleTemplates[this.props.styleName]?.desktop?.flex?.flexDirection?this.props.styleTemplates[this.props.styleName].desktop.flex.flexDirection:'row',
+                justifyContent: this.props.styleTemplates[this.props.styleName]?.desktop?.flex?.justifyContent?this.props.styleTemplates[this.props.styleName].desktop.flex.justifyContent:'space-around',
+                alignItems: this.props.styleTemplates[this.props.styleName]?.desktop?.flex?.alignItems?this.props.styleTemplates[this.props.styleName].desktop.flex.alignItems:'center'
             }
         }
     }

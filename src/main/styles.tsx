@@ -309,30 +309,31 @@ type styleTemplate = {
 }
 
 export interface styleCSS {
-    [key:string]: styleTemplate
+    [key:string]: object
 }
 
 let styleTemplates: styleCSS = {
     "margin-to-0": {
-        margin: {
-            mobile: {
-                top: 0,
-                all: true,
-                size: 'px'
-            },
-            allSame: true
+        all: {
+            margin: ['10px'],
+            padding: ['11%']
         },
-        padding: {
-            mobile: {
-                top: 0,
-                all: true,
-                size: 'px'
-            },
-            allSame: true
+        mobile: {
+            margin: ['12%'],
+            padding: ['7px']
+        }
+    },
+    "margin-to-1": {
+        all: {
+            width: {
+                none: '100px',
+                hover: '101px',
+                active: '102%',
+                focus: '103px'
+            }
         }
     }
 };
 
 export default styleTemplates;
-export type { styleTemplate };
 

@@ -7,7 +7,7 @@ import ModalChoice from "./modalChoice";
 import HTMLTags from "./HTMLtags";
 import {Modal, ModalExport, ModalTemplateName} from './Modals';
 import Templates from "./templates";
-import styleTemplates, {styleTemplate} from "./styles";
+import styleTemplates from "./styles";
 // import template from "./templates"
 
 
@@ -168,7 +168,7 @@ const generateHTMLTree = (Tree: treeOfTree):string => {
     }
 
 }
-const generateCSS = (Style: styleTemplate) => {
+const generateCSS = (Style: any) => {
     let allStyles = Object.keys(Style)
     //let stringStyles = allStyles.map(elem => convertStyleToString(elem))
     //console.log(allStyles)
@@ -781,6 +781,7 @@ class Main extends Component<any, any>{
                            searchString={this.state.searchString}
                            changeSearchString={this.changeSearchString}
                            template={Templates}
+                           styleTemplates={styleTemplates}
                            objInfo={reCreatePathTree(this.state.lastClickedElementId, 'getInfo', '')}
                            uiFramework={this.props.uiFramework}>
                     {HTMLTags(Templates, this.state.searchString)}
