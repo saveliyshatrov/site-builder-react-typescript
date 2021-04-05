@@ -379,6 +379,350 @@ class Cards extends Component<cardProps, any>{
         }
     }
 
+    createObject = () => {
+        if(this.props.styleTemplates[this.props.styleName] === undefined){
+            this.props.styleTemplates[this.props.styleName] = {
+                all: {
+                    width: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    height: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    backgroundColor: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    margin: undefined,
+                    padding: undefined,
+                    boxShadow: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    font: {
+                        none: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        },
+                        hover: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        },
+                        active: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        },
+                        focus: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        }
+                    },
+                    position:undefined,
+                    border: undefined,
+                    borderColor: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    borderRadius: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    transition: undefined,
+                    objectFit: undefined,
+                    flex: {
+                        enable: undefined,
+                        flexDirection: undefined,
+                        justifyContent: undefined,
+                        alignItems: undefined
+                    }
+                },
+                mobile: {
+                    width: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    height: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    backgroundColor: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    margin: undefined,
+                    padding: undefined,
+                    boxShadow: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    font: {
+                        none: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        },
+                        hover: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        },
+                        active: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        },
+                        focus: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        }
+                    },
+                    position:undefined,
+                    border: undefined,
+                    borderColor: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    borderRadius: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    transition: undefined,
+                    objectFit: undefined,
+                    flex: {
+                        enable: undefined,
+                        flexDirection: undefined,
+                        justifyContent: undefined,
+                        alignItems: undefined
+                    }
+                },
+                tablet: {
+                    width: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    height: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    backgroundColor: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    margin: undefined,
+                    padding: undefined,
+                    boxShadow: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    font: {
+                        none: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        },
+                        hover: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        },
+                        active: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        },
+                        focus: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        }
+                    },
+                    position:undefined,
+                    border: undefined,
+                    borderColor: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    borderRadius: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    transition: undefined,
+                    objectFit: undefined,
+                    flex: {
+                        enable: undefined,
+                        flexDirection: undefined,
+                        justifyContent: undefined,
+                        alignItems: undefined
+                    }
+                },
+                desktop: {
+                    width: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    height: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    backgroundColor: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    margin: undefined,
+                    padding: undefined,
+                    boxShadow: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    font: {
+                        none: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        },
+                        hover: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        },
+                        active: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        },
+                        focus: {
+                            fontFamily: undefined,
+                            customFontFamily: undefined,
+                            size: undefined,
+                            fontWeight: undefined,
+                            typeSize: undefined,
+                            color: undefined
+                        }
+                    },
+                    position:undefined,
+                    border: undefined,
+                    borderColor: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    borderRadius: {
+                        none: undefined,
+                        hover: undefined,
+                        active: undefined,
+                        focus: undefined
+                    },
+                    transition: undefined,
+                    objectFit: undefined,
+                    flex: {
+                        enable: undefined,
+                        flexDirection: undefined,
+                        justifyContent: undefined,
+                        alignItems: undefined
+                    }
+                }
+            }
+        }
+    }
+
+
     allWidth = (text: string, command: string, type: string) => {
         if(this.SHOWDebug){console.log('allWidth', type, text)}
         if(command === 'set'){
@@ -391,6 +735,10 @@ class Cards extends Component<cardProps, any>{
                             none: text,
                         }
                     }
+                }, ()=>{
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].all.width.none = this.state.all.width.none;
+                    console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'hover'){
@@ -402,6 +750,10 @@ class Cards extends Component<cardProps, any>{
                             hover: text,
                         }
                     }
+                }, ()=>{
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].all.width.hover = this.state.all.width.hover;
+                    console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'active'){
@@ -413,6 +765,10 @@ class Cards extends Component<cardProps, any>{
                             active: text
                         }
                     }
+                }, ()=>{
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].all.width.active = this.state.all.width.active;
+                    console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'focus'){
@@ -424,6 +780,10 @@ class Cards extends Component<cardProps, any>{
                             focus: text
                         }
                     }
+                }, ()=>{
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].all.width.focus = this.state.all.width.focus;
+                    console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
         }

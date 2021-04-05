@@ -43,7 +43,7 @@ type HeightCardProps = {
 export default class HeightCard extends Component<HeightCardProps, any>{
     state = {
         typeSize: this.props.obj.all.height.none.includes('%')?'%':'px',
-        height: this.props.obj.all.height.none.replace('px', '').replace('%', ''),
+        height: parseInt(this.props.obj.all.height.none.replace('px', '').replace('%', '')),
         mob: false,
         tab: false,
         des: false,
