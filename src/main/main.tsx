@@ -168,11 +168,19 @@ const generateHTMLTree = (Tree: treeOfTree):string => {
     }
 
 }
-const generateCSS = (Style: any) => {
-    let allStyles = Object.keys(Style)
+const generateCSS = (Styles: any) => {
+    let allStyles = Object.keys(Styles)
+    //console.log(allStyles)
+    for(let i: number = 0; i < allStyles.length; i++){
+        convertStyleObjectToString(allStyles[i], Styles)
+    }
     //let stringStyles = allStyles.map(elem => convertStyleToString(elem))
     //console.log(allStyles)
     return ''
+}
+
+const convertStyleObjectToString = (StyleName: string, Styles: any) => {
+    console.log(Styles[StyleName])
 }
 
 const convertStyleToString = (elem: string) => {
@@ -200,6 +208,8 @@ const constructPage = ():string => {
         '            <title> \n' +
         `                ${tree.name}` + ' \n' +
         '            </title>  \n' +
+        '     </head>  \n' +
+        '    ' + generateHTMLTree(tree) + '\n' +
         `            <style>
                         .checkElem{
                             animation: boxShadow 0.8s;
@@ -215,8 +225,6 @@ const constructPage = ():string => {
                         }` + `
                         ${generateCSS(styleTemplates)}
                      </style>` +
-        '     </head>  \n' +
-        '    ' + generateHTMLTree(tree) + '\n' +
         '</html>';
         // '        ' + '<style>' + this.generateCSS(this.CSSArray) + '</style>' +'\n' +
 }
