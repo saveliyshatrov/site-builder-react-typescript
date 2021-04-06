@@ -53,7 +53,7 @@ class rightMenu extends Component<rightMenuProps, any>{
                                                       insertInfo={this.props.insertInfo}
                                                       objInfo={this.props.objInfo}
                                                       type={'tagChanges'}
-                                                      styleTemplates={{}}
+                                                      styleTemplates={this.props.styleTemplates}
                                                       styleName={''}/>:''}
                         {this.props.css?<Cards elem={this.props.elem}
                                                template={this.props.template}
@@ -70,6 +70,7 @@ class rightMenu extends Component<rightMenuProps, any>{
                                                    uiFramework={this.props.uiFramework}
                                                    showCssFunc={this.props.showCssFunc}
                                                    hideStylesFunc={this.props.hideStylesFunc}
+                                                   styleTemplates={this.props.styleTemplates}
                                                    setStyleName={this.setStyleName}/>: ''}
                         {this.getPropsResult()? '': this.props.children}
                     </div>

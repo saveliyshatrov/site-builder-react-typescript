@@ -1,18 +1,7 @@
 import React, {Component} from "react";
 import styled from "styled-components";
-import {ButtonArrowDown, ButtonArrowUp, ButtonsArrows, CustomInputBlock, Input} from "../elems";
+import {ButtonArrowDown, ButtonArrowUp, ButtonsArrows, CustomInputBlock, Input, DivMargin} from "../elems";
 
-
-const DivMargin = styled.div`
-  width: 266px;
-  border-radius: 7px;
-  background-color: #1B1B1B;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  padding: 0px 7px 7px;
-`
 const CardHeader = styled.div`
   width: 100%;
   height: 25px;

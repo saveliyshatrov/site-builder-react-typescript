@@ -5,21 +5,10 @@ import {
     ButtonsArrows,
     CardHeader, CardLogo,
     CustomInputBlockAll, DivOptions,
-    Input, Select, ButtonHeaderCard, DivOptionsSelector
+    Input, Select, ButtonHeaderCard, DivOptionsSelector, DivMargin
 } from "../elems";
 import styled from "styled-components";
 
-
-const DivMargin = styled.div`
-  width: 266px;
-  border-radius: 7px;
-  background-color: #1B1B1B;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  padding: 0px 7px 8px;
-`
 const DivName = styled.div`
   color: lightgray;
   font-size: 10px;

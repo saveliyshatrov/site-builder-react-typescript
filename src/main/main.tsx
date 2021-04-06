@@ -663,8 +663,8 @@ class Main extends Component<any, any>{
                                      y: clickY,
                                      lastClickedElement: (event.target as Element).innerHTML,
                                      lastClickedElementId: (event.target as Element).getAttribute('id')});
-                console.log('last clicked element ---', self.state.lastClickedElement)
-                console.log('last clicked element id ---', self.state.lastClickedElementId)
+                //console.log('last clicked element ---', self.state.lastClickedElement)
+                //console.log('last clicked element id ---', self.state.lastClickedElementId)
                 // console.log('event.target --', self.state.lastClickedElement)
                 // console.log('id event.target --', self.state.lastClickedElementId)
                 // console.log(clickX, clickY);

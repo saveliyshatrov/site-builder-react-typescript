@@ -6,33 +6,10 @@ import {
     CustomInputBlock, CustomInputBlockAll,
     Input, Select, ButtonsArrows,
     ButtonArrowUp, ButtonArrowDown,
-    CheckBox, OptionRow, DivOptionsTwo, ButtonHeaderCard, DivOptionsSelector
+    CheckBox, OptionRow, DivOptionsTwo, ButtonHeaderCard, DivOptionsSelector, DivName, DivMargin
 } from '../elems'
 
 
-
-type CIProps = {
-    Placeholder: string
-    Value: number
-    NameElem: string
-}
-
-const DivMargin = styled.div`
-  width: 266px;
-  border-radius: 7px;
-  background-color: #1B1B1B;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  padding: 0px 7px 8px;
-`
-const DivName = styled.div`
-  color: lightgray;
-  font-size: 10px;
-  margin-bottom: 3px;
-  margin-left: 3px;
-`
 
 export default class MarginCard extends Component<any, any> {
     state = {

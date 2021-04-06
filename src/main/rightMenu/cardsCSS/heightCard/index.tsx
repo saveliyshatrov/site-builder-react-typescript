@@ -5,7 +5,7 @@ import {
     ButtonsArrows,
     CardHeader,
     CustomInputBlockAll, DivOptions, DivOptionsSelector,
-    Input, Select
+    Input, Select, DivMargin, DivName
 } from "../elems";
 import styled from "styled-components";
 
@@ -14,23 +14,6 @@ type CIProps = {
     Value: number
     NameElem: string
 }
-
-const DivMargin = styled.div`
-  width: 266px;
-  border-radius: 7px;
-  background-color: #1B1B1B;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  padding: 0px 7px 8px;
-`
-const DivName = styled.div`
-  color: lightgray;
-  font-size: 10px;
-  margin-bottom: 3px;
-  margin-left: 3px;
-`
 
 type HeightCardProps = {
     obj: any,
@@ -43,7 +26,7 @@ type HeightCardProps = {
 export default class HeightCard extends Component<HeightCardProps, any>{
     state = {
         typeSize: this.props.obj.all.height.none.includes('%')?'%':'px',
-        height: parseInt(this.props.obj.all.height.none.replace('px', '').replace('%', '')),
+        height: this.props.obj.all.height.none.replace('px', '').replace('%', ''),
         mob: false,
         tab: false,
         des: false,
@@ -262,11 +245,11 @@ export default class HeightCard extends Component<HeightCardProps, any>{
         }
     }
     incrementElem(){
-        this.setInfo(this.state.height + 1)
+        this.setInfo(parseInt(this.state.height.toString()) + 1)
     }
     decrementElem(){
         if(this.state.height > 0){
-            this.setInfo(this.state.height - 1)
+            this.setInfo(parseInt(this.state.height.toString()) - 1)
         }
     }
     setMobFocus = () => {

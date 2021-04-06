@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 
 const DivMargin = styled.div`
-  width: 266px;
+  width: 100%;
   border-radius: 7px;
   background-color: #1B1B1B;
   margin-top: 10px;
@@ -25,7 +25,7 @@ const CardHeader = styled.div`
 
 
 const Select = styled.select`
-  width: 253px;
+  width: 100%;
   height: 30px;
   box-sizing: border-box;
   border: 1px solid #545454;

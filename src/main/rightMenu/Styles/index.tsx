@@ -235,7 +235,8 @@ type PropsElemForCSS = {
     uiFramework: string,
     showCssFunc: any,
     hideStylesFunc: any,
-    setStyleName: any
+    setStyleName: any,
+    styleTemplates: any
 }
 
 class Styles extends Component<PropsElemForCSS, any> {
@@ -247,14 +248,15 @@ class Styles extends Component<PropsElemForCSS, any> {
         searchInElement: '',
         searchExisted: '',
         arrayElemIn: [],
-        arrayElem: []
+        arrayElem: [],
+        styleTemplates: Object.keys(this.props.styleTemplates)
     }
     showCSS = () => {
         this.props.showCssFunc()
         this.props.hideStylesFunc()
     }
     getArrayOfStyles = (): Array<string> => {
-        let arr: Array<string> = [];
+        let arr: Array<string> = this.state.styleTemplates;
         if (uiFrameWorks[this.props.uiFramework] !== undefined) {
             return [...arr, ...uiFrameWorks[this.props.uiFramework]]
         } else {
@@ -265,34 +267,67 @@ class Styles extends Component<PropsElemForCSS, any> {
         let arr = []
         if (text === '') {
             for (let i: number = 0; i < array.length; i++) {
-                arr.push(
-                    <StyleClass>
-                        <StyleClassName>{array[i]}</StyleClassName>
-                        <StyleClassBtnPlus
-                            onClick={() => this.props.insertInfo(this.props.elemID, command, array[i])}>{symbol}</StyleClassBtnPlus>
-                    </StyleClass>
-                )
+                if(this.state.styleTemplates.includes(array[i])){
+                    arr.push(
+                        <StyleClass>
+                            <StyleClassName>{array[i]}</StyleClassName>
+                            <StyleClassBtnPlus>:</StyleClassBtnPlus>
+                            <StyleClassBtnPlus
+                                onClick={() => this.props.insertInfo(this.props.elemID, command, array[i])}>{symbol}</StyleClassBtnPlus>
+                        </StyleClass>
+                    )
+                } else {
+                    arr.push(
+                        <StyleClass>
+                            <StyleClassName>{array[i]}</StyleClassName>
+                            <StyleClassBtnPlus
+                                onClick={() => this.props.insertInfo(this.props.elemID, command, array[i])}>{symbol}</StyleClassBtnPlus>
+                        </StyleClass>
+                    )
+                }
             }
         } else {
             let foundedElem = array.filter(elem => elem.toLowerCase().includes(text.toLowerCase()))
             let unfoundedElem = array.filter(elem => !elem.toLowerCase().includes(text.toLowerCase()))
             for (let i: number = 0; i < foundedElem.length; i++) {
-                arr.push(
-                    <StyleClassGreen>
-                        <StyleClassName>{foundedElem[i]}</StyleClassName>
-                        <StyleClassBtnPlus
-                            onClick={() => this.props.insertInfo(this.props.elemID, command, foundedElem[i])}>{symbol}</StyleClassBtnPlus>
-                    </StyleClassGreen>
-                )
+                if(this.state.styleTemplates.includes(foundedElem[i])){
+                    arr.push(
+                        <StyleClassGreen>
+                            <StyleClassName>{foundedElem[i]}</StyleClassName>
+                            <StyleClassBtnPlus>:</StyleClassBtnPlus>
+                            <StyleClassBtnPlus
+                                onClick={() => this.props.insertInfo(this.props.elemID, command, foundedElem[i])}>{symbol}</StyleClassBtnPlus>
+                        </StyleClassGreen>
+                    )
+                } else {
+                    arr.push(
+                        <StyleClassGreen>
+                            <StyleClassName>{foundedElem[i]}</StyleClassName>
+                            <StyleClassBtnPlus
+                                onClick={() => this.props.insertInfo(this.props.elemID, command, foundedElem[i])}>{symbol}</StyleClassBtnPlus>
+                        </StyleClassGreen>
+                    )
+                }
             }
             for (let i: number = 0; i < unfoundedElem.length; i++) {
-                arr.push(
-                    <StyleClassRed>
-                        <StyleClassName>{unfoundedElem[i]}</StyleClassName>
-                        <StyleClassBtnPlus
-                            onClick={() => this.props.insertInfo(this.props.elemID, command, unfoundedElem[i])}>{symbol}</StyleClassBtnPlus>
-                    </StyleClassRed>
-                )
+                if(this.state.styleTemplates.includes(unfoundedElem[i])){
+                    arr.push(
+                        <StyleClassRed>
+                            <StyleClassName>{unfoundedElem[i]}</StyleClassName>
+                            <StyleClassBtnPlus>:</StyleClassBtnPlus>
+                            <StyleClassBtnPlus
+                                onClick={() => this.props.insertInfo(this.props.elemID, command, unfoundedElem[i])}>{symbol}</StyleClassBtnPlus>
+                        </StyleClassRed>
+                    )
+                } else {
+                    arr.push(
+                        <StyleClassRed>
+                            <StyleClassName>{unfoundedElem[i]}</StyleClassName>
+                            <StyleClassBtnPlus
+                                onClick={() => this.props.insertInfo(this.props.elemID, command, unfoundedElem[i])}>{symbol}</StyleClassBtnPlus>
+                        </StyleClassRed>
+                    )
+                }
             }
         }
         return arr

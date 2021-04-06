@@ -262,7 +262,7 @@ if(bootstrap){
         ID: undefined,
         children: [
             {
-                name: "Block",
+                name: "block",
                 tagName: "div",
                 classList: ['card-body'],
                 text: '',

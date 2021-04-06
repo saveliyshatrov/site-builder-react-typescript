@@ -95,7 +95,7 @@ const Input = styled.input`
   padding-left: 7px;
 `
 const Select = styled.select`
-  width: 252px;
+  width: calc(100%);
   height: 27px !important;
   box-sizing: border-box;
   border: 1px solid #545454;
@@ -178,7 +178,7 @@ const OptionRow = styled.div`
 `
 
 const DivMargin = styled.div`
-  width: 266px;
+  width: 100%;
   border-radius: 7px;
   background-color: #1B1B1B;
   margin-top: 10px;
@@ -226,4 +226,5 @@ export {CardHeader, CardLogo, DivOptions,
         CustomInputBlock, CustomInputBlockAll,
         Input, Select, ButtonsArrows,
         ButtonArrowUp, ButtonArrowDown,
-        CheckBox, OptionRow, DivOptionsTwo, DivMargin, DivName, ButtonHeaderCard, DivOptionsSelector, CustomInputBlockCheckBox}
+        CheckBox, OptionRow, DivOptionsTwo, DivMargin, DivName, ButtonHeaderCard, DivOptionsSelector, CustomInputBlockCheckBox};
+
