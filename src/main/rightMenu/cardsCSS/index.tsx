@@ -787,7 +787,7 @@ class Cards extends Component<cardProps, any>{
                 })
             }
         }
-    }
+    }//OK
     mobileWidth = (text: string, command: string, type: string) => {
         if(this.SHOWDebug){console.log('mobileWidth', type, text)}
         if(command === 'set'){
@@ -972,6 +972,10 @@ class Cards extends Component<cardProps, any>{
                             none: text,
                         }
                     }
+                }, ()=>{
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].all.height.none = this.state.all.height.none;
+                    console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'hover'){

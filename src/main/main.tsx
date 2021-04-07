@@ -171,17 +171,54 @@ const generateHTMLTree = (Tree: treeOfTree):string => {
 const generateCSS = (Styles: any) => {
     let allStyles = Object.keys(Styles)
     //console.log(allStyles)
+    let StyleStringAll = ''
     for(let i: number = 0; i < allStyles.length; i++){
-        convertStyleObjectToString(allStyles[i], Styles)
+        StyleStringAll+=styleAll(allStyles[i], Styles)
     }
     //let stringStyles = allStyles.map(elem => convertStyleToString(elem))
     //console.log(allStyles)
+    return StyleStringAll
+}
+
+const convertStyleObjectToString = (StyleName: string, Styles: any):string => {
+    console.log(StyleName, Styles[StyleName])
+    let beginStyle = `.${StyleName}{`;
+    let endStyle = '}';
     return ''
 }
 
-const convertStyleObjectToString = (StyleName: string, Styles: any) => {
-    console.log(Styles[StyleName])
+const styleAll = (StyleName: string, Styles: any):string => {
+    console.log(StyleName, Styles[StyleName])
+    let beginStyle = `.${StyleName}{`;
+    let body = styleAllNone(StyleName, Styles);
+    let endStyle = '}';
+    return beginStyle + body + endStyle;
 }
+const styleMobile = () => {}
+const styleTablet = () => {}
+const styleDesktop = () => {}
+
+
+
+const styleAllNone = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleAllNoneWidth(StyleName, Styles);
+    style+=styleAllNoneHeight(StyleName, Styles);
+    return style;
+}
+
+const styleAllNoneWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.width?.none === undefined?'':`width: ${Styles[StyleName].all.width.none};`
+}
+
+const styleAllNoneHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.height?.none === undefined?'':`height: ${Styles[StyleName].all.height.none};`
+}
+
+
+const styleHover = () => {}
+const styleActive = () => {}
+const styleFocus = () => {}
 
 const convertStyleToString = (elem: string) => {
     return Object.keys(styleTemplates[elem])
