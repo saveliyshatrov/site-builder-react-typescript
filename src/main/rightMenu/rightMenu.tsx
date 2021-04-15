@@ -19,7 +19,8 @@ type rightMenuProps = {
     hideStylesFunc: any,
     tagChanges: boolean,
     hideTagChanges: any,
-    styleTemplates: object
+    styleTemplates: object,
+    constructPage: any
 }
 
 class rightMenu extends Component<rightMenuProps, any>{
@@ -54,7 +55,8 @@ class rightMenu extends Component<rightMenuProps, any>{
                                                       objInfo={this.props.objInfo}
                                                       type={'tagChanges'}
                                                       styleTemplates={this.props.styleTemplates}
-                                                      styleName={''}/>:''}
+                                                      styleName={''}
+                                                      constructPage={this.props.constructPage}/>:''}
                         {this.props.css?<Cards elem={this.props.elem}
                                                template={this.props.template}
                                                elemID={this.props.elemID}
@@ -62,7 +64,8 @@ class rightMenu extends Component<rightMenuProps, any>{
                                                objInfo={this.props.objInfo}
                                                type={'cssChanges'}
                                                styleTemplates={this.props.styleTemplates}
-                                               styleName={this.state.styleName}/>:''}
+                                               styleName={this.state.styleName}
+                                               constructPage={this.props.constructPage}/>:''}
                         {this.props.styles?<Styles elem={this.props.elem}
                                                    elemID={this.props.elemID}
                                                    objInfo={this.props.objInfo}

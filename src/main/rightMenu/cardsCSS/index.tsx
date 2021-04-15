@@ -35,7 +35,8 @@ type cardProps = {
     objInfo: any,
     type: 'cssChanges' | 'tagChanges',
     styleTemplates: any,
-    styleName: string
+    styleName: string,
+    constructPage: any
 }
 
 class Cards extends Component<cardProps, any>{
@@ -55,10 +56,10 @@ class Cards extends Component<cardProps, any>{
                 focus: this.props.styleTemplates[this.props.styleName]?.all?.height?.focus?this.props.styleTemplates[this.props.styleName].all.height.focus:'0px'
             },
             backgroundColor: {
-                none: this.props.styleTemplates[this.props.styleName]?.all?.backgroundColor?.none?this.props.styleTemplates[this.props.styleName].all.backgroundColor.none:['#000000'],
-                hover: this.props.styleTemplates[this.props.styleName]?.all?.backgroundColor?.hover?this.props.styleTemplates[this.props.styleName].all.backgroundColor.hover:['#000000'],
-                active: this.props.styleTemplates[this.props.styleName]?.all?.backgroundColor?.active?this.props.styleTemplates[this.props.styleName].all.backgroundColor.active:['#000000'],
-                focus: this.props.styleTemplates[this.props.styleName]?.all?.backgroundColor?.focus?this.props.styleTemplates[this.props.styleName].all.backgroundColor.focus:['#000000']
+                none: this.props.styleTemplates[this.props.styleName]?.all?.backgroundColor?.none?this.props.styleTemplates[this.props.styleName].all.backgroundColor.none:['#FFFFFF'],
+                hover: this.props.styleTemplates[this.props.styleName]?.all?.backgroundColor?.hover?this.props.styleTemplates[this.props.styleName].all.backgroundColor.hover:['#FFFFFF'],
+                active: this.props.styleTemplates[this.props.styleName]?.all?.backgroundColor?.active?this.props.styleTemplates[this.props.styleName].all.backgroundColor.active:['#FFFFFF'],
+                focus: this.props.styleTemplates[this.props.styleName]?.all?.backgroundColor?.focus?this.props.styleTemplates[this.props.styleName].all.backgroundColor.focus:['#FFFFFF']
             },
             margin: this.props.styleTemplates[this.props.styleName]?.all?.margin?this.props.styleTemplates[this.props.styleName].all.margin:['0px'],
             padding: this.props.styleTemplates[this.props.styleName]?.all?.padding?this.props.styleTemplates[this.props.styleName].all.padding:['0px'],
@@ -139,10 +140,10 @@ class Cards extends Component<cardProps, any>{
                 focus: this.props.styleTemplates[this.props.styleName]?.mobile?.height?.focus?this.props.styleTemplates[this.props.styleName].mobile.height.focus:'0px'
             },
             backgroundColor: {
-                none: this.props.styleTemplates[this.props.styleName]?.mobile?.backgroundColor?.none?this.props.styleTemplates[this.props.styleName].mobile.backgroundColor.none:['#000000'],
-                hover: this.props.styleTemplates[this.props.styleName]?.mobile?.backgroundColor?.hover?this.props.styleTemplates[this.props.styleName].mobile.backgroundColor.hover:['#000000'],
-                active: this.props.styleTemplates[this.props.styleName]?.mobile?.backgroundColor?.active?this.props.styleTemplates[this.props.styleName].mobile.backgroundColor.active:['#000000'],
-                focus: this.props.styleTemplates[this.props.styleName]?.mobile?.backgroundColor?.focus?this.props.styleTemplates[this.props.styleName].mobile.backgroundColor.focus:['#000000']
+                none: this.props.styleTemplates[this.props.styleName]?.mobile?.backgroundColor?.none?this.props.styleTemplates[this.props.styleName].mobile.backgroundColor.none:['#FFFFFF'],
+                hover: this.props.styleTemplates[this.props.styleName]?.mobile?.backgroundColor?.hover?this.props.styleTemplates[this.props.styleName].mobile.backgroundColor.hover:['#FFFFFF'],
+                active: this.props.styleTemplates[this.props.styleName]?.mobile?.backgroundColor?.active?this.props.styleTemplates[this.props.styleName].mobile.backgroundColor.active:['#FFFFFF'],
+                focus: this.props.styleTemplates[this.props.styleName]?.mobile?.backgroundColor?.focus?this.props.styleTemplates[this.props.styleName].mobile.backgroundColor.focus:['#FFFFFF']
             },
             margin: this.props.styleTemplates[this.props.styleName]?.mobile?.margin?this.props.styleTemplates[this.props.styleName].mobile.margin:['0px'],
             padding: this.props.styleTemplates[this.props.styleName]?.mobile?.padding?this.props.styleTemplates[this.props.styleName].mobile.padding:['0px'],
@@ -223,10 +224,10 @@ class Cards extends Component<cardProps, any>{
                 focus: this.props.styleTemplates[this.props.styleName]?.tablet?.height?.focus?this.props.styleTemplates[this.props.styleName].tablet.height.focus:'0px'
             },
             backgroundColor: {
-                none: this.props.styleTemplates[this.props.styleName]?.tablet?.backgroundColor?.none?this.props.styleTemplates[this.props.styleName].tablet.backgroundColor.none:['#000000'],
-                hover: this.props.styleTemplates[this.props.styleName]?.tablet?.backgroundColor?.hover?this.props.styleTemplates[this.props.styleName].tablet.backgroundColor.hover:['#000000'],
-                active: this.props.styleTemplates[this.props.styleName]?.tablet?.backgroundColor?.active?this.props.styleTemplates[this.props.styleName].tablet.backgroundColor.active:['#000000'],
-                focus: this.props.styleTemplates[this.props.styleName]?.tablet?.backgroundColor?.focus?this.props.styleTemplates[this.props.styleName].tablet.backgroundColor.focus:['#000000']
+                none: this.props.styleTemplates[this.props.styleName]?.tablet?.backgroundColor?.none?this.props.styleTemplates[this.props.styleName].tablet.backgroundColor.none:['#FFFFFF'],
+                hover: this.props.styleTemplates[this.props.styleName]?.tablet?.backgroundColor?.hover?this.props.styleTemplates[this.props.styleName].tablet.backgroundColor.hover:['#FFFFFF'],
+                active: this.props.styleTemplates[this.props.styleName]?.tablet?.backgroundColor?.active?this.props.styleTemplates[this.props.styleName].tablet.backgroundColor.active:['#FFFFFF'],
+                focus: this.props.styleTemplates[this.props.styleName]?.tablet?.backgroundColor?.focus?this.props.styleTemplates[this.props.styleName].tablet.backgroundColor.focus:['#FFFFFF']
             },
             margin: this.props.styleTemplates[this.props.styleName]?.tablet?.margin?this.props.styleTemplates[this.props.styleName].tablet.margin:['0px'],
             padding: this.props.styleTemplates[this.props.styleName]?.tablet?.padding?this.props.styleTemplates[this.props.styleName].tablet.padding:['0px'],
@@ -307,10 +308,10 @@ class Cards extends Component<cardProps, any>{
                 focus: this.props.styleTemplates[this.props.styleName]?.desktop?.height?.focus?this.props.styleTemplates[this.props.styleName].desktop.height.focus:'0px'
             },
             backgroundColor: {
-                none: this.props.styleTemplates[this.props.styleName]?.desktop?.backgroundColor?.none?this.props.styleTemplates[this.props.styleName].desktop.backgroundColor.none:['#000000'],
-                hover: this.props.styleTemplates[this.props.styleName]?.desktop?.backgroundColor?.hover?this.props.styleTemplates[this.props.styleName].desktop.backgroundColor.hover:['#000000'],
-                active: this.props.styleTemplates[this.props.styleName]?.desktop?.backgroundColor?.active?this.props.styleTemplates[this.props.styleName].desktop.backgroundColor.active:['#000000'],
-                focus: this.props.styleTemplates[this.props.styleName]?.desktop?.backgroundColor?.focus?this.props.styleTemplates[this.props.styleName].desktop.backgroundColor.focus:['#000000']
+                none: this.props.styleTemplates[this.props.styleName]?.desktop?.backgroundColor?.none?this.props.styleTemplates[this.props.styleName].desktop.backgroundColor.none:['#FFFFFF'],
+                hover: this.props.styleTemplates[this.props.styleName]?.desktop?.backgroundColor?.hover?this.props.styleTemplates[this.props.styleName].desktop.backgroundColor.hover:['#FFFFFF'],
+                active: this.props.styleTemplates[this.props.styleName]?.desktop?.backgroundColor?.active?this.props.styleTemplates[this.props.styleName].desktop.backgroundColor.active:['#FFFFFF'],
+                focus: this.props.styleTemplates[this.props.styleName]?.desktop?.backgroundColor?.focus?this.props.styleTemplates[this.props.styleName].desktop.backgroundColor.focus:['#FFFFFF']
             },
             margin: this.props.styleTemplates[this.props.styleName]?.desktop?.margin?this.props.styleTemplates[this.props.styleName].desktop.margin:['0px'],
             padding: this.props.styleTemplates[this.props.styleName]?.desktop?.padding?this.props.styleTemplates[this.props.styleName].desktop.padding:['0px'],
@@ -380,6 +381,7 @@ class Cards extends Component<cardProps, any>{
     }
 
     createObject = () => {
+        this.props.constructPage()
         if(this.props.styleTemplates[this.props.styleName] === undefined){
             this.props.styleTemplates[this.props.styleName] = {
                 all: {
@@ -801,7 +803,9 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }, ()=>{
-                    console.log(this.state.mobile.width.none)
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].mobile.width.none = this.state.mobile.width.none;
+                    console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'hover'){
@@ -814,7 +818,9 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }, ()=>{
-                    console.log(this.state.mobile.width.hover)
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].mobile.width.hover = this.state.mobile.width.hover;
+                    console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'active'){
@@ -827,7 +833,9 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }, ()=>{
-                    console.log(this.state.mobile.width.active)
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].mobile.width.active = this.state.mobile.width.active;
+                    console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'focus'){
@@ -840,11 +848,13 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }, ()=>{
-                    console.log(this.state.mobile.width.focus)
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].mobile.width.focus = this.state.mobile.width.focus;
+                    console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
         }
-    }
+    }//OK
     tabletWidth = (text: string, command: string, type: string) => {
         if(this.SHOWDebug){console.log('tabletWidth', type, text)}
         if(command === 'set'){
@@ -858,7 +868,9 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }, ()=>{
-                    console.log(this.state.tablet.width.none)
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].tablet.width.none = this.state.tablet.width.none;
+                    console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'hover'){
@@ -871,7 +883,9 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }, ()=>{
-                    console.log(this.state.tablet.width.hover)
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].tablet.width.hover = this.state.tablet.width.hover;
+                    console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'active'){
@@ -884,7 +898,9 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }, ()=>{
-                    console.log(this.state.tablet.width.active)
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].tablet.width.active = this.state.tablet.width.active;
+                    console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'focus'){
@@ -897,11 +913,13 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }, ()=>{
-                    console.log(this.state.tablet.width.focus)
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].tablet.width.focus = this.state.tablet.width.focus;
+                    console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
         }
-    }
+    }//OK
     desktopWidth = (text: string, command: string, type: string) => {
         if(this.SHOWDebug){console.log('desktopWidth', type, text)}
         if(command === 'set'){
@@ -915,7 +933,9 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }, ()=>{
-                    console.log(this.state.desktop.width.none)
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].desktop.width.none = this.state.desktop.width.none;
+                    if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'hover'){
@@ -928,7 +948,9 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }, ()=>{
-                    console.log(this.state.desktop.width.hover)
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].desktop.width.hover = this.state.desktop.width.hover;
+                    if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'active'){
@@ -941,7 +963,9 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }, ()=>{
-                    console.log(this.state.desktop.width.active)
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].desktop.width.active = this.state.desktop.width.active;
+                    if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'focus'){
@@ -954,11 +978,13 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }, ()=>{
-                    console.log(this.state.desktop.width.focus)
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].desktop.width.focus = this.state.desktop.width.focus;
+                    if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
         }
-    }
+    }//OK
 
     allHeight = (text: string, command: string, type: string) => {
         if(this.SHOWDebug){console.log('allHeight', type, text)}
@@ -975,7 +1001,7 @@ class Cards extends Component<cardProps, any>{
                 }, ()=>{
                     this.createObject()
                     this.props.styleTemplates[this.props.styleName].all.height.none = this.state.all.height.none;
-                    console.log(this.props.styleTemplates[this.props.styleName])
+                    if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'hover'){
@@ -1012,7 +1038,7 @@ class Cards extends Component<cardProps, any>{
                 })
             }
         }
-    }
+    }//OK
     mobileHeight = (text: string, command: string, type: string) => {
         if(this.SHOWDebug){console.log('mobileHeight', type, text)}
         if(command === 'set'){
@@ -1174,6 +1200,10 @@ class Cards extends Component<cardProps, any>{
                         none: text
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.backgroundColor.none = this.state.all.backgroundColor.none;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
         if(type === 'hover'){
@@ -1209,7 +1239,7 @@ class Cards extends Component<cardProps, any>{
                 }
             })
         }
-    }
+    }//OK
     mobileBackgroundColor = (text: Array<any>, type: string) => {
         if(this.SHOWDebug){console.log('mobileBackgroundColor', type, text)}
         if(type === 'none'){
@@ -1359,8 +1389,12 @@ class Cards extends Component<cardProps, any>{
                 ...this.state.all,
                 margin: args
             }
+        }, ()=>{
+            this.createObject()
+            this.props.styleTemplates[this.props.styleName].all.margin = this.state.all.margin;
+            if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
         })
-    }
+    }//OK
     mobileMargin = (args:Array<string>) => {
         if(this.SHOWDebug){console.log('mobileMargin', args)}
         this.setState({
@@ -1396,8 +1430,12 @@ class Cards extends Component<cardProps, any>{
                 ...this.state.all,
                 padding: args
             }
+        }, ()=>{
+            this.createObject()
+            this.props.styleTemplates[this.props.styleName].all.padding = this.state.all.padding;
+            if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
         })
-    }
+    }//OK
     mobilePadding = (args:Array<string>) => {
         if(this.SHOWDebug){console.log('mobilePadding', args)}
         this.setState({
@@ -1437,6 +1475,10 @@ class Cards extends Component<cardProps, any>{
                         none: args
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.boxShadow.none = this.state.all.boxShadow.none;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
         if(type === 'hover'){
@@ -1472,7 +1514,7 @@ class Cards extends Component<cardProps, any>{
                 }
             })
         }
-    }
+    }//NONE-OK
     mobileBoxShadow = (args: Array<string>, type: string) => {
         if(this.SHOWDebug){console.log('mobileBoxShadow', args, type)}
         if(type === 'none'){
@@ -1633,6 +1675,10 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.font.none = this.state.all.font.none;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
         if(type === 'hover'){
@@ -1689,7 +1735,7 @@ class Cards extends Component<cardProps, any>{
                 }
             })
         }
-    }
+    }//NONE-OK
     mobileFont = (arg: string|number, command:string, type:string) => {
         if(this.SHOWDebug){console.log('mobileFont', arg, type, command)}
         if(type === 'none'){
@@ -1923,8 +1969,12 @@ class Cards extends Component<cardProps, any>{
                 ...this.state.all,
                 border: args
             }
+        }, ()=>{
+            this.createObject()
+            this.props.styleTemplates[this.props.styleName].all.border = this.state.all.border;
+            if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
         })
-    }
+    }//OK
     mobileBorder = (args:Array<string>) => {
         if(this.SHOWDebug){console.log('mobileBorder', args)}
         this.setState({
@@ -1964,6 +2014,10 @@ class Cards extends Component<cardProps, any>{
                         none: args
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.borderRadius.none = this.state.all.borderRadius.none;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
         if(type === 'hover'){
@@ -1999,7 +2053,7 @@ class Cards extends Component<cardProps, any>{
                 }
             })
         }
-    }
+    }//NONE-OK
     mobileBorderRadius = (args:Array<string>, type:string) => {
         if(this.SHOWDebug){console.log('mobileBorderRadius', type, args)}
         if(type === 'none'){
@@ -2148,19 +2202,23 @@ class Cards extends Component<cardProps, any>{
             this.setState({
                 all:{
                     ...this.state.all,
-                    borderRadius: {
-                        ...this.state.all.borderRadius,
+                    borderColor: {
+                        ...this.state.all.borderColor,
                         none: args
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.borderColor.none = this.state.all.borderColor.none;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
         if(type === 'hover'){
             this.setState({
                 all:{
                     ...this.state.all,
-                    borderRadius: {
-                        ...this.state.all.borderRadius,
+                    borderColor: {
+                        ...this.state.all.borderColor,
                         hover: args
                     }
                 }
@@ -2170,8 +2228,8 @@ class Cards extends Component<cardProps, any>{
             this.setState({
                 all:{
                     ...this.state.all,
-                    borderRadius: {
-                        ...this.state.all.borderRadius,
+                    borderColor: {
+                        ...this.state.all.borderColor,
                         active: args
                     }
                 }
@@ -2181,14 +2239,14 @@ class Cards extends Component<cardProps, any>{
             this.setState({
                 all:{
                     ...this.state.all,
-                    borderRadius: {
-                        ...this.state.all.borderRadius,
+                    borderColor: {
+                        ...this.state.all.borderColor,
                         focus: args
                     }
                 }
             })
         }
-    }
+    }//NONE-OK
     mobileBorderColor = (args:Array<string>, type:string) => {
         if(this.SHOWDebug){console.log('mobileBorderColor', type, args)}
         if(type === 'none'){
@@ -2338,6 +2396,10 @@ class Cards extends Component<cardProps, any>{
                 ...this.state.all,
                 position: args
             }
+        }, ()=>{
+            this.createObject()
+            this.props.styleTemplates[this.props.styleName].all.position = this.state.all.position;
+            if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
         })
     }
     mobilePosition = (args: Array<boolean>) => {
@@ -2423,8 +2485,12 @@ class Cards extends Component<cardProps, any>{
                     alignItems: args[3]
                 }
             }
+        }, ()=>{
+            this.createObject()
+            this.props.styleTemplates[this.props.styleName].all.flex = this.state.all.flex;
+            if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
         })
-    }
+    }//OK
     mobileFlex = (args:[boolean, string, string, string]) => {
         if(this.SHOWDebug){console.log('mobileFlex', args)}
         this.setState({

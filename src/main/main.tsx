@@ -181,14 +181,12 @@ const generateCSS = (Styles: any) => {
 }
 
 const convertStyleObjectToString = (StyleName: string, Styles: any):string => {
-    console.log(StyleName, Styles[StyleName])
     let beginStyle = `.${StyleName}{`;
     let endStyle = '}';
     return ''
 }
 
 const styleAll = (StyleName: string, Styles: any):string => {
-    console.log(StyleName, Styles[StyleName])
     let beginStyle = `.${StyleName}{`;
     let body = styleAllNone(StyleName, Styles);
     let endStyle = '}';
@@ -204,15 +202,123 @@ const styleAllNone = (StyleName: string, Styles: any):string => {
     let style = '';
     style+=styleAllNoneWidth(StyleName, Styles);
     style+=styleAllNoneHeight(StyleName, Styles);
+    style+=styleAllNoneBackground(StyleName, Styles);
+    style+=styleAllMargin(StyleName, Styles);
+    style+=styleAllPadding(StyleName, Styles);
+    style+=styleAllNoneBoxShadow(StyleName, Styles);
+    style+=styleAllNoneFont(StyleName, Styles);
+    style+=styleAllNoneBorder(StyleName, Styles);
+    style+=styleAllNoneBorderRadius(StyleName, Styles);
+    style+=styleAllFlex(StyleName, Styles);
+    style+=styleAllPosition(StyleName, Styles);
     return style;
 }
 
 const styleAllNoneWidth = (StyleName: string, Styles: any):string => {
     return Styles[StyleName]?.all?.width?.none === undefined?'':`width: ${Styles[StyleName].all.width.none};`
 }
-
 const styleAllNoneHeight = (StyleName: string, Styles: any):string => {
     return Styles[StyleName]?.all?.height?.none === undefined?'':`height: ${Styles[StyleName].all.height.none};`
+}
+const styleAllNoneBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.backgroundColor?.none === undefined?'':`background: ${Styles[StyleName].all.backgroundColor.none.length > 1? `linear-gradient(${Styles[StyleName].all.backgroundColor.none[0]}deg, ${Styles[StyleName].all.backgroundColor.none[1]},${Styles[StyleName].all.backgroundColor.none[2]})`:Styles[StyleName].all.backgroundColor.none[0]};`
+}
+const styleAllMargin = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.margin === undefined?'':`margin: ${Styles[StyleName].all.margin.length === 1?Styles[StyleName].all.margin[0]:Styles[StyleName].all.margin[0] + ' ' + 
+                                                                                                                                                Styles[StyleName].all.margin[1] + ' ' +
+                                                                                                                                                Styles[StyleName].all.margin[2] + ' ' + Styles[StyleName].all.margin[3]};`
+}
+const styleAllPadding = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.padding === undefined?'':`padding: ${Styles[StyleName].all.padding.length === 1?Styles[StyleName].all.padding[0]:Styles[StyleName].all.padding[0] + ' ' +
+        Styles[StyleName].all.padding[1] + ' ' +
+        Styles[StyleName].all.padding[2] + ' ' + Styles[StyleName].all.padding[3]};`
+}
+const styleAllNoneBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.boxShadow?.none === undefined?'':`box-shadow: ${Styles[StyleName].all.boxShadow.none[0]+' '+
+                                                                             Styles[StyleName].all.boxShadow.none[1]+' '+
+                                                                             Styles[StyleName].all.boxShadow.none[2]+' '+
+                                                                             Styles[StyleName].all.boxShadow.none[3]+' '+
+                                                                             Styles[StyleName].all.boxShadow.none[4]};`
+}
+const styleAllNoneFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.font?.none === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.all?.font?.none.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.all?.font?.none.fontFamily};`}
+        ${Styles[StyleName]?.all?.font?.none.size === undefined?'':`font-size:${Styles[StyleName]?.all?.font?.none.size+Styles[StyleName]?.all?.font?.none.typeSize};`}
+        ${Styles[StyleName]?.all?.font?.none.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.all?.font?.none.fontWeight};`}
+        ${Styles[StyleName]?.all?.font?.none.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.all?.font?.none.fontFamily};`}
+        ${Styles[StyleName]?.all?.font?.none.color === undefined?'':`color:${Styles[StyleName]?.all?.font?.none.color};`}
+        `
+}
+const styleAllNoneBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.all?.border === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].all.border.length === 1){
+            if(getAllNoneCountOfColoredBorders(StyleName, Styles) === 1){
+                return `border: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.none[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.none[0]};
+                border-right: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.none[1]};
+                border-bottom: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.none[2]};
+                border-left: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.none[3]};
+                `
+            }
+        } else {
+            if(getAllNoneCountOfColoredBorders(StyleName, Styles) === 1){
+                return `
+                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.none[0]};
+                border-right: ${Styles[StyleName].all.border[1]} solid ${Styles[StyleName].all.borderColor.none[0]};
+                border-bottom: ${Styles[StyleName].all.border[2]} solid ${Styles[StyleName].all.borderColor.none[0]};
+                border-left: ${Styles[StyleName].all.border[3]} solid ${Styles[StyleName].all.borderColor.none[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.none[0]};
+                border-right: ${Styles[StyleName].all.border[1]} solid ${Styles[StyleName].all.borderColor.none[1]};
+                border-bottom: ${Styles[StyleName].all.border[2]} solid ${Styles[StyleName].all.borderColor.none[2]};
+                border-left: ${Styles[StyleName].all.border[3]} solid ${Styles[StyleName].all.borderColor.none[3]};
+                `
+            }
+        }
+    }
+}
+const getAllNoneCountOfColoredBorders = (StyleName: string, Styles: any):number => {
+    return Styles[StyleName].all.borderColor.none.length
+}
+const styleAllNoneBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.borderRadius?.none === undefined? '': `
+        border-radius: ${Styles[StyleName].all.borderRadius.none.length === 1?`${Styles[StyleName].all.borderRadius.none[0]}`
+        :
+        `
+        ${Styles[StyleName].all.borderRadius.none[0]} 
+        ${Styles[StyleName].all.borderRadius.none[3]} 
+        ${Styles[StyleName].all.borderRadius.none[1]} 
+        ${Styles[StyleName].all.borderRadius.none[2]}`};
+    `
+}
+const styleAllFlex = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.flex?.enable === undefined || Styles[StyleName]?.all?.flex?.enable === false?''
+        :
+        `
+            display: flex;
+            justify-content: ${Styles[StyleName].all.flex.justifyContent};
+            flex-direction: ${Styles[StyleName].all.flex.flexDirection};
+            align-items: ${Styles[StyleName].all.flex.alignItems};
+        `
+}
+const styleAllPosition = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.position === undefined || Styles[StyleName]?.all?.position === [false, false, false, false]?''
+        :
+        `
+        position: fixed;
+        ${Styles[StyleName].all.position[0] === false? '': 'top:0;'}
+        ${Styles[StyleName].all.position[1] === false? '': 'right:0;'}
+        ${Styles[StyleName].all.position[2] === false? '': 'bottom:0;'}
+        ${Styles[StyleName].all.position[3] === false? '': 'left:0;'}
+        `
 }
 
 
@@ -248,6 +354,12 @@ const constructPage = ():string => {
         '     </head>  \n' +
         '    ' + generateHTMLTree(tree) + '\n' +
         `            <style>
+                        *{
+                            margin:0;
+                            padding:0;
+                            box-sizing: border-box;
+                            word-wrap: break-word;
+                        }
                         .checkElem{
                             animation: boxShadow 0.8s;
                         }
@@ -649,11 +761,11 @@ class Main extends Component<any, any>{
             styles: true
         })
     }
-    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
-        if(this.props !== prevProps){
-            this.componentDidMount()
-        }
-    }
+    // componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
+    //     if(this.props !== prevProps){
+    //         this.componentDidMount()
+    //     }
+    // }
 
     componentDidMount() {
         UIFName = this.props.uiFramework;
@@ -828,7 +940,8 @@ class Main extends Component<any, any>{
                            template={Templates}
                            styleTemplates={styleTemplates}
                            objInfo={reCreatePathTree(this.state.lastClickedElementId, 'getInfo', '')}
-                           uiFramework={this.props.uiFramework}>
+                           uiFramework={this.props.uiFramework}
+                           constructPage={constructPage}>
                     {HTMLTags(Templates, this.state.searchString)}
                 </RightMenu>
             </div>

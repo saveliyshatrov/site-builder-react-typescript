@@ -251,7 +251,10 @@ class Styles extends Component<PropsElemForCSS, any> {
         arrayElem: [],
         styleTemplates: Object.keys(this.props.styleTemplates)
     }
-    showCSS = () => {
+    showCSS = (text?: string) => {
+        if(text){
+            this.props.setStyleName(text)
+        }
         this.props.showCssFunc()
         this.props.hideStylesFunc()
     }
@@ -271,7 +274,7 @@ class Styles extends Component<PropsElemForCSS, any> {
                     arr.push(
                         <StyleClass>
                             <StyleClassName>{array[i]}</StyleClassName>
-                            <StyleClassBtnPlus>:</StyleClassBtnPlus>
+                            <StyleClassBtnPlus onClick={()=>{this.showCSS(array[i])}}>:</StyleClassBtnPlus>
                             <StyleClassBtnPlus
                                 onClick={() => this.props.insertInfo(this.props.elemID, command, array[i])}>{symbol}</StyleClassBtnPlus>
                         </StyleClass>
@@ -294,7 +297,7 @@ class Styles extends Component<PropsElemForCSS, any> {
                     arr.push(
                         <StyleClassGreen>
                             <StyleClassName>{foundedElem[i]}</StyleClassName>
-                            <StyleClassBtnPlus>:</StyleClassBtnPlus>
+                            <StyleClassBtnPlus onClick={()=>{this.showCSS(foundedElem[i])}}>:</StyleClassBtnPlus>
                             <StyleClassBtnPlus
                                 onClick={() => this.props.insertInfo(this.props.elemID, command, foundedElem[i])}>{symbol}</StyleClassBtnPlus>
                         </StyleClassGreen>
@@ -314,7 +317,7 @@ class Styles extends Component<PropsElemForCSS, any> {
                     arr.push(
                         <StyleClassRed>
                             <StyleClassName>{unfoundedElem[i]}</StyleClassName>
-                            <StyleClassBtnPlus>:</StyleClassBtnPlus>
+                            <StyleClassBtnPlus onClick={()=>{this.showCSS(unfoundedElem[i])}}>:</StyleClassBtnPlus>
                             <StyleClassBtnPlus
                                 onClick={() => this.props.insertInfo(this.props.elemID, command, unfoundedElem[i])}>{symbol}</StyleClassBtnPlus>
                         </StyleClassRed>
@@ -371,8 +374,8 @@ class Styles extends Component<PropsElemForCSS, any> {
                                              this.componentDidMount(this.state.searchInElement, e.target.value);
                                              this.props.setStyleName(e.target.value);
                                          }}/>
-                            <ButtonAddStyle onClick={this.showCSS}>
-                                <StyleClassName>Add style</StyleClassName>
+                            <ButtonAddStyle onClick={()=>{this.showCSS(this.state.searchInElement)}}>
+                                <StyleClassName>Create style</StyleClassName>
                             </ButtonAddStyle>
                         </InputAndButton>
                         <FieldForListOfElements>
