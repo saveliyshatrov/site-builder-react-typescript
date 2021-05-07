@@ -1013,6 +1013,10 @@ class Cards extends Component<cardProps, any>{
                             hover: text,
                         }
                     }
+                }, ()=>{
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].all.height.hover = this.state.all.height.hover;
+                    if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'active'){
@@ -1024,6 +1028,10 @@ class Cards extends Component<cardProps, any>{
                             active: text
                         }
                     }
+                }, ()=>{
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].all.height.active = this.state.all.height.active;
+                    if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
             if(type === 'focus'){
@@ -1035,6 +1043,10 @@ class Cards extends Component<cardProps, any>{
                             focus: text
                         }
                     }
+                }, ()=>{
+                    this.createObject()
+                    this.props.styleTemplates[this.props.styleName].all.height.focus = this.state.all.height.focus;
+                    if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
                 })
             }
         }
@@ -1215,6 +1227,10 @@ class Cards extends Component<cardProps, any>{
                         hover: text
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.backgroundColor.hover = this.state.all.backgroundColor.hover;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
         if(type === 'active'){
@@ -1226,6 +1242,10 @@ class Cards extends Component<cardProps, any>{
                         active: text
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.backgroundColor.active = this.state.all.backgroundColor.active;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
         if(type === 'focus'){
@@ -1237,6 +1257,10 @@ class Cards extends Component<cardProps, any>{
                         focus: text
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.backgroundColor.focus = this.state.all.backgroundColor.focus;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
     }//OK
@@ -1490,6 +1514,10 @@ class Cards extends Component<cardProps, any>{
                         hover: args
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.boxShadow.hover = this.state.all.boxShadow.hover;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
         if(type === 'active'){
@@ -1501,6 +1529,10 @@ class Cards extends Component<cardProps, any>{
                         active: args
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.boxShadow.active = this.state.all.boxShadow.active;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
         if(type === 'focus'){
@@ -1512,9 +1544,13 @@ class Cards extends Component<cardProps, any>{
                         focus: args
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.boxShadow.focus = this.state.all.boxShadow.focus;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
-    }//NONE-OK
+    }//OK
     mobileBoxShadow = (args: Array<string>, type: string) => {
         if(this.SHOWDebug){console.log('mobileBoxShadow', args, type)}
         if(type === 'none'){
@@ -1697,6 +1733,10 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.font.hover = this.state.all.font.hover;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
         if(type === 'active'){
@@ -1715,6 +1755,10 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.font.active = this.state.all.font.active;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
         if(type === 'focus'){
@@ -1733,9 +1777,13 @@ class Cards extends Component<cardProps, any>{
                         }
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.font.focus = this.state.all.font.focus;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
-    }//NONE-OK
+    }//OK
     mobileFont = (arg: string|number, command:string, type:string) => {
         if(this.SHOWDebug){console.log('mobileFont', arg, type, command)}
         if(type === 'none'){
@@ -2029,6 +2077,10 @@ class Cards extends Component<cardProps, any>{
                         hover: args
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.borderRadius.hover = this.state.all.borderRadius.hover;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
         if(type === 'active'){
@@ -2040,6 +2092,10 @@ class Cards extends Component<cardProps, any>{
                         active: args
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.borderRadius.active = this.state.all.borderRadius.active;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
         if(type === 'focus'){
@@ -2051,9 +2107,13 @@ class Cards extends Component<cardProps, any>{
                         focus: args
                     }
                 }
+            }, ()=>{
+                this.createObject()
+                this.props.styleTemplates[this.props.styleName].all.borderRadius.focus = this.state.all.borderRadius.focus;
+                if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
             })
         }
-    }//NONE-OK
+    }//OK
     mobileBorderRadius = (args:Array<string>, type:string) => {
         if(this.SHOWDebug){console.log('mobileBorderRadius', type, args)}
         if(type === 'none'){
@@ -2449,8 +2509,15 @@ class Cards extends Component<cardProps, any>{
                 ...this.state.desktop,
                 transition: arg
             }
+        }, ()=>{
+            this.createObject()
+            this.props.styleTemplates[this.props.styleName].all.transition = this.state.all.transition;
+            this.props.styleTemplates[this.props.styleName].mobile.transition = this.state.mobile.transition;
+            this.props.styleTemplates[this.props.styleName].tablet.transition = this.state.tablet.transition;
+            this.props.styleTemplates[this.props.styleName].desktop.transition = this.state.desktop.transition;
+            if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
         })
-    }
+    }//OK
     allObjectFit = (arg: string) => {
         if(this.SHOWDebug){console.log('allObjectFit', arg)}
         this.setState({
@@ -2470,8 +2537,15 @@ class Cards extends Component<cardProps, any>{
                 ...this.state.desktop,
                 objectFit: arg
             }
+        }, ()=>{
+            this.createObject()
+            this.props.styleTemplates[this.props.styleName].all.objectFit = this.state.all.objectFit;
+            this.props.styleTemplates[this.props.styleName].mobile.objectFit = this.state.mobile.objectFit;
+            this.props.styleTemplates[this.props.styleName].tablet.objectFit = this.state.tablet.objectFit;
+            this.props.styleTemplates[this.props.styleName].desktop.objectFit = this.state.desktop.objectFit;
+            if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
         })
-    }
+    }//OK
 
     allFlex = (args:[boolean, string, string, string]) => {
         if(this.SHOWDebug){console.log('allFlex', args)}
@@ -2503,8 +2577,12 @@ class Cards extends Component<cardProps, any>{
                     alignItems: args[3]
                 }
             }
+        }, ()=>{
+            this.createObject()
+            this.props.styleTemplates[this.props.styleName].mobile.flex = this.state.mobile.flex;
+            if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
         })
-    }
+    }//OK
     tabletFlex = (args:[boolean, string, string, string]) => {
         if(this.SHOWDebug){console.log('tabletFlex', args)}
         this.setState({
@@ -2517,8 +2595,12 @@ class Cards extends Component<cardProps, any>{
                     alignItems: args[3]
                 }
             }
+        }, ()=>{
+            this.createObject()
+            this.props.styleTemplates[this.props.styleName].tablet.flex = this.state.tablet.flex;
+            if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
         })
-    }
+    }//OK
     desktopFlex = (args:[boolean, string, string, string]) => {
         if(this.SHOWDebug){console.log('desktopFlex', args)}
         this.setState({
@@ -2531,8 +2613,12 @@ class Cards extends Component<cardProps, any>{
                     alignItems: args[3]
                 }
             }
+        }, ()=>{
+            this.createObject()
+            this.props.styleTemplates[this.props.styleName].desktop.flex = this.state.desktop.flex;
+            if(this.SHOWDebug)console.log(this.props.styleTemplates[this.props.styleName])
         })
-    }
+    }//OK
 
     showTagChanges = () => {
         return (

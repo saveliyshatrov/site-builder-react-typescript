@@ -190,13 +190,104 @@ const styleAll = (StyleName: string, Styles: any):string => {
     let beginStyle = `.${StyleName}{`;
     let body = styleAllNone(StyleName, Styles);
     let endStyle = '}';
-    return beginStyle + body + endStyle;
+
+    let beginStyleHover = `.${StyleName}:hover{`;
+    let bodyHover = styleAllHover(StyleName, Styles);
+    let endStyleHover = '}'
+
+    let none = beginStyle + body + endStyle;
+    let hover = beginStyleHover + bodyHover + endStyleHover;
+    return none + hover;
 }
 const styleMobile = () => {}
 const styleTablet = () => {}
 const styleDesktop = () => {}
 
+const styleAllHover = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleAllHoverWidth(StyleName, Styles);
+    style+=styleAllHoverHeight(StyleName, Styles);
+    style+=styleAllHoverBackground(StyleName, Styles);
+    style+=styleAllHoverBoxShadow(StyleName, Styles);
+    style+=styleAllHoverFont(StyleName, Styles);
+    style+=styleAllHoverBorder(StyleName, Styles);
+    style+=styleAllHoverBorderRadius(StyleName, Styles);
 
+    return style;
+}
+
+const styleAllHoverWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.width?.hover === undefined?'':`width: ${Styles[StyleName].all.width.hover};`
+}
+const styleAllHoverHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.height?.hover === undefined?'':`height: ${Styles[StyleName].all.height.hover};`
+}
+const styleAllHoverBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.backgroundColor?.hover === undefined?'':`background: ${Styles[StyleName].all.backgroundColor.hover.length > 1? `linear-gradient(${Styles[StyleName].all.backgroundColor.hover[0]}deg, ${Styles[StyleName].all.backgroundColor.hover[1]},${Styles[StyleName].all.backgroundColor.hover[2]})`:Styles[StyleName].all.backgroundColor.hover[0]};`
+}
+const styleAllHoverBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.boxShadow?.hover === undefined?'':`box-shadow: ${Styles[StyleName].all.boxShadow.hover[0]+' '+
+    Styles[StyleName].all.boxShadow.hover[1]+' '+
+    Styles[StyleName].all.boxShadow.hover[2]+' '+
+    Styles[StyleName].all.boxShadow.hover[3]+' '+
+    Styles[StyleName].all.boxShadow.hover[4]};`
+}
+const styleAllHoverFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.font?.hover === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.all?.font?.hover.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.all?.font?.hover.fontFamily};`}
+        ${Styles[StyleName]?.all?.font?.hover.size === undefined?'':`font-size:${Styles[StyleName]?.all?.font?.hover.size+Styles[StyleName]?.all?.font?.hover.typeSize};`}
+        ${Styles[StyleName]?.all?.font?.hover.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.all?.font?.hover.fontWeight};`}
+        ${Styles[StyleName]?.all?.font?.hover.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.all?.font?.hover.fontFamily};`}
+        ${Styles[StyleName]?.all?.font?.hover.color === undefined?'':`color:${Styles[StyleName]?.all?.font?.hover.color};`}
+        `
+}
+const styleAllHoverBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.all?.border === undefined || Styles[StyleName]?.all?.borderColor?.hover === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].all.border.length === 1){
+            if(getAllNoneCountOfColoredBorders(StyleName, Styles) === 1){
+                return `border: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.hover[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.hover[0]};
+                border-right: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.hover[1]};
+                border-bottom: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.hover[2]};
+                border-left: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.hover[3]};
+                `
+            }
+        } else {
+            if(getAllNoneCountOfColoredBorders(StyleName, Styles) === 1){
+                return `
+                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.none[0]};
+                border-right: ${Styles[StyleName].all.border[1]} solid ${Styles[StyleName].all.borderColor.none[0]};
+                border-bottom: ${Styles[StyleName].all.border[2]} solid ${Styles[StyleName].all.borderColor.none[0]};
+                border-left: ${Styles[StyleName].all.border[3]} solid ${Styles[StyleName].all.borderColor.none[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.none[0]};
+                border-right: ${Styles[StyleName].all.border[1]} solid ${Styles[StyleName].all.borderColor.none[1]};
+                border-bottom: ${Styles[StyleName].all.border[2]} solid ${Styles[StyleName].all.borderColor.none[2]};
+                border-left: ${Styles[StyleName].all.border[3]} solid ${Styles[StyleName].all.borderColor.none[3]};
+                `
+            }
+        }
+    }
+}
+const styleAllHoverBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.borderRadius?.hover === undefined? '': `
+        border-radius: ${Styles[StyleName].all.borderRadius.hover.length === 1?`${Styles[StyleName].all.borderRadius.hover[0]}`
+        :
+        `
+        ${Styles[StyleName].all.borderRadius.hover[0]} 
+        ${Styles[StyleName].all.borderRadius.hover[3]} 
+        ${Styles[StyleName].all.borderRadius.hover[1]} 
+        ${Styles[StyleName].all.borderRadius.hover[2]}`};
+    `
+}
 
 const styleAllNone = (StyleName: string, Styles: any):string => {
     let style = '';
@@ -211,6 +302,7 @@ const styleAllNone = (StyleName: string, Styles: any):string => {
     style+=styleAllNoneBorderRadius(StyleName, Styles);
     style+=styleAllFlex(StyleName, Styles);
     style+=styleAllPosition(StyleName, Styles);
+    style+=styleAllTransition(StyleName, Styles);
     return style;
 }
 
@@ -318,6 +410,14 @@ const styleAllPosition = (StyleName: string, Styles: any):string => {
         ${Styles[StyleName].all.position[1] === false? '': 'right:0;'}
         ${Styles[StyleName].all.position[2] === false? '': 'bottom:0;'}
         ${Styles[StyleName].all.position[3] === false? '': 'left:0;'}
+        `
+}
+const styleAllTransition = (StyleName: string, Styles: any):string => {
+    console.log(Styles[StyleName].all.transition, '--- transition')
+    return Styles[StyleName]?.all?.transition === undefined?''
+        :
+        `
+        transition: ${Styles[StyleName].all.transition}ms;
         `
 }
 
