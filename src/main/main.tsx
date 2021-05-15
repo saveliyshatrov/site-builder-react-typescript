@@ -22,7 +22,6 @@ type treeOfTree = {
     src: string | undefined
     For: string | undefined
     ID: string | undefined
-
     hide: boolean,
     key: number,
     id: string,
@@ -172,18 +171,37 @@ const generateCSS = (Styles: any) => {
     let allStyles = Object.keys(Styles)
     //console.log(allStyles)
     let StyleStringAll = ''
+    let StyleStringMobile = ''
+    let StyleMobileBegin = '@media only screen \n' +
+                           '  and (min-width: 320px) \n' +
+                           '  and (max-width: 480px){'
+    let StyleMobileEnd = '}'
+    let StyleStringTablet = ''
+    let StyleTabletBegin = '@media only screen \n' +
+        '  and (min-width: 768px) \n' +
+        '  and (max-width: 1024px){'
+    let StyleTabletEnd = '}'
+    let StyleStringDesktop = ''
+    let StyleDesktopBegin = '@media only screen \n' +
+        '  and (min-width: 1200px) \n' +
+        '  and (max-width: 1600px){'
+    let StyleDesktopEnd = '}'
     for(let i: number = 0; i < allStyles.length; i++){
         StyleStringAll+=styleAll(allStyles[i], Styles)
     }
-    //let stringStyles = allStyles.map(elem => convertStyleToString(elem))
-    //console.log(allStyles)
-    return StyleStringAll
-}
-
-const convertStyleObjectToString = (StyleName: string, Styles: any):string => {
-    let beginStyle = `.${StyleName}{`;
-    let endStyle = '}';
-    return ''
+    for(let i: number = 0; i < allStyles.length; i++){
+        StyleStringMobile+=styleMobile(allStyles[i], Styles)
+    }
+    for(let i: number = 0; i < allStyles.length; i++){
+        StyleStringTablet+=styleTablet(allStyles[i], Styles)
+    }
+    for(let i: number = 0; i < allStyles.length; i++){
+        StyleStringDesktop+=styleDesktop(allStyles[i], Styles)
+    }
+    StyleStringMobile = StyleMobileBegin + StyleStringMobile + StyleMobileEnd
+    StyleStringTablet = StyleTabletBegin + StyleStringTablet + StyleTabletEnd
+    StyleStringDesktop = StyleDesktopBegin + StyleStringDesktop + StyleDesktopEnd
+    return StyleStringAll + StyleStringMobile + StyleStringTablet + StyleStringDesktop
 }
 
 const styleAll = (StyleName: string, Styles: any):string => {
@@ -195,13 +213,1410 @@ const styleAll = (StyleName: string, Styles: any):string => {
     let bodyHover = styleAllHover(StyleName, Styles);
     let endStyleHover = '}'
 
+    let beginStyleActive = `.${StyleName}:active{`;
+    let bodyActive = styleAllActive(StyleName, Styles);
+    let endStyleActive = '}'
+
+    let beginStyleFocus = `.${StyleName}:focus{`;
+    let bodyFocus = styleAllFocus(StyleName, Styles);
+    let endStyleFocus = '}'
+
     let none = beginStyle + body + endStyle;
     let hover = beginStyleHover + bodyHover + endStyleHover;
-    return none + hover;
+    let active = beginStyleActive + bodyActive + endStyleActive;
+    let focus = beginStyleFocus + bodyFocus + endStyleFocus;
+    return none + hover + active + focus;
 }
-const styleMobile = () => {}
-const styleTablet = () => {}
-const styleDesktop = () => {}
+const styleMobile = (StyleName: string, Styles: any):string => {
+    let beginStyle = `.${StyleName}{`;
+    let body = styleMobileNone(StyleName, Styles);
+    let endStyle = '}';
+
+    let beginStyleHover = `.${StyleName}:hover{`;
+    let bodyHover = styleMobileHover(StyleName, Styles);
+    let endStyleHover = '}'
+
+    let beginStyleActive = `.${StyleName}:active{`;
+    let bodyActive = styleMobileActive(StyleName, Styles);
+    let endStyleActive = '}'
+
+    let beginStyleFocus = `.${StyleName}:focus{`;
+    let bodyFocus = styleMobileFocus(StyleName, Styles);
+    let endStyleFocus = '}'
+
+    let none = beginStyle + body + endStyle;
+    let hover = beginStyleHover + bodyHover + endStyleHover;
+    let active = beginStyleActive + bodyActive + endStyleActive;
+    let focus = beginStyleFocus + bodyFocus + endStyleFocus;
+    return none + hover + active + focus;
+}
+const styleTablet = (StyleName: string, Styles: any):string => {
+    let beginStyle = `.${StyleName}{`;
+    let body = styleTabletNone(StyleName, Styles);
+    let endStyle = '}';
+
+    let beginStyleHover = `.${StyleName}:hover{`;
+    let bodyHover = styleTabletHover(StyleName, Styles);
+    let endStyleHover = '}'
+
+    let beginStyleActive = `.${StyleName}:active{`;
+    let bodyActive = styleTabletActive(StyleName, Styles);
+    let endStyleActive = '}'
+
+    let beginStyleFocus = `.${StyleName}:focus{`;
+    let bodyFocus = styleTabletFocus(StyleName, Styles);
+    let endStyleFocus = '}'
+
+    let none = beginStyle + body + endStyle;
+    let hover = beginStyleHover + bodyHover + endStyleHover;
+    let active = beginStyleActive + bodyActive + endStyleActive;
+    let focus = beginStyleFocus + bodyFocus + endStyleFocus;
+    return none + hover + active + focus;
+}
+const styleDesktop = (StyleName: string, Styles: any):string => {
+    let beginStyle = `.${StyleName}{`;
+    let body = styleDesktopNone(StyleName, Styles);
+    let endStyle = '}';
+
+    let beginStyleHover = `.${StyleName}:hover{`;
+    let bodyHover = styleDesktopHover(StyleName, Styles);
+    let endStyleHover = '}'
+
+    let beginStyleActive = `.${StyleName}:active{`;
+    let bodyActive = styleDesktopActive(StyleName, Styles);
+    let endStyleActive = '}'
+
+    let beginStyleFocus = `.${StyleName}:focus{`;
+    let bodyFocus = styleDesktopFocus(StyleName, Styles);
+    let endStyleFocus = '}'
+
+    let none = beginStyle + body + endStyle;
+    let hover = beginStyleHover + bodyHover + endStyleHover;
+    let active = beginStyleActive + bodyActive + endStyleActive;
+    let focus = beginStyleFocus + bodyFocus + endStyleFocus;
+    return none + hover + active + focus;
+}
+
+const styleDesktopFocus = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleDesktopFocusWidth(StyleName, Styles);
+    style+=styleDesktopFocusHeight(StyleName, Styles);
+    style+=styleDesktopFocusBackground(StyleName, Styles);
+    style+=styleDesktopFocusBoxShadow(StyleName, Styles);
+    style+=styleDesktopFocusFont(StyleName, Styles);
+    style+=styleDesktopFocusBorder(StyleName, Styles);
+    style+=styleDesktopFocusBorderRadius(StyleName, Styles);
+    return style;
+}
+const styleDesktopFocusWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.width?.focus === undefined?'':`width: ${Styles[StyleName].desktop.width.focus};`
+}
+const styleDesktopFocusHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.height?.focus === undefined?'':`height: ${Styles[StyleName].desktop.height.focus};`
+}
+const styleDesktopFocusBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.backgroundColor?.focus === undefined?'':`background: ${Styles[StyleName].desktop.backgroundColor.focus.length > 1? `linear-gradient(${Styles[StyleName].desktop.backgroundColor.focus[0]}deg, ${Styles[StyleName].desktop.backgroundColor.focus[1]},${Styles[StyleName].desktop.backgroundColor.focus[2]})`:Styles[StyleName].desktop.backgroundColor.focus[0]};`
+}
+const styleDesktopFocusBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.boxShadow?.focus === undefined?'':`box-shadow: ${Styles[StyleName].desktop.boxShadow.focus[0]+' '+
+    Styles[StyleName].desktop.boxShadow.focus[1]+' '+
+    Styles[StyleName].desktop.boxShadow.focus[2]+' '+
+    Styles[StyleName].desktop.boxShadow.focus[3]+' '+
+    Styles[StyleName].desktop.boxShadow.focus[4]};`
+}
+const styleDesktopFocusFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.font?.focus === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.desktop?.font?.focus.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.desktop?.font?.focus.fontFamily};`}
+        ${Styles[StyleName]?.desktop?.font?.focus.size === undefined?'':`font-size:${Styles[StyleName]?.desktop?.font?.focus.size+Styles[StyleName]?.desktop?.font?.focus.typeSize};`}
+        ${Styles[StyleName]?.desktop?.font?.focus.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.desktop?.font?.focus.fontWeight};`}
+        ${Styles[StyleName]?.desktop?.font?.focus.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.desktop?.font?.focus.fontFamily};`}
+        ${Styles[StyleName]?.desktop?.font?.focus.color === undefined?'':`color:${Styles[StyleName]?.desktop?.font?.focus.color};`}
+        `
+}
+const styleDesktopFocusBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.desktop?.border === undefined || Styles[StyleName]?.desktop?.borderColor?.focus === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].desktop.border.length === 1){
+            if(Styles[StyleName].desktop.borderColor.focus.length === 1){
+                return `border: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.focus[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.focus[0]};
+                border-right: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.focus[1]};
+                border-bottom: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.focus[2]};
+                border-left: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.focus[3]};
+                `
+            }
+        } else {
+            if(Styles[StyleName].desktop.borderColor.focus.length === 1){
+                return `
+                border-top: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.focus[0]};
+                border-right: ${Styles[StyleName].desktop.border[1]} solid ${Styles[StyleName].desktop.borderColor.focus[0]};
+                border-bottom: ${Styles[StyleName].desktop.border[2]} solid ${Styles[StyleName].desktop.borderColor.focus[0]};
+                border-left: ${Styles[StyleName].desktop.border[3]} solid ${Styles[StyleName].desktop.borderColor.focus[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.focus[0]};
+                border-right: ${Styles[StyleName].desktop.border[1]} solid ${Styles[StyleName].desktop.borderColor.focus[1]};
+                border-bottom: ${Styles[StyleName].desktop.border[2]} solid ${Styles[StyleName].desktop.borderColor.focus[2]};
+                border-left: ${Styles[StyleName].desktop.border[3]} solid ${Styles[StyleName].desktop.borderColor.focus[3]};
+                `
+            }
+        }
+    }
+}
+const styleDesktopFocusBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.borderRadius?.focus === undefined? '': `
+        border-radius: ${Styles[StyleName].desktop.borderRadius.focus.length === 1?`${Styles[StyleName].desktop.borderRadius.focus[0]}`
+        :
+        `
+        ${Styles[StyleName].desktop.borderRadius.focus[0]} 
+        ${Styles[StyleName].desktop.borderRadius.focus[3]} 
+        ${Styles[StyleName].desktop.borderRadius.focus[1]} 
+        ${Styles[StyleName].desktop.borderRadius.focus[2]}`};
+    `
+}
+
+const styleDesktopActive = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleDesktopActiveWidth(StyleName, Styles);
+    style+=styleDesktopActiveHeight(StyleName, Styles);
+    style+=styleDesktopActiveBackground(StyleName, Styles);
+    style+=styleDesktopActiveBoxShadow(StyleName, Styles);
+    style+=styleDesktopActiveFont(StyleName, Styles);
+    style+=styleDesktopActiveBorder(StyleName, Styles);
+    style+=styleDesktopActiveBorderRadius(StyleName, Styles);
+
+    return style;
+}
+const styleDesktopActiveWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.width?.active === undefined?'':`width: ${Styles[StyleName].desktop.width.active};`
+}
+const styleDesktopActiveHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.height?.active === undefined?'':`height: ${Styles[StyleName].desktop.height.active};`
+}
+const styleDesktopActiveBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.backgroundColor?.active === undefined?'':`background: ${Styles[StyleName].desktop.backgroundColor.active.length > 1? `linear-gradient(${Styles[StyleName].desktop.backgroundColor.active[0]}deg, ${Styles[StyleName].desktop.backgroundColor.active[1]},${Styles[StyleName].desktop.backgroundColor.active[2]})`:Styles[StyleName].desktop.backgroundColor.active[0]};`
+}
+const styleDesktopActiveBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.boxShadow?.active === undefined?'':`box-shadow: ${Styles[StyleName].desktop.boxShadow.active[0]+' '+
+    Styles[StyleName].desktop.boxShadow.active[1]+' '+
+    Styles[StyleName].desktop.boxShadow.active[2]+' '+
+    Styles[StyleName].desktop.boxShadow.active[3]+' '+
+    Styles[StyleName].desktop.boxShadow.active[4]};`
+}
+const styleDesktopActiveFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.font?.active === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.desktop?.font?.active.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.desktop?.font?.active.fontFamily};`}
+        ${Styles[StyleName]?.desktop?.font?.active.size === undefined?'':`font-size:${Styles[StyleName]?.desktop?.font?.active.size+Styles[StyleName]?.desktop?.font?.active.typeSize};`}
+        ${Styles[StyleName]?.desktop?.font?.active.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.desktop?.font?.active.fontWeight};`}
+        ${Styles[StyleName]?.desktop?.font?.active.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.desktop?.font?.active.fontFamily};`}
+        ${Styles[StyleName]?.desktop?.font?.active.color === undefined?'':`color:${Styles[StyleName]?.desktop?.font?.active.color};`}
+        `
+}
+const styleDesktopActiveBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.desktop?.border === undefined || Styles[StyleName]?.desktop?.borderColor?.active === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].desktop.border.length === 1){
+            if(Styles[StyleName].desktop.borderColor.active.length === 1){
+                return `border: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.active[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.active[0]};
+                border-right: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.active[1]};
+                border-bottom: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.active[2]};
+                border-left: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.active[3]};
+                `
+            }
+        } else {
+            if(Styles[StyleName].desktop.borderColor.active.length === 1){
+                return `
+                border-top: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.active[0]};
+                border-right: ${Styles[StyleName].desktop.border[1]} solid ${Styles[StyleName].desktop.borderColor.active[0]};
+                border-bottom: ${Styles[StyleName].desktop.border[2]} solid ${Styles[StyleName].desktop.borderColor.active[0]};
+                border-left: ${Styles[StyleName].desktop.border[3]} solid ${Styles[StyleName].desktop.borderColor.active[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.active[0]};
+                border-right: ${Styles[StyleName].desktop.border[1]} solid ${Styles[StyleName].desktop.borderColor.active[1]};
+                border-bottom: ${Styles[StyleName].desktop.border[2]} solid ${Styles[StyleName].desktop.borderColor.active[2]};
+                border-left: ${Styles[StyleName].desktop.border[3]} solid ${Styles[StyleName].desktop.borderColor.active[3]};
+                `
+            }
+        }
+    }
+}
+const styleDesktopActiveBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.borderRadius?.active === undefined? '': `
+        border-radius: ${Styles[StyleName].desktop.borderRadius.active.length === 1?`${Styles[StyleName].desktop.borderRadius.active[0]}`
+        :
+        `
+        ${Styles[StyleName].desktop.borderRadius.active[0]} 
+        ${Styles[StyleName].desktop.borderRadius.active[3]} 
+        ${Styles[StyleName].desktop.borderRadius.active[1]} 
+        ${Styles[StyleName].desktop.borderRadius.active[2]}`};
+    `
+}
+
+const styleDesktopHover = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleDesktopHoverWidth(StyleName, Styles);
+    style+=styleDesktopHoverHeight(StyleName, Styles);
+    style+=styleDesktopHoverBackground(StyleName, Styles);
+    style+=styleDesktopHoverBoxShadow(StyleName, Styles);
+    style+=styleDesktopHoverFont(StyleName, Styles);
+    style+=styleDesktopHoverBorder(StyleName, Styles);
+    style+=styleDesktopHoverBorderRadius(StyleName, Styles);
+
+    return style;
+}
+const styleDesktopHoverWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.width?.hover === undefined?'':`width: ${Styles[StyleName].desktop.width.hover};`
+}
+const styleDesktopHoverHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.height?.hover === undefined?'':`height: ${Styles[StyleName].desktop.height.hover};`
+}
+const styleDesktopHoverBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.backgroundColor?.hover === undefined?'':`background: ${Styles[StyleName].desktop.backgroundColor.hover.length > 1? `linear-gradient(${Styles[StyleName].desktop.backgroundColor.hover[0]}deg, ${Styles[StyleName].desktop.backgroundColor.hover[1]},${Styles[StyleName].desktop.backgroundColor.hover[2]})`:Styles[StyleName].desktop.backgroundColor.hover[0]};`
+}
+const styleDesktopHoverBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.boxShadow?.hover === undefined?'':`box-shadow: ${Styles[StyleName].desktop.boxShadow.hover[0]+' '+
+    Styles[StyleName].desktop.boxShadow.hover[1]+' '+
+    Styles[StyleName].desktop.boxShadow.hover[2]+' '+
+    Styles[StyleName].desktop.boxShadow.hover[3]+' '+
+    Styles[StyleName].desktop.boxShadow.hover[4]};`
+}
+const styleDesktopHoverFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.font?.hover === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.desktop?.font?.hover.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.desktop?.font?.hover.fontFamily};`}
+        ${Styles[StyleName]?.desktop?.font?.hover.size === undefined?'':`font-size:${Styles[StyleName]?.desktop?.font?.hover.size+Styles[StyleName]?.desktop?.font?.hover.typeSize};`}
+        ${Styles[StyleName]?.desktop?.font?.hover.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.desktop?.font?.hover.fontWeight};`}
+        ${Styles[StyleName]?.desktop?.font?.hover.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.desktop?.font?.hover.fontFamily};`}
+        ${Styles[StyleName]?.desktop?.font?.hover.color === undefined?'':`color:${Styles[StyleName]?.desktop?.font?.hover.color};`}
+        `
+}
+const styleDesktopHoverBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.desktop?.border === undefined || Styles[StyleName]?.desktop?.borderColor?.hover === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].desktop.border.length === 1){
+            if(Styles[StyleName].desktop.borderColor.hover.length === 1){
+                return `border: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.hover[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.hover[0]};
+                border-right: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.hover[1]};
+                border-bottom: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.hover[2]};
+                border-left: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.hover[3]};
+                `
+            }
+        } else {
+            if(Styles[StyleName].desktop.borderColor.hover.length === 1){
+                return `
+                border-top: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.hover[0]};
+                border-right: ${Styles[StyleName].desktop.border[1]} solid ${Styles[StyleName].desktop.borderColor.hover[0]};
+                border-bottom: ${Styles[StyleName].desktop.border[2]} solid ${Styles[StyleName].desktop.borderColor.hover[0]};
+                border-left: ${Styles[StyleName].desktop.border[3]} solid ${Styles[StyleName].desktop.borderColor.hover[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.hover[0]};
+                border-right: ${Styles[StyleName].desktop.border[1]} solid ${Styles[StyleName].desktop.borderColor.hover[1]};
+                border-bottom: ${Styles[StyleName].desktop.border[2]} solid ${Styles[StyleName].desktop.borderColor.hover[2]};
+                border-left: ${Styles[StyleName].desktop.border[3]} solid ${Styles[StyleName].desktop.borderColor.hover[3]};
+                `
+            }
+        }
+    }
+}
+const styleDesktopHoverBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.borderRadius?.hover === undefined? '': `
+        border-radius: ${Styles[StyleName].desktop.borderRadius.hover.length === 1?`${Styles[StyleName].desktop.borderRadius.hover[0]}`
+        :
+        `
+        ${Styles[StyleName].desktop.borderRadius.hover[0]} 
+        ${Styles[StyleName].desktop.borderRadius.hover[3]} 
+        ${Styles[StyleName].desktop.borderRadius.hover[1]} 
+        ${Styles[StyleName].desktop.borderRadius.hover[2]}`};
+    `
+}
+
+const styleDesktopNone = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleDesktopNoneWidth(StyleName, Styles);
+    style+=styleDesktopNoneHeight(StyleName, Styles);
+    style+=styleDesktopNoneBackground(StyleName, Styles);
+    style+=styleDesktopMargin(StyleName, Styles);
+    style+=styleDesktopPadding(StyleName, Styles);
+    style+=styleDesktopNoneBoxShadow(StyleName, Styles);
+    style+=styleDesktopNoneFont(StyleName, Styles);
+    style+=styleDesktopNoneBorder(StyleName, Styles);
+    style+=styleDesktopNoneBorderRadius(StyleName, Styles);
+    style+=styleDesktopFlex(StyleName, Styles);
+    style+=styleDesktopPosition(StyleName, Styles);
+    style+=styleDesktopTransition(StyleName, Styles);
+    return style;
+}
+const styleDesktopNoneWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.width?.none === undefined?'':`width: ${Styles[StyleName].desktop.width.none};`
+}
+const styleDesktopNoneHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.height?.none === undefined?'':`height: ${Styles[StyleName].desktop.height.none};`
+}
+const styleDesktopNoneBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.backgroundColor?.none === undefined?'':`background: ${Styles[StyleName].desktop.backgroundColor.none.length > 1? `linear-gradient(${Styles[StyleName].desktop.backgroundColor.none[0]}deg, ${Styles[StyleName].desktop.backgroundColor.none[1]},${Styles[StyleName].desktop.backgroundColor.none[2]})`:Styles[StyleName].desktop.backgroundColor.none[0]};`
+}
+const styleDesktopMargin = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.margin === undefined?'':`margin: ${Styles[StyleName].desktop.margin.length === 1?Styles[StyleName].desktop.margin[0]:Styles[StyleName].desktop.margin[0] + ' ' +
+        Styles[StyleName].desktop.margin[1] + ' ' +
+        Styles[StyleName].desktop.margin[2] + ' ' + Styles[StyleName].desktop.margin[3]};`
+}
+const styleDesktopPadding = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.padding === undefined?'':`padding: ${Styles[StyleName].desktop.padding.length === 1?Styles[StyleName].desktop.padding[0]:Styles[StyleName].desktop.padding[0] + ' ' +
+        Styles[StyleName].desktop.padding[1] + ' ' +
+        Styles[StyleName].desktop.padding[2] + ' ' + Styles[StyleName].desktop.padding[3]};`
+}
+const styleDesktopNoneBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.boxShadow?.none === undefined?'':`box-shadow: ${Styles[StyleName].desktop.boxShadow.none[0]+' '+
+    Styles[StyleName].desktop.boxShadow.none[1]+' '+
+    Styles[StyleName].desktop.boxShadow.none[2]+' '+
+    Styles[StyleName].desktop.boxShadow.none[3]+' '+
+    Styles[StyleName].desktop.boxShadow.none[4]};`
+}
+const styleDesktopNoneFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.font?.none === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.desktop?.font?.none.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.desktop?.font?.none.fontFamily};`}
+        ${Styles[StyleName]?.desktop?.font?.none.size === undefined?'':`font-size:${Styles[StyleName]?.desktop?.font?.none.size+Styles[StyleName]?.desktop?.font?.none.typeSize};`}
+        ${Styles[StyleName]?.desktop?.font?.none.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.desktop?.font?.none.fontWeight};`}
+        ${Styles[StyleName]?.desktop?.font?.none.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.desktop?.font?.none.fontFamily};`}
+        ${Styles[StyleName]?.desktop?.font?.none.color === undefined?'':`color:${Styles[StyleName]?.desktop?.font?.none.color};`}
+        `
+}
+const styleDesktopNoneBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.desktop?.border === undefined || Styles[StyleName]?.desktop?.borderColor?.none === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].desktop.border.length === 1){
+            if(Styles[StyleName].desktop.borderColor.none.length === 1){
+                return `border: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.none[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.none[0]};
+                border-right: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.none[1]};
+                border-bottom: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.none[2]};
+                border-left: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.none[3]};
+                `
+            }
+        } else {
+            if(Styles[StyleName].desktop.borderColor.none.length === 1){
+                return `
+                border-top: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.none[0]};
+                border-right: ${Styles[StyleName].desktop.border[1]} solid ${Styles[StyleName].desktop.borderColor.none[0]};
+                border-bottom: ${Styles[StyleName].desktop.border[2]} solid ${Styles[StyleName].desktop.borderColor.none[0]};
+                border-left: ${Styles[StyleName].desktop.border[3]} solid ${Styles[StyleName].desktop.borderColor.none[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].desktop.border[0]} solid ${Styles[StyleName].desktop.borderColor.none[0]};
+                border-right: ${Styles[StyleName].desktop.border[1]} solid ${Styles[StyleName].desktop.borderColor.none[1]};
+                border-bottom: ${Styles[StyleName].desktop.border[2]} solid ${Styles[StyleName].desktop.borderColor.none[2]};
+                border-left: ${Styles[StyleName].desktop.border[3]} solid ${Styles[StyleName].desktop.borderColor.none[3]};
+                `
+            }
+        }
+    }
+}
+const styleDesktopNoneBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.borderRadius?.none === undefined? '': `
+        border-radius: ${Styles[StyleName].desktop.borderRadius.none.length === 1?`${Styles[StyleName].desktop.borderRadius.none[0]}`
+        :
+        `
+        ${Styles[StyleName].desktop.borderRadius.none[0]} 
+        ${Styles[StyleName].desktop.borderRadius.none[3]} 
+        ${Styles[StyleName].desktop.borderRadius.none[1]} 
+        ${Styles[StyleName].desktop.borderRadius.none[2]}`};
+    `
+}
+const styleDesktopFlex = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.flex?.enable === undefined || Styles[StyleName]?.desktop?.flex?.enable === false?''
+        :
+        `
+            display: flex;
+            justify-content: ${Styles[StyleName].desktop.flex.justifyContent};
+            flex-direction: ${Styles[StyleName].desktop.flex.flexDirection};
+            align-items: ${Styles[StyleName].desktop.flex.alignItems};
+        `
+}
+const styleDesktopPosition = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.desktop?.position === undefined || Styles[StyleName]?.desktop?.position === [false, false, false, false]?''
+        :
+        `
+        position: fixed;
+        ${Styles[StyleName].desktop.position[0] === false? '': 'top:0;'}
+        ${Styles[StyleName].desktop.position[1] === false? '': 'right:0;'}
+        ${Styles[StyleName].desktop.position[2] === false? '': 'bottom:0;'}
+        ${Styles[StyleName].desktop.position[3] === false? '': 'left:0;'}
+        `
+}
+const styleDesktopTransition = (StyleName: string, Styles: any):string => {
+    //console.log(Styles[StyleName].desktop.transition, '--- transition')
+    return Styles[StyleName]?.desktop?.transition === undefined?''
+        :
+        `
+        transition: ${Styles[StyleName].desktop.transition}ms;
+        `
+}
+
+
+//----------------------------------------------------------
+
+const styleTabletFocus = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleTabletFocusWidth(StyleName, Styles);
+    style+=styleTabletFocusHeight(StyleName, Styles);
+    style+=styleTabletFocusBackground(StyleName, Styles);
+    style+=styleTabletFocusBoxShadow(StyleName, Styles);
+    style+=styleTabletFocusFont(StyleName, Styles);
+    style+=styleTabletFocusBorder(StyleName, Styles);
+    style+=styleTabletFocusBorderRadius(StyleName, Styles);
+    return style;
+}
+const styleTabletFocusWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.width?.focus === undefined?'':`width: ${Styles[StyleName].tablet.width.focus};`
+}
+const styleTabletFocusHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.height?.focus === undefined?'':`height: ${Styles[StyleName].tablet.height.focus};`
+}
+const styleTabletFocusBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.backgroundColor?.focus === undefined?'':`background: ${Styles[StyleName].tablet.backgroundColor.focus.length > 1? `linear-gradient(${Styles[StyleName].tablet.backgroundColor.focus[0]}deg, ${Styles[StyleName].tablet.backgroundColor.focus[1]},${Styles[StyleName].tablet.backgroundColor.focus[2]})`:Styles[StyleName].tablet.backgroundColor.focus[0]};`
+}
+const styleTabletFocusBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.boxShadow?.focus === undefined?'':`box-shadow: ${Styles[StyleName].tablet.boxShadow.focus[0]+' '+
+    Styles[StyleName].tablet.boxShadow.focus[1]+' '+
+    Styles[StyleName].tablet.boxShadow.focus[2]+' '+
+    Styles[StyleName].tablet.boxShadow.focus[3]+' '+
+    Styles[StyleName].tablet.boxShadow.focus[4]};`
+}
+const styleTabletFocusFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.font?.focus === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.tablet?.font?.focus.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.tablet?.font?.focus.fontFamily};`}
+        ${Styles[StyleName]?.tablet?.font?.focus.size === undefined?'':`font-size:${Styles[StyleName]?.tablet?.font?.focus.size+Styles[StyleName]?.tablet?.font?.focus.typeSize};`}
+        ${Styles[StyleName]?.tablet?.font?.focus.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.tablet?.font?.focus.fontWeight};`}
+        ${Styles[StyleName]?.tablet?.font?.focus.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.tablet?.font?.focus.fontFamily};`}
+        ${Styles[StyleName]?.tablet?.font?.focus.color === undefined?'':`color:${Styles[StyleName]?.tablet?.font?.focus.color};`}
+        `
+}
+const styleTabletFocusBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.tablet?.border === undefined || Styles[StyleName]?.tablet?.borderColor?.focus === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].tablet.border.length === 1){
+            if(Styles[StyleName].tablet.borderColor.focus.length === 1){
+                return `border: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.focus[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.focus[0]};
+                border-right: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.focus[1]};
+                border-bottom: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.focus[2]};
+                border-left: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.focus[3]};
+                `
+            }
+        } else {
+            if(Styles[StyleName].tablet.borderColor.focus.length === 1){
+                return `
+                border-top: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.focus[0]};
+                border-right: ${Styles[StyleName].tablet.border[1]} solid ${Styles[StyleName].tablet.borderColor.focus[0]};
+                border-bottom: ${Styles[StyleName].tablet.border[2]} solid ${Styles[StyleName].tablet.borderColor.focus[0]};
+                border-left: ${Styles[StyleName].tablet.border[3]} solid ${Styles[StyleName].tablet.borderColor.focus[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.focus[0]};
+                border-right: ${Styles[StyleName].tablet.border[1]} solid ${Styles[StyleName].tablet.borderColor.focus[1]};
+                border-bottom: ${Styles[StyleName].tablet.border[2]} solid ${Styles[StyleName].tablet.borderColor.focus[2]};
+                border-left: ${Styles[StyleName].tablet.border[3]} solid ${Styles[StyleName].tablet.borderColor.focus[3]};
+                `
+            }
+        }
+    }
+}
+const styleTabletFocusBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.borderRadius?.focus === undefined? '': `
+        border-radius: ${Styles[StyleName].tablet.borderRadius.focus.length === 1?`${Styles[StyleName].tablet.borderRadius.focus[0]}`
+        :
+        `
+        ${Styles[StyleName].tablet.borderRadius.focus[0]} 
+        ${Styles[StyleName].tablet.borderRadius.focus[3]} 
+        ${Styles[StyleName].tablet.borderRadius.focus[1]} 
+        ${Styles[StyleName].tablet.borderRadius.focus[2]}`};
+    `
+}
+
+const styleTabletActive = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleTabletActiveWidth(StyleName, Styles);
+    style+=styleTabletActiveHeight(StyleName, Styles);
+    style+=styleTabletActiveBackground(StyleName, Styles);
+    style+=styleTabletActiveBoxShadow(StyleName, Styles);
+    style+=styleTabletActiveFont(StyleName, Styles);
+    style+=styleTabletActiveBorder(StyleName, Styles);
+    style+=styleTabletActiveBorderRadius(StyleName, Styles);
+
+    return style;
+}
+const styleTabletActiveWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.width?.active === undefined?'':`width: ${Styles[StyleName].tablet.width.active};`
+}
+const styleTabletActiveHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.height?.active === undefined?'':`height: ${Styles[StyleName].tablet.height.active};`
+}
+const styleTabletActiveBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.backgroundColor?.active === undefined?'':`background: ${Styles[StyleName].tablet.backgroundColor.active.length > 1? `linear-gradient(${Styles[StyleName].tablet.backgroundColor.active[0]}deg, ${Styles[StyleName].tablet.backgroundColor.active[1]},${Styles[StyleName].tablet.backgroundColor.active[2]})`:Styles[StyleName].tablet.backgroundColor.active[0]};`
+}
+const styleTabletActiveBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.boxShadow?.active === undefined?'':`box-shadow: ${Styles[StyleName].tablet.boxShadow.active[0]+' '+
+    Styles[StyleName].tablet.boxShadow.active[1]+' '+
+    Styles[StyleName].tablet.boxShadow.active[2]+' '+
+    Styles[StyleName].tablet.boxShadow.active[3]+' '+
+    Styles[StyleName].tablet.boxShadow.active[4]};`
+}
+const styleTabletActiveFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.font?.active === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.tablet?.font?.active.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.tablet?.font?.active.fontFamily};`}
+        ${Styles[StyleName]?.tablet?.font?.active.size === undefined?'':`font-size:${Styles[StyleName]?.tablet?.font?.active.size+Styles[StyleName]?.tablet?.font?.active.typeSize};`}
+        ${Styles[StyleName]?.tablet?.font?.active.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.tablet?.font?.active.fontWeight};`}
+        ${Styles[StyleName]?.tablet?.font?.active.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.tablet?.font?.active.fontFamily};`}
+        ${Styles[StyleName]?.tablet?.font?.active.color === undefined?'':`color:${Styles[StyleName]?.tablet?.font?.active.color};`}
+        `
+}
+const styleTabletActiveBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.tablet?.border === undefined || Styles[StyleName]?.tablet?.borderColor?.active === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].tablet.border.length === 1){
+            if(Styles[StyleName].tablet.borderColor.active.length === 1){
+                return `border: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.active[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.active[0]};
+                border-right: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.active[1]};
+                border-bottom: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.active[2]};
+                border-left: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.active[3]};
+                `
+            }
+        } else {
+            if(Styles[StyleName].tablet.borderColor.active.length === 1){
+                return `
+                border-top: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.active[0]};
+                border-right: ${Styles[StyleName].tablet.border[1]} solid ${Styles[StyleName].tablet.borderColor.active[0]};
+                border-bottom: ${Styles[StyleName].tablet.border[2]} solid ${Styles[StyleName].tablet.borderColor.active[0]};
+                border-left: ${Styles[StyleName].tablet.border[3]} solid ${Styles[StyleName].tablet.borderColor.active[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.active[0]};
+                border-right: ${Styles[StyleName].tablet.border[1]} solid ${Styles[StyleName].tablet.borderColor.active[1]};
+                border-bottom: ${Styles[StyleName].tablet.border[2]} solid ${Styles[StyleName].tablet.borderColor.active[2]};
+                border-left: ${Styles[StyleName].tablet.border[3]} solid ${Styles[StyleName].tablet.borderColor.active[3]};
+                `
+            }
+        }
+    }
+}
+const styleTabletActiveBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.borderRadius?.active === undefined? '': `
+        border-radius: ${Styles[StyleName].tablet.borderRadius.active.length === 1?`${Styles[StyleName].tablet.borderRadius.active[0]}`
+        :
+        `
+        ${Styles[StyleName].tablet.borderRadius.active[0]} 
+        ${Styles[StyleName].tablet.borderRadius.active[3]} 
+        ${Styles[StyleName].tablet.borderRadius.active[1]} 
+        ${Styles[StyleName].tablet.borderRadius.active[2]}`};
+    `
+}
+
+const styleTabletHover = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleTabletHoverWidth(StyleName, Styles);
+    style+=styleTabletHoverHeight(StyleName, Styles);
+    style+=styleTabletHoverBackground(StyleName, Styles);
+    style+=styleTabletHoverBoxShadow(StyleName, Styles);
+    style+=styleTabletHoverFont(StyleName, Styles);
+    style+=styleTabletHoverBorder(StyleName, Styles);
+    style+=styleTabletHoverBorderRadius(StyleName, Styles);
+
+    return style;
+}
+const styleTabletHoverWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.width?.hover === undefined?'':`width: ${Styles[StyleName].tablet.width.hover};`
+}
+const styleTabletHoverHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.height?.hover === undefined?'':`height: ${Styles[StyleName].tablet.height.hover};`
+}
+const styleTabletHoverBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.backgroundColor?.hover === undefined?'':`background: ${Styles[StyleName].tablet.backgroundColor.hover.length > 1? `linear-gradient(${Styles[StyleName].tablet.backgroundColor.hover[0]}deg, ${Styles[StyleName].tablet.backgroundColor.hover[1]},${Styles[StyleName].tablet.backgroundColor.hover[2]})`:Styles[StyleName].tablet.backgroundColor.hover[0]};`
+}
+const styleTabletHoverBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.boxShadow?.hover === undefined?'':`box-shadow: ${Styles[StyleName].tablet.boxShadow.hover[0]+' '+
+    Styles[StyleName].tablet.boxShadow.hover[1]+' '+
+    Styles[StyleName].tablet.boxShadow.hover[2]+' '+
+    Styles[StyleName].tablet.boxShadow.hover[3]+' '+
+    Styles[StyleName].tablet.boxShadow.hover[4]};`
+}
+const styleTabletHoverFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.font?.hover === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.tablet?.font?.hover.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.tablet?.font?.hover.fontFamily};`}
+        ${Styles[StyleName]?.tablet?.font?.hover.size === undefined?'':`font-size:${Styles[StyleName]?.tablet?.font?.hover.size+Styles[StyleName]?.tablet?.font?.hover.typeSize};`}
+        ${Styles[StyleName]?.tablet?.font?.hover.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.tablet?.font?.hover.fontWeight};`}
+        ${Styles[StyleName]?.tablet?.font?.hover.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.tablet?.font?.hover.fontFamily};`}
+        ${Styles[StyleName]?.tablet?.font?.hover.color === undefined?'':`color:${Styles[StyleName]?.tablet?.font?.hover.color};`}
+        `
+}
+const styleTabletHoverBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.tablet?.border === undefined || Styles[StyleName]?.tablet?.borderColor?.hover === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].tablet.border.length === 1){
+            if(Styles[StyleName].tablet.borderColor.hover.length === 1){
+                return `border: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.hover[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.hover[0]};
+                border-right: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.hover[1]};
+                border-bottom: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.hover[2]};
+                border-left: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.hover[3]};
+                `
+            }
+        } else {
+            if(Styles[StyleName].tablet.borderColor.hover.length === 1){
+                return `
+                border-top: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.hover[0]};
+                border-right: ${Styles[StyleName].tablet.border[1]} solid ${Styles[StyleName].tablet.borderColor.hover[0]};
+                border-bottom: ${Styles[StyleName].tablet.border[2]} solid ${Styles[StyleName].tablet.borderColor.hover[0]};
+                border-left: ${Styles[StyleName].tablet.border[3]} solid ${Styles[StyleName].tablet.borderColor.hover[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.hover[0]};
+                border-right: ${Styles[StyleName].tablet.border[1]} solid ${Styles[StyleName].tablet.borderColor.hover[1]};
+                border-bottom: ${Styles[StyleName].tablet.border[2]} solid ${Styles[StyleName].tablet.borderColor.hover[2]};
+                border-left: ${Styles[StyleName].tablet.border[3]} solid ${Styles[StyleName].tablet.borderColor.hover[3]};
+                `
+            }
+        }
+    }
+}
+const styleTabletHoverBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.borderRadius?.hover === undefined? '': `
+        border-radius: ${Styles[StyleName].tablet.borderRadius.hover.length === 1?`${Styles[StyleName].tablet.borderRadius.hover[0]}`
+        :
+        `
+        ${Styles[StyleName].tablet.borderRadius.hover[0]} 
+        ${Styles[StyleName].tablet.borderRadius.hover[3]} 
+        ${Styles[StyleName].tablet.borderRadius.hover[1]} 
+        ${Styles[StyleName].tablet.borderRadius.hover[2]}`};
+    `
+}
+
+const styleTabletNone = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleTabletNoneWidth(StyleName, Styles);
+    style+=styleTabletNoneHeight(StyleName, Styles);
+    style+=styleTabletNoneBackground(StyleName, Styles);
+    style+=styleTabletMargin(StyleName, Styles);
+    style+=styleTabletPadding(StyleName, Styles);
+    style+=styleTabletNoneBoxShadow(StyleName, Styles);
+    style+=styleTabletNoneFont(StyleName, Styles);
+    style+=styleTabletNoneBorder(StyleName, Styles);
+    style+=styleTabletNoneBorderRadius(StyleName, Styles);
+    style+=styleTabletFlex(StyleName, Styles);
+    style+=styleTabletPosition(StyleName, Styles);
+    style+=styleTabletTransition(StyleName, Styles);
+    return style;
+}
+const styleTabletNoneWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.width?.none === undefined?'':`width: ${Styles[StyleName].tablet.width.none};`
+}
+const styleTabletNoneHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.height?.none === undefined?'':`height: ${Styles[StyleName].tablet.height.none};`
+}
+const styleTabletNoneBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.backgroundColor?.none === undefined?'':`background: ${Styles[StyleName].tablet.backgroundColor.none.length > 1? `linear-gradient(${Styles[StyleName].tablet.backgroundColor.none[0]}deg, ${Styles[StyleName].tablet.backgroundColor.none[1]},${Styles[StyleName].tablet.backgroundColor.none[2]})`:Styles[StyleName].tablet.backgroundColor.none[0]};`
+}
+const styleTabletMargin = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.margin === undefined?'':`margin: ${Styles[StyleName].tablet.margin.length === 1?Styles[StyleName].tablet.margin[0]:Styles[StyleName].tablet.margin[0] + ' ' +
+        Styles[StyleName].tablet.margin[1] + ' ' +
+        Styles[StyleName].tablet.margin[2] + ' ' + Styles[StyleName].tablet.margin[3]};`
+}
+const styleTabletPadding = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.padding === undefined?'':`padding: ${Styles[StyleName].tablet.padding.length === 1?Styles[StyleName].tablet.padding[0]:Styles[StyleName].tablet.padding[0] + ' ' +
+        Styles[StyleName].tablet.padding[1] + ' ' +
+        Styles[StyleName].tablet.padding[2] + ' ' + Styles[StyleName].tablet.padding[3]};`
+}
+const styleTabletNoneBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.boxShadow?.none === undefined?'':`box-shadow: ${Styles[StyleName].tablet.boxShadow.none[0]+' '+
+    Styles[StyleName].tablet.boxShadow.none[1]+' '+
+    Styles[StyleName].tablet.boxShadow.none[2]+' '+
+    Styles[StyleName].tablet.boxShadow.none[3]+' '+
+    Styles[StyleName].tablet.boxShadow.none[4]};`
+}
+const styleTabletNoneFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.font?.none === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.tablet?.font?.none.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.tablet?.font?.none.fontFamily};`}
+        ${Styles[StyleName]?.tablet?.font?.none.size === undefined?'':`font-size:${Styles[StyleName]?.tablet?.font?.none.size+Styles[StyleName]?.tablet?.font?.none.typeSize};`}
+        ${Styles[StyleName]?.tablet?.font?.none.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.tablet?.font?.none.fontWeight};`}
+        ${Styles[StyleName]?.tablet?.font?.none.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.tablet?.font?.none.fontFamily};`}
+        ${Styles[StyleName]?.tablet?.font?.none.color === undefined?'':`color:${Styles[StyleName]?.tablet?.font?.none.color};`}
+        `
+}
+const styleTabletNoneBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.tablet?.border === undefined || Styles[StyleName]?.tablet?.borderColor?.none === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].tablet.border.length === 1){
+            if(Styles[StyleName].tablet.borderColor.none.length === 1){
+                return `border: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.none[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.none[0]};
+                border-right: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.none[1]};
+                border-bottom: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.none[2]};
+                border-left: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.none[3]};
+                `
+            }
+        } else {
+            if(Styles[StyleName].tablet.borderColor.none.length === 1){
+                return `
+                border-top: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.none[0]};
+                border-right: ${Styles[StyleName].tablet.border[1]} solid ${Styles[StyleName].tablet.borderColor.none[0]};
+                border-bottom: ${Styles[StyleName].tablet.border[2]} solid ${Styles[StyleName].tablet.borderColor.none[0]};
+                border-left: ${Styles[StyleName].tablet.border[3]} solid ${Styles[StyleName].tablet.borderColor.none[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].tablet.border[0]} solid ${Styles[StyleName].tablet.borderColor.none[0]};
+                border-right: ${Styles[StyleName].tablet.border[1]} solid ${Styles[StyleName].tablet.borderColor.none[1]};
+                border-bottom: ${Styles[StyleName].tablet.border[2]} solid ${Styles[StyleName].tablet.borderColor.none[2]};
+                border-left: ${Styles[StyleName].tablet.border[3]} solid ${Styles[StyleName].tablet.borderColor.none[3]};
+                `
+            }
+        }
+    }
+}
+const styleTabletNoneBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.borderRadius?.none === undefined? '': `
+        border-radius: ${Styles[StyleName].tablet.borderRadius.none.length === 1?`${Styles[StyleName].tablet.borderRadius.none[0]}`
+        :
+        `
+        ${Styles[StyleName].tablet.borderRadius.none[0]} 
+        ${Styles[StyleName].tablet.borderRadius.none[3]} 
+        ${Styles[StyleName].tablet.borderRadius.none[1]} 
+        ${Styles[StyleName].tablet.borderRadius.none[2]}`};
+    `
+}
+const styleTabletFlex = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.flex?.enable === undefined || Styles[StyleName]?.tablet?.flex?.enable === false?''
+        :
+        `
+            display: flex;
+            justify-content: ${Styles[StyleName].tablet.flex.justifyContent};
+            flex-direction: ${Styles[StyleName].tablet.flex.flexDirection};
+            align-items: ${Styles[StyleName].tablet.flex.alignItems};
+        `
+}
+const styleTabletPosition = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.tablet?.position === undefined || Styles[StyleName]?.tablet?.position === [false, false, false, false]?''
+        :
+        `
+        position: fixed;
+        ${Styles[StyleName].tablet.position[0] === false? '': 'top:0;'}
+        ${Styles[StyleName].tablet.position[1] === false? '': 'right:0;'}
+        ${Styles[StyleName].tablet.position[2] === false? '': 'bottom:0;'}
+        ${Styles[StyleName].tablet.position[3] === false? '': 'left:0;'}
+        `
+}
+const styleTabletTransition = (StyleName: string, Styles: any):string => {
+    //console.log(Styles[StyleName].tablet.transition, '--- transition')
+    return Styles[StyleName]?.tablet?.transition === undefined?''
+        :
+        `
+        transition: ${Styles[StyleName].tablet.transition}ms;
+        `
+}
+
+
+//----------------------------------------------------------
+
+const styleMobileFocus = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleMobileFocusWidth(StyleName, Styles);
+    style+=styleMobileFocusHeight(StyleName, Styles);
+    style+=styleMobileFocusBackground(StyleName, Styles);
+    style+=styleMobileFocusBoxShadow(StyleName, Styles);
+    style+=styleMobileFocusFont(StyleName, Styles);
+    style+=styleMobileFocusBorder(StyleName, Styles);
+    style+=styleMobileFocusBorderRadius(StyleName, Styles);
+    return style;
+}
+const styleMobileFocusWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.width?.focus === undefined?'':`width: ${Styles[StyleName].mobile.width.focus};`
+}
+const styleMobileFocusHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.height?.focus === undefined?'':`height: ${Styles[StyleName].mobile.height.focus};`
+}
+const styleMobileFocusBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.backgroundColor?.focus === undefined?'':`background: ${Styles[StyleName].mobile.backgroundColor.focus.length > 1? `linear-gradient(${Styles[StyleName].mobile.backgroundColor.focus[0]}deg, ${Styles[StyleName].mobile.backgroundColor.focus[1]},${Styles[StyleName].mobile.backgroundColor.focus[2]})`:Styles[StyleName].mobile.backgroundColor.focus[0]};`
+}
+const styleMobileFocusBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.boxShadow?.focus === undefined?'':`box-shadow: ${Styles[StyleName].mobile.boxShadow.focus[0]+' '+
+    Styles[StyleName].mobile.boxShadow.focus[1]+' '+
+    Styles[StyleName].mobile.boxShadow.focus[2]+' '+
+    Styles[StyleName].mobile.boxShadow.focus[3]+' '+
+    Styles[StyleName].mobile.boxShadow.focus[4]};`
+}
+const styleMobileFocusFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.font?.focus === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.mobile?.font?.focus.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.mobile?.font?.focus.fontFamily};`}
+        ${Styles[StyleName]?.mobile?.font?.focus.size === undefined?'':`font-size:${Styles[StyleName]?.mobile?.font?.focus.size+Styles[StyleName]?.mobile?.font?.focus.typeSize};`}
+        ${Styles[StyleName]?.mobile?.font?.focus.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.mobile?.font?.focus.fontWeight};`}
+        ${Styles[StyleName]?.mobile?.font?.focus.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.mobile?.font?.focus.fontFamily};`}
+        ${Styles[StyleName]?.mobile?.font?.focus.color === undefined?'':`color:${Styles[StyleName]?.mobile?.font?.focus.color};`}
+        `
+}
+const styleMobileFocusBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.mobile?.border === undefined || Styles[StyleName]?.mobile?.borderColor?.focus === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].mobile.border.length === 1){
+            if(Styles[StyleName].mobile.borderColor.focus.length === 1){
+                return `border: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.focus[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.focus[0]};
+                border-right: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.focus[1]};
+                border-bottom: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.focus[2]};
+                border-left: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.focus[3]};
+                `
+            }
+        } else {
+            if(Styles[StyleName].mobile.borderColor.focus.length === 1){
+                return `
+                border-top: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.focus[0]};
+                border-right: ${Styles[StyleName].mobile.border[1]} solid ${Styles[StyleName].mobile.borderColor.focus[0]};
+                border-bottom: ${Styles[StyleName].mobile.border[2]} solid ${Styles[StyleName].mobile.borderColor.focus[0]};
+                border-left: ${Styles[StyleName].mobile.border[3]} solid ${Styles[StyleName].mobile.borderColor.focus[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.focus[0]};
+                border-right: ${Styles[StyleName].mobile.border[1]} solid ${Styles[StyleName].mobile.borderColor.focus[1]};
+                border-bottom: ${Styles[StyleName].mobile.border[2]} solid ${Styles[StyleName].mobile.borderColor.focus[2]};
+                border-left: ${Styles[StyleName].mobile.border[3]} solid ${Styles[StyleName].mobile.borderColor.focus[3]};
+                `
+            }
+        }
+    }
+}
+const styleMobileFocusBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.borderRadius?.focus === undefined? '': `
+        border-radius: ${Styles[StyleName].mobile.borderRadius.focus.length === 1?`${Styles[StyleName].mobile.borderRadius.focus[0]}`
+        :
+        `
+        ${Styles[StyleName].mobile.borderRadius.focus[0]} 
+        ${Styles[StyleName].mobile.borderRadius.focus[3]} 
+        ${Styles[StyleName].mobile.borderRadius.focus[1]} 
+        ${Styles[StyleName].mobile.borderRadius.focus[2]}`};
+    `
+}
+
+const styleMobileActive = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleMobileActiveWidth(StyleName, Styles);
+    style+=styleMobileActiveHeight(StyleName, Styles);
+    style+=styleMobileActiveBackground(StyleName, Styles);
+    style+=styleMobileActiveBoxShadow(StyleName, Styles);
+    style+=styleMobileActiveFont(StyleName, Styles);
+    style+=styleMobileActiveBorder(StyleName, Styles);
+    style+=styleMobileActiveBorderRadius(StyleName, Styles);
+
+    return style;
+}
+const styleMobileActiveWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.width?.active === undefined?'':`width: ${Styles[StyleName].mobile.width.active};`
+}
+const styleMobileActiveHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.height?.active === undefined?'':`height: ${Styles[StyleName].mobile.height.active};`
+}
+const styleMobileActiveBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.backgroundColor?.active === undefined?'':`background: ${Styles[StyleName].mobile.backgroundColor.active.length > 1? `linear-gradient(${Styles[StyleName].mobile.backgroundColor.active[0]}deg, ${Styles[StyleName].mobile.backgroundColor.active[1]},${Styles[StyleName].mobile.backgroundColor.active[2]})`:Styles[StyleName].mobile.backgroundColor.active[0]};`
+}
+const styleMobileActiveBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.boxShadow?.active === undefined?'':`box-shadow: ${Styles[StyleName].mobile.boxShadow.active[0]+' '+
+    Styles[StyleName].mobile.boxShadow.active[1]+' '+
+    Styles[StyleName].mobile.boxShadow.active[2]+' '+
+    Styles[StyleName].mobile.boxShadow.active[3]+' '+
+    Styles[StyleName].mobile.boxShadow.active[4]};`
+}
+const styleMobileActiveFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.font?.active === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.mobile?.font?.active.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.mobile?.font?.active.fontFamily};`}
+        ${Styles[StyleName]?.mobile?.font?.active.size === undefined?'':`font-size:${Styles[StyleName]?.mobile?.font?.active.size+Styles[StyleName]?.mobile?.font?.active.typeSize};`}
+        ${Styles[StyleName]?.mobile?.font?.active.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.mobile?.font?.active.fontWeight};`}
+        ${Styles[StyleName]?.mobile?.font?.active.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.mobile?.font?.active.fontFamily};`}
+        ${Styles[StyleName]?.mobile?.font?.active.color === undefined?'':`color:${Styles[StyleName]?.mobile?.font?.active.color};`}
+        `
+}
+const styleMobileActiveBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.mobile?.border === undefined || Styles[StyleName]?.mobile?.borderColor?.active === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].mobile.border.length === 1){
+            if(Styles[StyleName].mobile.borderColor.active.length === 1){
+                return `border: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.active[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.active[0]};
+                border-right: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.active[1]};
+                border-bottom: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.active[2]};
+                border-left: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.active[3]};
+                `
+            }
+        } else {
+            if(Styles[StyleName].mobile.borderColor.active.length === 1){
+                return `
+                border-top: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.active[0]};
+                border-right: ${Styles[StyleName].mobile.border[1]} solid ${Styles[StyleName].mobile.borderColor.active[0]};
+                border-bottom: ${Styles[StyleName].mobile.border[2]} solid ${Styles[StyleName].mobile.borderColor.active[0]};
+                border-left: ${Styles[StyleName].mobile.border[3]} solid ${Styles[StyleName].mobile.borderColor.active[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.active[0]};
+                border-right: ${Styles[StyleName].mobile.border[1]} solid ${Styles[StyleName].mobile.borderColor.active[1]};
+                border-bottom: ${Styles[StyleName].mobile.border[2]} solid ${Styles[StyleName].mobile.borderColor.active[2]};
+                border-left: ${Styles[StyleName].mobile.border[3]} solid ${Styles[StyleName].mobile.borderColor.active[3]};
+                `
+            }
+        }
+    }
+}
+const styleMobileActiveBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.borderRadius?.active === undefined? '': `
+        border-radius: ${Styles[StyleName].mobile.borderRadius.active.length === 1?`${Styles[StyleName].mobile.borderRadius.active[0]}`
+        :
+        `
+        ${Styles[StyleName].mobile.borderRadius.active[0]} 
+        ${Styles[StyleName].mobile.borderRadius.active[3]} 
+        ${Styles[StyleName].mobile.borderRadius.active[1]} 
+        ${Styles[StyleName].mobile.borderRadius.active[2]}`};
+    `
+}
+
+const styleMobileHover = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleMobileHoverWidth(StyleName, Styles);
+    style+=styleMobileHoverHeight(StyleName, Styles);
+    style+=styleMobileHoverBackground(StyleName, Styles);
+    style+=styleMobileHoverBoxShadow(StyleName, Styles);
+    style+=styleMobileHoverFont(StyleName, Styles);
+    style+=styleMobileHoverBorder(StyleName, Styles);
+    style+=styleMobileHoverBorderRadius(StyleName, Styles);
+
+    return style;
+}
+const styleMobileHoverWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.width?.hover === undefined?'':`width: ${Styles[StyleName].mobile.width.hover};`
+}
+const styleMobileHoverHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.height?.hover === undefined?'':`height: ${Styles[StyleName].mobile.height.hover};`
+}
+const styleMobileHoverBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.backgroundColor?.hover === undefined?'':`background: ${Styles[StyleName].mobile.backgroundColor.hover.length > 1? `linear-gradient(${Styles[StyleName].mobile.backgroundColor.hover[0]}deg, ${Styles[StyleName].mobile.backgroundColor.hover[1]},${Styles[StyleName].mobile.backgroundColor.hover[2]})`:Styles[StyleName].mobile.backgroundColor.hover[0]};`
+}
+const styleMobileHoverBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.boxShadow?.hover === undefined?'':`box-shadow: ${Styles[StyleName].mobile.boxShadow.hover[0]+' '+
+    Styles[StyleName].mobile.boxShadow.hover[1]+' '+
+    Styles[StyleName].mobile.boxShadow.hover[2]+' '+
+    Styles[StyleName].mobile.boxShadow.hover[3]+' '+
+    Styles[StyleName].mobile.boxShadow.hover[4]};`
+}
+const styleMobileHoverFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.font?.hover === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.mobile?.font?.hover.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.mobile?.font?.hover.fontFamily};`}
+        ${Styles[StyleName]?.mobile?.font?.hover.size === undefined?'':`font-size:${Styles[StyleName]?.mobile?.font?.hover.size+Styles[StyleName]?.mobile?.font?.hover.typeSize};`}
+        ${Styles[StyleName]?.mobile?.font?.hover.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.mobile?.font?.hover.fontWeight};`}
+        ${Styles[StyleName]?.mobile?.font?.hover.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.mobile?.font?.hover.fontFamily};`}
+        ${Styles[StyleName]?.mobile?.font?.hover.color === undefined?'':`color:${Styles[StyleName]?.mobile?.font?.hover.color};`}
+        `
+}
+const styleMobileHoverBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.mobile?.border === undefined || Styles[StyleName]?.mobile?.borderColor?.hover === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].mobile.border.length === 1){
+            if(Styles[StyleName].mobile.borderColor.hover.length === 1){
+                return `border: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.hover[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.hover[0]};
+                border-right: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.hover[1]};
+                border-bottom: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.hover[2]};
+                border-left: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.hover[3]};
+                `
+            }
+        } else {
+            if(Styles[StyleName].mobile.borderColor.hover.length === 1){
+                return `
+                border-top: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.hover[0]};
+                border-right: ${Styles[StyleName].mobile.border[1]} solid ${Styles[StyleName].mobile.borderColor.hover[0]};
+                border-bottom: ${Styles[StyleName].mobile.border[2]} solid ${Styles[StyleName].mobile.borderColor.hover[0]};
+                border-left: ${Styles[StyleName].mobile.border[3]} solid ${Styles[StyleName].mobile.borderColor.hover[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.hover[0]};
+                border-right: ${Styles[StyleName].mobile.border[1]} solid ${Styles[StyleName].mobile.borderColor.hover[1]};
+                border-bottom: ${Styles[StyleName].mobile.border[2]} solid ${Styles[StyleName].mobile.borderColor.hover[2]};
+                border-left: ${Styles[StyleName].mobile.border[3]} solid ${Styles[StyleName].mobile.borderColor.hover[3]};
+                `
+            }
+        }
+    }
+}
+const styleMobileHoverBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.borderRadius?.hover === undefined? '': `
+        border-radius: ${Styles[StyleName].mobile.borderRadius.hover.length === 1?`${Styles[StyleName].mobile.borderRadius.hover[0]}`
+        :
+        `
+        ${Styles[StyleName].mobile.borderRadius.hover[0]} 
+        ${Styles[StyleName].mobile.borderRadius.hover[3]} 
+        ${Styles[StyleName].mobile.borderRadius.hover[1]} 
+        ${Styles[StyleName].mobile.borderRadius.hover[2]}`};
+    `
+}
+
+const styleMobileNone = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleMobileNoneWidth(StyleName, Styles);
+    style+=styleMobileNoneHeight(StyleName, Styles);
+    style+=styleMobileNoneBackground(StyleName, Styles);
+    style+=styleMobileMargin(StyleName, Styles);
+    style+=styleMobilePadding(StyleName, Styles);
+    style+=styleMobileNoneBoxShadow(StyleName, Styles);
+    style+=styleMobileNoneFont(StyleName, Styles);
+    style+=styleMobileNoneBorder(StyleName, Styles);
+    style+=styleMobileNoneBorderRadius(StyleName, Styles);
+    style+=styleMobileFlex(StyleName, Styles);
+    style+=styleMobilePosition(StyleName, Styles);
+    style+=styleMobileTransition(StyleName, Styles);
+    return style;
+}
+const styleMobileNoneWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.width?.none === undefined?'':`width: ${Styles[StyleName].mobile.width.none};`
+}
+const styleMobileNoneHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.height?.none === undefined?'':`height: ${Styles[StyleName].mobile.height.none};`
+}
+const styleMobileNoneBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.backgroundColor?.none === undefined?'':`background: ${Styles[StyleName].mobile.backgroundColor.none.length > 1? `linear-gradient(${Styles[StyleName].mobile.backgroundColor.none[0]}deg, ${Styles[StyleName].mobile.backgroundColor.none[1]},${Styles[StyleName].mobile.backgroundColor.none[2]})`:Styles[StyleName].mobile.backgroundColor.none[0]};`
+}
+const styleMobileMargin = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.margin === undefined?'':`margin: ${Styles[StyleName].mobile.margin.length === 1?Styles[StyleName].mobile.margin[0]:Styles[StyleName].mobile.margin[0] + ' ' +
+        Styles[StyleName].mobile.margin[1] + ' ' +
+        Styles[StyleName].mobile.margin[2] + ' ' + Styles[StyleName].mobile.margin[3]};`
+}
+const styleMobilePadding = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.padding === undefined?'':`padding: ${Styles[StyleName].mobile.padding.length === 1?Styles[StyleName].mobile.padding[0]:Styles[StyleName].mobile.padding[0] + ' ' +
+        Styles[StyleName].mobile.padding[1] + ' ' +
+        Styles[StyleName].mobile.padding[2] + ' ' + Styles[StyleName].mobile.padding[3]};`
+}
+const styleMobileNoneBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.boxShadow?.none === undefined?'':`box-shadow: ${Styles[StyleName].mobile.boxShadow.none[0]+' '+
+    Styles[StyleName].mobile.boxShadow.none[1]+' '+
+    Styles[StyleName].mobile.boxShadow.none[2]+' '+
+    Styles[StyleName].mobile.boxShadow.none[3]+' '+
+    Styles[StyleName].mobile.boxShadow.none[4]};`
+}
+const styleMobileNoneFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.font?.none === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.mobile?.font?.none.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.mobile?.font?.none.fontFamily};`}
+        ${Styles[StyleName]?.mobile?.font?.none.size === undefined?'':`font-size:${Styles[StyleName]?.mobile?.font?.none.size+Styles[StyleName]?.mobile?.font?.none.typeSize};`}
+        ${Styles[StyleName]?.mobile?.font?.none.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.mobile?.font?.none.fontWeight};`}
+        ${Styles[StyleName]?.mobile?.font?.none.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.mobile?.font?.none.fontFamily};`}
+        ${Styles[StyleName]?.mobile?.font?.none.color === undefined?'':`color:${Styles[StyleName]?.mobile?.font?.none.color};`}
+        `
+}
+const styleMobileNoneBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.mobile?.border === undefined || Styles[StyleName]?.mobile?.borderColor?.none === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].mobile.border.length === 1){
+            if(Styles[StyleName].mobile.borderColor.none.length === 1){
+                return `border: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.none[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.none[0]};
+                border-right: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.none[1]};
+                border-bottom: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.none[2]};
+                border-left: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.none[3]};
+                `
+            }
+        } else {
+            if(Styles[StyleName].mobile.borderColor.none.length === 1){
+                return `
+                border-top: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.none[0]};
+                border-right: ${Styles[StyleName].mobile.border[1]} solid ${Styles[StyleName].mobile.borderColor.none[0]};
+                border-bottom: ${Styles[StyleName].mobile.border[2]} solid ${Styles[StyleName].mobile.borderColor.none[0]};
+                border-left: ${Styles[StyleName].mobile.border[3]} solid ${Styles[StyleName].mobile.borderColor.none[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].mobile.border[0]} solid ${Styles[StyleName].mobile.borderColor.none[0]};
+                border-right: ${Styles[StyleName].mobile.border[1]} solid ${Styles[StyleName].mobile.borderColor.none[1]};
+                border-bottom: ${Styles[StyleName].mobile.border[2]} solid ${Styles[StyleName].mobile.borderColor.none[2]};
+                border-left: ${Styles[StyleName].mobile.border[3]} solid ${Styles[StyleName].mobile.borderColor.none[3]};
+                `
+            }
+        }
+    }
+}
+const styleMobileNoneBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.borderRadius?.none === undefined? '': `
+        border-radius: ${Styles[StyleName].mobile.borderRadius.none.length === 1?`${Styles[StyleName].mobile.borderRadius.none[0]}`
+        :
+        `
+        ${Styles[StyleName].mobile.borderRadius.none[0]} 
+        ${Styles[StyleName].mobile.borderRadius.none[3]} 
+        ${Styles[StyleName].mobile.borderRadius.none[1]} 
+        ${Styles[StyleName].mobile.borderRadius.none[2]}`};
+    `
+}
+const styleMobileFlex = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.flex?.enable === undefined || Styles[StyleName]?.mobile?.flex?.enable === false?''
+        :
+        `
+            display: flex;
+            justify-content: ${Styles[StyleName].mobile.flex.justifyContent};
+            flex-direction: ${Styles[StyleName].mobile.flex.flexDirection};
+            align-items: ${Styles[StyleName].mobile.flex.alignItems};
+        `
+}
+const styleMobilePosition = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.mobile?.position === undefined || Styles[StyleName]?.mobile?.position === [false, false, false, false]?''
+        :
+        `
+        position: fixed;
+        ${Styles[StyleName].mobile.position[0] === false? '': 'top:0;'}
+        ${Styles[StyleName].mobile.position[1] === false? '': 'right:0;'}
+        ${Styles[StyleName].mobile.position[2] === false? '': 'bottom:0;'}
+        ${Styles[StyleName].mobile.position[3] === false? '': 'left:0;'}
+        `
+}
+const styleMobileTransition = (StyleName: string, Styles: any):string => {
+    //console.log(Styles[StyleName].mobile.transition, '--- transition')
+    return Styles[StyleName]?.mobile?.transition === undefined?''
+        :
+        `
+        transition: ${Styles[StyleName].mobile.transition}ms;
+        `
+}
+
+const styleAllFocus = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleAllFocusWidth(StyleName, Styles);
+    style+=styleAllFocusHeight(StyleName, Styles);
+    style+=styleAllFocusBackground(StyleName, Styles);
+    style+=styleAllFocusBoxShadow(StyleName, Styles);
+    style+=styleAllFocusFont(StyleName, Styles);
+    style+=styleAllFocusBorder(StyleName, Styles);
+    style+=styleAllFocusBorderRadius(StyleName, Styles);
+    return style;
+}
+const styleAllFocusWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.width?.focus === undefined?'':`width: ${Styles[StyleName].all.width.focus};`
+}
+const styleAllFocusHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.height?.focus === undefined?'':`height: ${Styles[StyleName].all.height.focus};`
+}
+const styleAllFocusBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.backgroundColor?.focus === undefined?'':`background: ${Styles[StyleName].all.backgroundColor.focus.length > 1? `linear-gradient(${Styles[StyleName].all.backgroundColor.focus[0]}deg, ${Styles[StyleName].all.backgroundColor.focus[1]},${Styles[StyleName].all.backgroundColor.focus[2]})`:Styles[StyleName].all.backgroundColor.focus[0]};`
+}
+const styleAllFocusBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.boxShadow?.focus === undefined?'':`box-shadow: ${Styles[StyleName].all.boxShadow.focus[0]+' '+
+    Styles[StyleName].all.boxShadow.focus[1]+' '+
+    Styles[StyleName].all.boxShadow.focus[2]+' '+
+    Styles[StyleName].all.boxShadow.focus[3]+' '+
+    Styles[StyleName].all.boxShadow.focus[4]};`
+}
+const styleAllFocusFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.font?.focus === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.all?.font?.focus.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.all?.font?.focus.fontFamily};`}
+        ${Styles[StyleName]?.all?.font?.focus.size === undefined?'':`font-size:${Styles[StyleName]?.all?.font?.focus.size+Styles[StyleName]?.all?.font?.focus.typeSize};`}
+        ${Styles[StyleName]?.all?.font?.focus.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.all?.font?.focus.fontWeight};`}
+        ${Styles[StyleName]?.all?.font?.focus.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.all?.font?.focus.fontFamily};`}
+        ${Styles[StyleName]?.all?.font?.focus.color === undefined?'':`color:${Styles[StyleName]?.all?.font?.focus.color};`}
+        `
+}
+const styleAllFocusBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.all?.border === undefined || Styles[StyleName]?.all?.borderColor?.focus === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].all.border.length === 1){
+            if(Styles[StyleName].all.borderColor.focus.length === 1){
+                return `border: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.focus[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.focus[0]};
+                border-right: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.focus[1]};
+                border-bottom: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.focus[2]};
+                border-left: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.focus[3]};
+                `
+            }
+        } else {
+            if(Styles[StyleName].all.borderColor.focus.length === 1){
+                return `
+                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.focus[0]};
+                border-right: ${Styles[StyleName].all.border[1]} solid ${Styles[StyleName].all.borderColor.focus[0]};
+                border-bottom: ${Styles[StyleName].all.border[2]} solid ${Styles[StyleName].all.borderColor.focus[0]};
+                border-left: ${Styles[StyleName].all.border[3]} solid ${Styles[StyleName].all.borderColor.focus[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.focus[0]};
+                border-right: ${Styles[StyleName].all.border[1]} solid ${Styles[StyleName].all.borderColor.focus[1]};
+                border-bottom: ${Styles[StyleName].all.border[2]} solid ${Styles[StyleName].all.borderColor.focus[2]};
+                border-left: ${Styles[StyleName].all.border[3]} solid ${Styles[StyleName].all.borderColor.focus[3]};
+                `
+            }
+        }
+    }
+}
+const styleAllFocusBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.borderRadius?.focus === undefined? '': `
+        border-radius: ${Styles[StyleName].all.borderRadius.focus.length === 1?`${Styles[StyleName].all.borderRadius.focus[0]}`
+        :
+        `
+        ${Styles[StyleName].all.borderRadius.focus[0]} 
+        ${Styles[StyleName].all.borderRadius.focus[3]} 
+        ${Styles[StyleName].all.borderRadius.focus[1]} 
+        ${Styles[StyleName].all.borderRadius.focus[2]}`};
+    `
+}
+
+const styleAllActive = (StyleName: string, Styles: any):string => {
+    let style = '';
+    style+=styleAllActiveWidth(StyleName, Styles);
+    style+=styleAllActiveHeight(StyleName, Styles);
+    style+=styleAllActiveBackground(StyleName, Styles);
+    style+=styleAllActiveBoxShadow(StyleName, Styles);
+    style+=styleAllActiveFont(StyleName, Styles);
+    style+=styleAllActiveBorder(StyleName, Styles);
+    style+=styleAllActiveBorderRadius(StyleName, Styles);
+
+    return style;
+}
+const styleAllActiveWidth = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.width?.active === undefined?'':`width: ${Styles[StyleName].all.width.active};`
+}
+const styleAllActiveHeight = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.height?.active === undefined?'':`height: ${Styles[StyleName].all.height.active};`
+}
+const styleAllActiveBackground = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.backgroundColor?.active === undefined?'':`background: ${Styles[StyleName].all.backgroundColor.active.length > 1? `linear-gradient(${Styles[StyleName].all.backgroundColor.active[0]}deg, ${Styles[StyleName].all.backgroundColor.active[1]},${Styles[StyleName].all.backgroundColor.active[2]})`:Styles[StyleName].all.backgroundColor.active[0]};`
+}
+const styleAllActiveBoxShadow = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.boxShadow?.active === undefined?'':`box-shadow: ${Styles[StyleName].all.boxShadow.active[0]+' '+
+    Styles[StyleName].all.boxShadow.active[1]+' '+
+    Styles[StyleName].all.boxShadow.active[2]+' '+
+    Styles[StyleName].all.boxShadow.active[3]+' '+
+    Styles[StyleName].all.boxShadow.active[4]};`
+}
+const styleAllActiveFont = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.font?.active === undefined?''
+        :
+        `
+        ${Styles[StyleName]?.all?.font?.active.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.all?.font?.active.fontFamily};`}
+        ${Styles[StyleName]?.all?.font?.active.size === undefined?'':`font-size:${Styles[StyleName]?.all?.font?.active.size+Styles[StyleName]?.all?.font?.active.typeSize};`}
+        ${Styles[StyleName]?.all?.font?.active.fontWeight === undefined?'':`font-weight:${Styles[StyleName]?.all?.font?.active.fontWeight};`}
+        ${Styles[StyleName]?.all?.font?.active.fontFamily === undefined?'':`font-family:${Styles[StyleName]?.all?.font?.active.fontFamily};`}
+        ${Styles[StyleName]?.all?.font?.active.color === undefined?'':`color:${Styles[StyleName]?.all?.font?.active.color};`}
+        `
+}
+const styleAllActiveBorder = (StyleName: string, Styles: any):string => {
+    if(Styles[StyleName]?.all?.border === undefined || Styles[StyleName]?.all?.borderColor?.active === undefined){
+        return ''
+    } else {
+        if(Styles[StyleName].all.border.length === 1){
+            if(Styles[StyleName].all.borderColor.active.length === 1){
+                return `border: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.active[0]};`
+            } else {
+                return`
+                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.active[0]};
+                border-right: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.active[1]};
+                border-bottom: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.active[2]};
+                border-left: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.active[3]};
+                `
+            }
+        } else {
+            if(Styles[StyleName].all.borderColor.active.length === 1){
+                return `
+                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.active[0]};
+                border-right: ${Styles[StyleName].all.border[1]} solid ${Styles[StyleName].all.borderColor.active[0]};
+                border-bottom: ${Styles[StyleName].all.border[2]} solid ${Styles[StyleName].all.borderColor.active[0]};
+                border-left: ${Styles[StyleName].all.border[3]} solid ${Styles[StyleName].all.borderColor.active[0]};
+                `
+            } else {
+                return `
+                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.active[0]};
+                border-right: ${Styles[StyleName].all.border[1]} solid ${Styles[StyleName].all.borderColor.active[1]};
+                border-bottom: ${Styles[StyleName].all.border[2]} solid ${Styles[StyleName].all.borderColor.active[2]};
+                border-left: ${Styles[StyleName].all.border[3]} solid ${Styles[StyleName].all.borderColor.active[3]};
+                `
+            }
+        }
+    }
+}
+const styleAllActiveBorderRadius = (StyleName: string, Styles: any):string => {
+    return Styles[StyleName]?.all?.borderRadius?.active === undefined? '': `
+        border-radius: ${Styles[StyleName].all.borderRadius.active.length === 1?`${Styles[StyleName].all.borderRadius.active[0]}`
+        :
+        `
+        ${Styles[StyleName].all.borderRadius.active[0]} 
+        ${Styles[StyleName].all.borderRadius.active[3]} 
+        ${Styles[StyleName].all.borderRadius.active[1]} 
+        ${Styles[StyleName].all.borderRadius.active[2]}`};
+    `
+}
 
 const styleAllHover = (StyleName: string, Styles: any):string => {
     let style = '';
@@ -215,7 +1630,6 @@ const styleAllHover = (StyleName: string, Styles: any):string => {
 
     return style;
 }
-
 const styleAllHoverWidth = (StyleName: string, Styles: any):string => {
     return Styles[StyleName]?.all?.width?.hover === undefined?'':`width: ${Styles[StyleName].all.width.hover};`
 }
@@ -248,7 +1662,7 @@ const styleAllHoverBorder = (StyleName: string, Styles: any):string => {
         return ''
     } else {
         if(Styles[StyleName].all.border.length === 1){
-            if(getAllNoneCountOfColoredBorders(StyleName, Styles) === 1){
+            if(Styles[StyleName].all.borderColor.hover.length === 1){
                 return `border: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.hover[0]};`
             } else {
                 return`
@@ -259,19 +1673,19 @@ const styleAllHoverBorder = (StyleName: string, Styles: any):string => {
                 `
             }
         } else {
-            if(getAllNoneCountOfColoredBorders(StyleName, Styles) === 1){
+            if(Styles[StyleName].all.borderColor.hover.length === 1){
                 return `
-                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.none[0]};
-                border-right: ${Styles[StyleName].all.border[1]} solid ${Styles[StyleName].all.borderColor.none[0]};
-                border-bottom: ${Styles[StyleName].all.border[2]} solid ${Styles[StyleName].all.borderColor.none[0]};
-                border-left: ${Styles[StyleName].all.border[3]} solid ${Styles[StyleName].all.borderColor.none[0]};
+                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.hover[0]};
+                border-right: ${Styles[StyleName].all.border[1]} solid ${Styles[StyleName].all.borderColor.hover[0]};
+                border-bottom: ${Styles[StyleName].all.border[2]} solid ${Styles[StyleName].all.borderColor.hover[0]};
+                border-left: ${Styles[StyleName].all.border[3]} solid ${Styles[StyleName].all.borderColor.hover[0]};
                 `
             } else {
                 return `
-                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.none[0]};
-                border-right: ${Styles[StyleName].all.border[1]} solid ${Styles[StyleName].all.borderColor.none[1]};
-                border-bottom: ${Styles[StyleName].all.border[2]} solid ${Styles[StyleName].all.borderColor.none[2]};
-                border-left: ${Styles[StyleName].all.border[3]} solid ${Styles[StyleName].all.borderColor.none[3]};
+                border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.hover[0]};
+                border-right: ${Styles[StyleName].all.border[1]} solid ${Styles[StyleName].all.borderColor.hover[1]};
+                border-bottom: ${Styles[StyleName].all.border[2]} solid ${Styles[StyleName].all.borderColor.hover[2]};
+                border-left: ${Styles[StyleName].all.border[3]} solid ${Styles[StyleName].all.borderColor.hover[3]};
                 `
             }
         }
@@ -305,7 +1719,6 @@ const styleAllNone = (StyleName: string, Styles: any):string => {
     style+=styleAllTransition(StyleName, Styles);
     return style;
 }
-
 const styleAllNoneWidth = (StyleName: string, Styles: any):string => {
     return Styles[StyleName]?.all?.width?.none === undefined?'':`width: ${Styles[StyleName].all.width.none};`
 }
@@ -344,11 +1757,11 @@ const styleAllNoneFont = (StyleName: string, Styles: any):string => {
         `
 }
 const styleAllNoneBorder = (StyleName: string, Styles: any):string => {
-    if(Styles[StyleName]?.all?.border === undefined){
+    if(Styles[StyleName]?.all?.border === undefined || Styles[StyleName]?.all?.borderColor?.none === undefined){
         return ''
     } else {
         if(Styles[StyleName].all.border.length === 1){
-            if(getAllNoneCountOfColoredBorders(StyleName, Styles) === 1){
+            if(Styles[StyleName].all.borderColor.none.length === 1){
                 return `border: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.none[0]};`
             } else {
                 return`
@@ -359,7 +1772,7 @@ const styleAllNoneBorder = (StyleName: string, Styles: any):string => {
                 `
             }
         } else {
-            if(getAllNoneCountOfColoredBorders(StyleName, Styles) === 1){
+            if(Styles[StyleName].all.borderColor.none.length === 1){
                 return `
                 border-top: ${Styles[StyleName].all.border[0]} solid ${Styles[StyleName].all.borderColor.none[0]};
                 border-right: ${Styles[StyleName].all.border[1]} solid ${Styles[StyleName].all.borderColor.none[0]};
@@ -454,11 +1867,23 @@ const constructPage = ():string => {
         '     </head>  \n' +
         '    ' + generateHTMLTree(tree) + '\n' +
         `            <style>
+                        *::before,
+                        *::after {
+                          box-sizing: border-box;
+                        }
                         *{
                             margin:0;
                             padding:0;
                             box-sizing: border-box;
                             word-wrap: break-word;
+                            outline: none;
+                            background: none;
+                            vertical-align: baseline;
+                            font-weight: inherit;
+                            font-family: inherit;
+                            font-style: inherit;
+                            font-size: 100%;
+                            border: 0 none;
                         }
                         .checkElem{
                             animation: boxShadow 0.8s;
@@ -664,7 +2089,6 @@ const findElemById = (array: treeOfTree, id: string, command:string, elemName:st
                         }
                     }
                 }
-
             }
         }
     }

@@ -21,7 +21,7 @@ let Templates: temp = {
     "Page": {
         name: 'Page',
         tagName: 'body',
-        classList: ['margin-0'],
+        classList: [],
         text: '',
         children: [
             {
